@@ -8,4 +8,24 @@ public class LoginController {
 	public void setModel(Account model) {
 		this.model = model;
 	}
+	
+	public boolean login() {
+		return true;
+	}
+	
+	public boolean checkPassword() {
+		if(model.getPassword() == "password") {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean checkEmail() {
+		if(model.getEmail() == "email") {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

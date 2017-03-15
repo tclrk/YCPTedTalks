@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Multiply Numbers (AJAX)</title>
+		<title>Login</title>
 		
 		<script
 			src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
@@ -19,14 +19,21 @@
 		</style>
 		
 		<script type="text/javascript">
+			var model = { email: $("#emailElt"), password: $("#passwordElt")};
 			$(document).ready(function() {
 				$("#loginButton").click(function() {
 					$.ajax({
 						type: 'POST',
 						url: '/aroby/ajax/login',
-						data: { },
-						success:,
-						error:,
+						data: { model },
+						success:
+							function(data, textStatus, jqXHR) {
+								$("#resultElt").text(data);
+							},
+						error:
+							function(jqXHR, textStatus, errorThrown) {
+								$("#errorElt").text(textStatus + ": " + errorThrown);
+							},
 						dataType: 'text'
 					});
 				});

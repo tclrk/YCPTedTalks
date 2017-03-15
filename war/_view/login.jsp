@@ -4,7 +4,7 @@
 
 <html>
 	<head>
-		<title>Multiply Numbers</title>
+		<title>Login</title>
 		<style type="text/css">
 		.error {
 			color: red;
@@ -21,22 +21,18 @@
 			<div class="error">${errorMessage}</div>
 		</c:if>
 	
-		<form action="${pageContext.servletContext.contextPath}/multiplyNumbers" method="post">
+		<form action="${pageContext.servletContext.contextPath}/login" method="post">
 			<table>
 				<tr>
-					<td class="label">First number:</td>
-					<td><input type="text" name="first" size="12" value="${first}" /></td>
+					<td class="label">Email:</td>
+					<td><input type="text" name="first" size="12" value="${model.email}" /></td>
 				</tr>
 				<tr>
-					<td class="label">Second number:</td>
-					<td><input type="text" name="second" size="12" value="${second}" /></td>
-				</tr>
-				<tr>
-					<td class="label">Result:</td>
-					<td>${result}</td>
+					<td class="label">Password:</td>
+					<td><input type="text" name="second" size="12" value="${model.password}" /></td>
 				</tr>
 			</table>
-			<input type="Submit" name="submit" value="Multiply Numbers!">
+			<input type="Submit" name="submit" value="Login">
 		</form>
 	</body>
 </html>

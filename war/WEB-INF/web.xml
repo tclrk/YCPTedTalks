@@ -74,10 +74,14 @@
     <url-pattern>/ajax/nextGuess</url-pattern>
   </servlet-mapping>
 
-  <welcome-file-list>
+  <servlet-mapping>
+  	<servlet-name>LoginAjaxServlet</servlet-name>
+  	<url-pattern>/ajax/login</url-pattern>
+  </servlet-mapping><welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
   
+
 
 
 

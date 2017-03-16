@@ -24,7 +24,7 @@
 					$.ajax({
 						type: 'POST',
 						url: '/aroby/ajax/addNumbers',
-						data: { first: $("#firstNumberElt").val(), second: $("#secondNumberElt").val() },
+						data: { model.first, model.second },
 						success:
 							function(data, textStatus, jqXHR) {
 								$("#resultElt").text(data);

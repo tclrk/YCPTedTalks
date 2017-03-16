@@ -19,16 +19,15 @@
 		</style>
 		
 		<script type="text/javascript">
-			var model = { email: $("#emailElt"), password: $("#passwordElt")};
 			$(document).ready(function() {
 				$("#loginButton").click(function() {
 					$.ajax({
 						type: 'POST',
 						url: '/aroby/ajax/login',
-						data: { model },
+						data: { email: $("#emailElt").val(), password: $("#passwordElt").val() },
 						success:
 							function(data, textStatus, jqXHR) {
-								$("#resultElt").text(data);
+								$("#loginElt").text(data);
 							},
 						error:
 							function(jqXHR, textStatus, errorThrown) {
@@ -49,7 +48,7 @@
 			</tr>
 			<tr>
 				<td class="label">Password</td>
-				<td><input id="passwordElt" type="text" size="12" /></td>
+				<td><input id="passwordElt" type="password" size="12" /></td>
 			</tr>
 		</table>
 		<div>

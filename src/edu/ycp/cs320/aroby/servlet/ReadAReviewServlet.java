@@ -30,9 +30,9 @@ public class ReadAReviewServlet extends HttpServlet {
 		ReadAReviewController controller = new ReadAReviewController();
 		controller.setModel(model);
 		
-		req.setAttribute("top", req.getParameter(model.getTopic()));
-		req.setAttribute("txt", req.getParameter(model.getReviewText()));
-		req.setAttribute("rate", model.getRating());
+		req.setAttribute("topic", req.getParameter(model.getTopic()));
+		req.setAttribute("reviewText", req.getParameter(model.getReviewText()));
+		req.setAttribute("rating", model.getRating());
 		req.setAttribute("date", model.getDate());
 		
 		req.getRequestDispatcher("/_view/ReadAReview.jsp").forward(req, resp);

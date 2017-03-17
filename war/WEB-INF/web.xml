@@ -36,9 +36,6 @@
   </servlet><servlet>
     <servlet-name>NextGuessAjaxServlet</servlet-name>
     <servlet-class>edu.ycp.cs320.aroby.servlet.ajax.NextGuessAjaxServlet</servlet-class>
-  </servlet><servlet>
-  	<servlet-name>LoginAjaxServlet</servlet-name>
-  	<servlet-class>edu.ycp.cs320.aroby.servlet.ajax.LoginAjaxServlet</servlet-class>
   </servlet>
 
   <!-- Servlet mappings -->
@@ -72,11 +69,6 @@
   </servlet-mapping><servlet-mapping>
     <servlet-name>NextGuessAjaxServlet</servlet-name>
     <url-pattern>/ajax/nextGuess</url-pattern>
-  </servlet-mapping>
-
-  <servlet-mapping>
-  	<servlet-name>LoginAjaxServlet</servlet-name>
-  	<url-pattern>/ajax/login</url-pattern>
   </servlet-mapping><welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>

@@ -28,6 +28,8 @@ public class IndexServlet extends HttpServlet {
 			resp.sendRedirect("/aroby/addNumbers");
 		} else if(req.getParameter("login") != null) {
 			resp.sendRedirect("/aroby/login");
+		} else if(req.getParameter("reviewPage") != null) {
+			resp.sendRedirect("/aroby/reviewPage");
 		}
 	}
 }

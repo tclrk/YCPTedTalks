@@ -38,7 +38,6 @@ public class LoginServlet extends HttpServlet {
 
 		// TODO: check database to see if this matches any accounts we have
 		
-		req.setAttribute("model", model);
-		req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
+		resp.sendRedirect("/aroby");
 	}
 }

@@ -26,13 +26,18 @@ public class LoginServlet extends HttpServlet {
 		LoginController controller= new LoginController();
 		controller.setModel(model);
 		
-		if(req.getParameter("model") != null) {
-			boolean login = controller.login();
-			if(login == true) {
-				System.out.println("Login");
-			} else {
-				
-			}
+		String inputEmail = req.getParameter("email");
+		String inputPass = req.getParameter("password");
+		
+		if(inputEmail != null) {
+			model.setEmail(inputEmail);
 		}
+		if(inputPass != null) {
+			model.setPassword(inputPass);
+		}
+
+		// TODO: check database to see if this matches any accounts we have
+		
+		resp.sendRedirect("/aroby");
 	}
 }

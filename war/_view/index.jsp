@@ -13,6 +13,7 @@
 			<input name="multiplyNumbers" type="submit" value="Multiply Numbers" />
 			<input name="guessingGame" type="submit" value="Guessing Game" />
 			<input name="login" type="submit" value="Login" />
+			<input name="reviewPage" type="submit" value="Write A Review" />
 		</form>
 	</body>
 </html>

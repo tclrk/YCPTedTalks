@@ -9,11 +9,9 @@
 
 	<body>
 		<form action="${pageContext.servletContext.contextPath}/index" method="post">
-			<input name="addNumbers" type="submit" value="Add Numbers" />
-			<input name="multiplyNumbers" type="submit" value="Multiply Numbers" />
-			<input name="guessingGame" type="submit" value="Guessing Game" />
 			<input name="login" type="submit" value="Login" />
 			<input name="reviewPage" type="submit" value="Write A Review" />
+			<input name="readPage" type="submit" value="Read A Review" />
 		</form>
 	</body>
 </html>

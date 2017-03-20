@@ -20,16 +20,12 @@ public class IndexServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
-		if(req.getParameter("guessingGame") != null) {
-			resp.sendRedirect("/aroby/guessingGame");
-		} else if(req.getParameter("multiplyNumbers") != null) {
-			resp.sendRedirect("/aroby/multiplyNumbers");
-		} else if(req.getParameter("addNumbers") != null) {
-			resp.sendRedirect("/aroby/addNumbers");
-		} else if(req.getParameter("login") != null) {
+		if(req.getParameter("login") != null) {
 			resp.sendRedirect("/aroby/login");
 		} else if(req.getParameter("reviewPage") != null) {
 			resp.sendRedirect("/aroby/reviewPage");
+		} else if(req.getParameter("readPage") != null) {
+			resp.sendRedirect("/aroby/readPage");
 		}
 	}
 }

@@ -26,7 +26,7 @@ public class ReviewServlet extends HttpServlet {
 		Review model = new Review();
 		ReviewController controller = new ReviewController();
 
-		model.setReview(model.getTopic(), model.getName(), model.getAuthor(), model.getReview(), model.getDescription(), model.getLink());
+		model.setReview(model.getTopic(), model.getName(), model.getAuthor(), model.getReview(), model.getDescription(), model.getLink(), model.getRecommendation(), model.getRating());
 		
 		controller.setModel(model);
 		String errorMessage = null;
@@ -37,8 +37,9 @@ public class ReviewServlet extends HttpServlet {
 			String topic = req.getParameter("topic");
 			String review = req.getParameter("review");
 			String link = req.getParameter("link");
+			String rating = req.getParameter("rating");
 			
-			if(name == "" || author == "" || description == "" || topic == "" || review == ""  || link == ""){
+			if(name == "" || author == "" || description == "" || topic == "" || review == ""  || link == "" || rating ==""){
 				errorMessage = "Complete all required fields";
 			}
 			else{
@@ -52,10 +53,11 @@ public class ReviewServlet extends HttpServlet {
 		req.setAttribute("Review", controller);
 		
 		req.getRequestDispatcher("/_view/reviewPage.jsp").forward(req, resp);
+		resp.sendRedirect("/aroby");
 		
 	}
-
-	//private int getInteger(HttpServletRequest req, String name) {
-		//return Integer.parseInt(req.getParameter(name));
-	//}
+	
+	//private int getInteger(HttpServletRequest req, String rating) {
+		//return Integer.parseInt(req.getParameter(rating));
+//	}
 }

@@ -5,36 +5,7 @@
 <html>
 	<head>
 		<title>Write A Review!</title>
-		<style type="text/css">
-		body{
-			background-color: #FFFF91; /*pale yellow color*/
-			/* To see the outline of the form */
-  			padding: 1em;
-  			text-align: top left;
-  			font-family: Arial;
- 		}
-		
-		form div + div {
-  			margin-top: .5em;
-		}
-		
-		input{
-			font: 1em sans-serif;
-
-  			/*give same size to all text fields */
-  			width: 300px;
-  			box-sizing: border-box;
-
-  			/* make all text boxes appear the same */
- 		 	border: 1px solid #999;
-		}
-		
-		textarea{
-			width:300px;
-			height: 150px;
-			border: 1px solid #999;
-		}
-		</style>
+		<link rel="stylesheet" href="CS320_reviewPage.css">
 	</head>
 	<body>
 		<form id="reviewForm" name="reviewForm" action="${pageContext.servletContext.contextPath}/reviewPage" method="post">
@@ -59,16 +30,31 @@
 			</div>
 		
 			<div class="Description">
-				<label="descript">Description</label>
+				<label="descript">Description</label><br>
 				<textarea name= "descript" id="descript" size=12 value ="${descript}"></textarea><span id="descriptError"></span>
+			</div>
+			
+			<span class="starRating">
+				 <label="rating">Rating</label><br>
+ 				 <input id="rating5" type="radio" name="rating" value="${rating}">
+  				 <label for="rating5">5</label>
+ 				 <input id="rating4" type="radio" name="rating" value="${rating}">
+  				 <label for="rating4">4</label>
+ 				 <input id="rating3" type="radio" name="rating" value="${rating}">
+  				 <label for="rating3">3</label>
+ 				 <input id="rating2" type="radio" name="rating" value="${rating}">
+ 				 <label for="rating2">2</label>
+ 				 <input id="rating1" type="radio" name="rating" value="${rating}">
+ 				 <label for="rating1">1</label>
+			</span>
 			</div>
 		
 			<div class="Review">
-				<label="review">Review</label>
+				<label="review">Review</label><br>
 				<textarea name= "review" id="review" size=12 value ="${review}"></textarea><span id="reviewError"></span>
 			</div>
 			
-			<div class="Recommendations">
+			<div class="Recommendations"><br>
 				<label="recommendations" id="recommendations">Recommendations (Optional)</label><br>
 				<input type="checkbox" name="Awesome!">Awesome!<br>
 				<input type="checkbox" name="Horrible">1/10, do not recommend<br>

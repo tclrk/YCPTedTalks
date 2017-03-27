@@ -19,7 +19,7 @@ public class ReviewController {
 	
 	public boolean isDone(){
 		//if all the forms are filled out
-		if(model.getReview() != null || model.getDescription() != null|| model.getTopic() != null ||  model.getName() != null ||  model.getAuthor() != null||  model.getLink() != null){
+		if(model.getReview() != null || model.getDescription() != null|| model.getTopic() != null ||  model.getName() != null ||  model.getAuthor() != null||  model.getLink() != null || model.getRecommendation() != null){
 			return true;
 		}
 		else{

@@ -8,9 +8,13 @@
 	</head>
 
 	<body>
+	<% String name=(String)session.getAttribute("name");
+		if (name != null) {%> <h1>Welcome, ${name}!</h1><%}%>
 		<form action="${pageContext.servletContext.contextPath}/index" method="post">
-			<input name="login" type="submit" value="Login" />
-			<input name="reviewPage" type="submit" value="Write A Review" />
+		<%Boolean login=(Boolean)session.getAttribute("login");
+		if (login != null){ %><input name="logout" type="submit" value="Logout" />
+			<input name="reviewPage" type="submit" value="Write A Review" /> <%} else { %>
+			<input name="login" type="submit" value="Login" /><%} %>
 			<input name="readPage" type="submit" value="Read A Review" />
 		</form>
 	</body>

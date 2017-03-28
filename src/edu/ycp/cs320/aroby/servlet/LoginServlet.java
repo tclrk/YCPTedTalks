@@ -39,8 +39,9 @@ public class LoginServlet extends HttpServlet {
 		// TODO: Session information
 		HttpSession session =  req.getSession(true);
 		session.setAttribute("login", true);
+		session.setAttribute("name", model.getName());
 
 		// TODO: check database to see if this matches any accounts we have
-		resp.sendRedirect("/aroby");
+		resp.sendRedirect("/aroby/index");
 	}
 }

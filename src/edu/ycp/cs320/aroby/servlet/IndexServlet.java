@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,6 +27,10 @@ public class IndexServlet extends HttpServlet {
 			resp.sendRedirect("/aroby/reviewPage");
 		} else if(req.getParameter("readPage") != null) {
 			resp.sendRedirect("/aroby/readPage");
+		} else if(req.getParameter("logout") != null) {
+			HttpSession session = req.getSession(true);
+			session.invalidate();
+			resp.sendRedirect("/aroby/index");
 		}
 	}
 }

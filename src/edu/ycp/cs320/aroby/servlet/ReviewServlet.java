@@ -57,7 +57,7 @@ public class ReviewServlet extends HttpServlet {
 		
 	}
 	
-	//private int getInteger(HttpServletRequest req, String rating) {
-		//return Integer.parseInt(req.getParameter(rating));
-//	}
+	private int getInteger(HttpServletRequest req, String rating) {
+		return Integer.parseInt(req.getParameter(rating));
+	}
 }

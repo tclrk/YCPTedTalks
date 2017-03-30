@@ -31,6 +31,8 @@ public class IndexServlet extends HttpServlet {
 			HttpSession session = req.getSession(true);
 			session.invalidate();
 			resp.sendRedirect("/aroby/index");
+		} else if(req.getParameter("createAccount") != null) {
+			resp.sendRedirect("/aroby/createAccount");
 		}
 	}
 }

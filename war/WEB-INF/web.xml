@@ -26,6 +26,9 @@
   </servlet><servlet>
   <servlet-name>ReviewServlet</servlet-name>
   	<servlet-class>edu.ycp.cs320.aroby.servlet.ReviewServlet</servlet-class>
+  </servlet><servlet>
+  	<servlet-name>CreateAccountServlet</servlet-name>
+  	<servlet-class>edu.ycp.cs320.aroby.servlet.CreateAccountServlet</servlet-class>
   </servlet>
   <servlet>
   <servlet-name>ReadAReviewServlet</servlet-name>
@@ -93,13 +96,17 @@
   	<url-pattern>/reviewPage</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+  	<servlet-name>CreateAccountServlet</servlet-name>
+  	<url-pattern>/createAccount</url-pattern>
+  </servlet-mapping><servlet-mapping>
   	<servlet-name>ReadAReviewServlet</servlet-name>
   	<url-pattern>/readPage</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
       <welcome-file>index.html</welcome-file>
   </welcome-file-list>
-  </web-app>
+</web-app>
+
   
   
   

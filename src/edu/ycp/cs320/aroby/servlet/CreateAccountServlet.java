@@ -58,15 +58,6 @@ public class CreateAccountServlet extends HttpServlet {
 				controller.setModel(model);
 				accountCreated = true;
 			}
-			else {
-				model = new Student();
-				model.setEmail(inputEmail);
-				model.setName(inputName);
-				model.setPassword(inputPass);
-				controller.setModel(model);
-				accountCreated = true;
-			}
-			
 		} else {
 			accountCreated = false;
 		}
@@ -82,11 +73,8 @@ public class CreateAccountServlet extends HttpServlet {
 			resp.sendRedirect("/aroby/index");
 		}
 		else {
-			session.invalidate();
+			session.setAttribute("bad_info", true);
 			resp.sendRedirect("/aroby/createAccount");
 		}
-
-		// TODO: check database to see if this matches any accounts we have
-		
 	}
 }

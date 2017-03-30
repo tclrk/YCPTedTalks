@@ -14,7 +14,8 @@
 		<%Boolean login=(Boolean)session.getAttribute("login");
 		if (login != null){ %><input name="logout" type="submit" value="Logout" />
 			<input name="reviewPage" type="submit" value="Write A Review" /> <%} else { %>
-			<input name="login" type="submit" value="Login" /><%} %>
+			<input name="login" type="submit" value="Login" />
+			<input name="createAccount" type="submit" value="Create An Account" /><%} %>
 			<input name="readPage" type="submit" value="Read A Review" />
 		</form>
 	</body>

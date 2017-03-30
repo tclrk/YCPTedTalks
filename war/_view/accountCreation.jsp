@@ -57,6 +57,10 @@
 					<td><input type="text" name="major" size="12" value="${model.major}" /></td>
 				</tr>
 				<tr>
+					<td class="label">Year:</td>
+					<td><input type="text" name="year" size="12" value="${model.year}" /></td>
+				</tr>
+				<tr>
 					<td />
 					<td><input type="Submit" name="submit" value="Login"></td>
 				</tr>

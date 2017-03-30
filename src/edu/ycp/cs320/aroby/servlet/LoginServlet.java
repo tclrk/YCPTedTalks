@@ -25,23 +25,31 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Account model = new Account();
 		LoginController controller= new LoginController();
-		controller.setModel(model);
 		
+		// TODO: check database to see if this matches any accounts we have
 		String inputEmail = req.getParameter("email");
 		String inputPass = req.getParameter("password");
 		
-		if(inputEmail != null) {
+		if(inputEmail != null && inputPass != null) {
 			model.setEmail(inputEmail);
-		}
-		if(inputPass != null) {
 			model.setPassword(inputPass);
 		}
+		controller.setModel(model);
+		
 		// TODO: Session information
-		HttpSession session =  req.getSession(true);
-		session.setAttribute("login", true);
-		session.setAttribute("name", model.getName());
-
-		// TODO: check database to see if this matches any accounts we have
-		resp.sendRedirect("/aroby/index");
+		if (controller.checkEmail() == true && controller.checkPassword() == true) {
+			HttpSession session =  req.getSession(true);
+			session.setAttribute("login", true);
+			session.setAttribute("name", model.getName());
+			if(session.getAttribute("login_failure") != null) {
+				session.removeAttribute("login_failure");
+			}
+			resp.sendRedirect("/aroby/index");
+		}
+		else {
+			HttpSession session = req.getSession(true);
+			session.setAttribute("login_failure", true);
+			resp.sendRedirect("/aroby/login");
+		}
 	}
 }

@@ -1,7 +1,9 @@
 package edu.ycp.cs320.aroby.model;
 
 public class Account {
-	private String email, password, name = "Person";
+	private String email;
+	private String password;
+	private String name = "Person";
 	
 	public Account() {
 	}

@@ -27,6 +27,7 @@ public class CreateAccountServlet extends HttpServlet {
 		LoginController controller= new LoginController();
 		Account model = new Account();
 		Boolean accountCreated = false;
+		HttpSession session =  req.getSession(true);
 		
 		String inputEmail = req.getParameter("email");
 		String inputPass = req.getParameter("password");
@@ -36,8 +37,9 @@ public class CreateAccountServlet extends HttpServlet {
 		String inputStudentID = req.getParameter("student_id");
 		String inputYear = req.getParameter("year");
 		
-		if(inputEmail != "" && inputPass != "" && inputName != "") {
-			if(inputProfID != "") {
+		if(inputEmail != "" && inputPass != "" && inputName != "" &&
+				inputEmail != null && inputPass != null && inputName != null) {
+			if(inputProfID != "" && inputProfID != null) {
 				// TODO: check for existing account and/or create new professor account!
 				model = new Professor(); 
 				model.setEmail(inputEmail);
@@ -46,7 +48,8 @@ public class CreateAccountServlet extends HttpServlet {
 				controller.setModel(model);
 				accountCreated = true;
 			}
-			else if(inputMajor != "" && inputStudentID != "" && inputYear != "") {
+			else if(inputMajor != "" && inputStudentID != "" && inputYear != "" &&
+						inputMajor != null && inputStudentID != null && inputYear != null) {
 				int student_id = Integer.parseInt(inputStudentID);
 				int year = Integer.parseInt(inputYear);
 				
@@ -66,10 +69,12 @@ public class CreateAccountServlet extends HttpServlet {
 		// Session information signals if an account has been created successfully.
 		// If so, we'll set the session attributes and redirect them to the index page.
 		// If not, the page will tell them to enter all required fields
-		HttpSession session =  req.getSession(true);
 		if (accountCreated == true) {
 			session.setAttribute("login", true);
 			session.setAttribute("name", model.getName());
+			if (session.getAttribute("bad_info") != null) {
+				session.removeAttribute("bad_info");
+			}
 			resp.sendRedirect("/aroby/index");
 		}
 		else {

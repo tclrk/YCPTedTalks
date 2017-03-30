@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import edu.ycp.cs320.aroby.controller.LoginController;
 import edu.ycp.cs320.aroby.controller.NumbersController;
@@ -35,9 +36,12 @@ public class LoginServlet extends HttpServlet {
 		if(inputPass != null) {
 			model.setPassword(inputPass);
 		}
+		// TODO: Session information
+		HttpSession session =  req.getSession(true);
+		session.setAttribute("login", true);
+		session.setAttribute("name", model.getName());
 
 		// TODO: check database to see if this matches any accounts we have
-		
-		resp.sendRedirect("/aroby");
+		resp.sendRedirect("/aroby/index");
 	}
 }

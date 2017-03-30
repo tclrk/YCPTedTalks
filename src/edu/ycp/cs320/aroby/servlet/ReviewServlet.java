@@ -53,7 +53,7 @@ public class ReviewServlet extends HttpServlet {
 		req.setAttribute("Review", controller);
 		
 		req.getRequestDispatcher("/_view/reviewPage.jsp").forward(req, resp);
-		resp.sendRedirect("/aroby");
+		resp.sendRedirect("/_view/ReadAReview.jsp");
 		
 	}
 	

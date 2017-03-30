@@ -74,7 +74,7 @@
   	<url-pattern>/reviewPage</url-pattern>
    </servlet-mapping><servlet-mapping>
   	<servlet-name>ReadAReviewServlet</servlet-name>
-  	<url-pattern>/ReadAReview</url-pattern>
+  	<url-pattern>/readPage</url-pattern>
    </servlet-mapping>
   
   
@@ -98,9 +98,6 @@
   <servlet-mapping>
   	<servlet-name>CreateAccountServlet</servlet-name>
   	<url-pattern>/createAccount</url-pattern>
-  </servlet-mapping><servlet-mapping>
-  	<servlet-name>ReadAReviewServlet</servlet-name>
-  	<url-pattern>/readPage</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
       <welcome-file>index.html</welcome-file>

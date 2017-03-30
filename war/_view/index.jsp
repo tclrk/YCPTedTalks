@@ -5,16 +5,23 @@
 <html>
 	<head>
 		<title>Index</title>
+		<h1 TED Talk Reviews></h1>
+		 <link rel="stylesheet" type="text/css" href="indexPage.css">
 	</head>
 
 	<body>
+	<% String name=(String)session.getAttribute("name");
+		if (name != null) {%> <h1>Welcome, ${name}!</h1><%}%>
 		<form action="${pageContext.servletContext.contextPath}/index" method="post">
-			<input name="addNumbers" type="submit" value="Add Numbers" />
-			<input name="multiplyNumbers" type="submit" value="Multiply Numbers" />
-			<input name="guessingGame" type="submit" value="Guessing Game" />
 			<input name="login" type="submit" value="Login" />
-			<input name="reviewPage" type="submit" value="Write A Review" />
 			<input name="ReadAReview" type="submit" value="Review Page" />
+	<%Boolean login=(Boolean)session.getAttribute("login");
+		if (login != null){ %><input name="logout" type="submit" value="Logout" />
+			<input name="reviewPage" type="submit" value="Write A Review" /> <%} 
+		else { %>
+			<input name="login" type="submit" value="Login" /><%} %>
+			<input name="readPage" type="submit" value="Read A Review" />
+
 		</form>
 	</body>
 </html>

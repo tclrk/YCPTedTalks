@@ -1,0 +1,34 @@
+@CHARSET "UTF-8";
+body{
+	background-color: white;
+	text-align: left;
+	font-family: Helvetica Neue;
+}
+
+form div + div{
+	margin: 10px;
+}
+input{
+	width: 300px;
+}
+
+#rating1{
+	width: 5px;
+}
+#rating2{
+	width: 5px;
+}
+#rating3{
+	width: 5px;
+}
+#rating4{
+	width: 5px;
+}
+#rating5{
+	width: 5px;
+}
+
+textarea{
+	width: 500px;
+	height: 100px;
+}

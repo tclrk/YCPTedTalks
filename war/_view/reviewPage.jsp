@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<title>Write A Review!</title>
-		<link rel="stylesheet" href="CS320_reviewPage.css">
+		<link rel="stylesheet" href="reviewPage.css">
 	</head>
 	<body>
 		<form id="reviewForm" name="reviewForm" action="${pageContext.servletContext.contextPath}/reviewPage" method="post">
@@ -33,25 +33,24 @@
 				<label="descript">Description</label><br>
 				<textarea name= "descript" id="descript" size=12 value ="${descript}"></textarea><span id="descriptError"></span>
 			</div>
-			
-			<span class="starRating">
-				 <label="rating">Rating</label><br>
- 				 <input id="rating5" type="radio" name="rating" value="${rating}">
-  				 <label for="rating5">5</label>
- 				 <input id="rating4" type="radio" name="rating" value="${rating}">
-  				 <label for="rating4">4</label>
- 				 <input id="rating3" type="radio" name="rating" value="${rating}">
-  				 <label for="rating3">3</label>
- 				 <input id="rating2" type="radio" name="rating" value="${rating}">
- 				 <label for="rating2">2</label>
- 				 <input id="rating1" type="radio" name="rating" value="${rating}">
- 				 <label for="rating1">1</label>
-			</span>
-			</div>
 		
 			<div class="Review">
 				<label="review">Review</label><br>
 				<textarea name= "review" id="review" size=12 value ="${review}"></textarea><span id="reviewError"></span>
+			</div>
+			
+			<div class="starRating">
+				 <label="rating">Rating</label><br>
+ 				 <input id="rating1" type="radio" name="rating" value="${rating}">
+ 				 <label for="rating1">1</label>
+ 				 <input id="rating2" type="radio" name="rating" value="${rating}">
+ 				 <label for="rating2">2</label>
+ 				 <input id="rating3" type="radio" name="rating" value="${rating}">
+  				 <label for="rating3">3</label>
+ 				 <input id="rating4" type="radio" name="rating" value="${rating}">
+  				 <label for="rating4">4</label>
+ 				 <input id="rating5" type="radio" name="rating" value="${rating}">
+  				 <label for="rating5">5</label>
 			</div>
 			
 			<div class="Recommendations"><br>

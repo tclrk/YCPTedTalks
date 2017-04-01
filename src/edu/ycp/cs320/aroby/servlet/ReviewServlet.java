@@ -42,16 +42,15 @@ public class ReviewServlet extends HttpServlet {
 			controller.setModel(model);
 			String errorMessage = null;
 			
-			resp.sendRedirect("/aroby/readPage");
-			
 			if(name == "" || author == "" || description == "" || topic == "" || review == ""  || link == "" || rating_string == ""){
-				req.setAttribute("Review", model);
+				req.setAttribute("model", model);
 				req.getRequestDispatcher("/_view/reviewPage.jsp").forward(req, resp);
 				errorMessage = "Complete all required fields";
 			}
 			else{
 				controller.isDone();
 				System.out.print("Your review was submitted");
+				resp.sendRedirect("/aroby/readPage");
 			}	
 	}
 }

@@ -4,7 +4,7 @@ import java.sql.Time;
 
 public class ReadAReview {
 	private String topic, reviewText, recommendation, firstName, lastName, title, author, description, reflection;
-	private double rating;
+	private Double rating;
 	private Time date;
 	private String url;
 	
@@ -57,7 +57,7 @@ public class ReadAReview {
 	public String getRecommendation(){
 		return recommendation;
 	}
-	public double getRating(){
+	public Double getRating(){
 		return rating;
 	}
 	public Time getDate(){

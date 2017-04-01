@@ -31,12 +31,12 @@
 		
 			<div class="Description">
 				<label="descript">Description</label><br>
-				<textarea name= "descript" id="descript" size=12 value ="${model.description}"></textarea><span id="descriptError"></span>
+				<textarea name= "descript" id="descript" placeholder="Please write a description for the TED Talk" size=12 value ="${model.description}"></textarea><span id="descriptError"></span>
 			</div>
 		
 			<div class="Review">
 				<label="review">Review</label><br>
-				<textarea name= "review" id="review" size=12 value ="${model.review}"></textarea><span id="reviewError"></span>
+				<textarea name= "review" id="review" placeholder="Please write a review for the TED Talk" size=12 value ="${model.review}"></textarea><span id="reviewError"></span>
 			</div>
 			
 			<div class="starRating">
@@ -73,7 +73,6 @@
 				alert("Your review was submitted!");
 			}
 		}
-
 		</script>
 	</body>
 </html>

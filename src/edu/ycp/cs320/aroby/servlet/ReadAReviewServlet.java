@@ -25,15 +25,18 @@ public class ReadAReviewServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		ReadAReview model = new ReadAReview();
+		ReadAReview model = new ReadAReview(null, null, null, null, null, null);
 
 		ReadAReviewController controller = new ReadAReviewController();
 		controller.setModel(model);
 		
 		req.setAttribute("topic", req.getParameter(model.getTopic()));
 		req.setAttribute("reviewText", req.getParameter(model.getReviewText()));
-		req.setAttribute("rating", model.getRating());
-		req.setAttribute("date", model.getDate());
+		req.setAttribute("name", req.getParameter(model.getName()));
+		req.setAttribute("reviewText", req.getParameter(model.getAuthor()));
+		req.setAttribute("Descript", req.getParameter(model.getDescript()));
+		req.setAttribute("Link", req.getParameter(model.getLink()));
+		
 		
 		req.getRequestDispatcher("/_view/ReadAReview.jsp").forward(req, resp);
 	}

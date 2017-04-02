@@ -71,5 +71,12 @@ public class ReviewTest {
 		assertEquals("10/10 would recommend", model2.getRecommendation());
 		assertEquals("http://www.w3schools.com/html/html_examples.asp", model3.getRecommendation());
 	}
+
+	@Test
+	public void test_getRating(){
+		assertTrue(model1.getRating() == 2);
+		assertTrue(model2.getRating() == 5);
+		assertTrue(model3.getRating() == 3);
+	}
 }
 

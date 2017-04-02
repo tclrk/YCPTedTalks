@@ -19,9 +19,13 @@ public class ReviewControllerTest {
 		controller2 = new ReviewController();
 		
 		model1.setReview("A", "Agatha Christie", "Murder", "She writes suspenseful books.", "I like her books.", "https://en.wikipedia.org/wiki/Agatha_Christie", "Absolute read", 4);
-		model2.setReview("A", "", "Murder", "", "I like her books.", "https://en.wikipedia.org/wiki/Agatha_Christie", "", 0);
+		model2.setReview("A", "", "Murder", "", "I like her books.", "https://en.wikipedia.org/wiki/Agatha_Christie", "", 1);
+		
 		controller1.setModel(model1);
 		controller2.setModel(model2);
+		
+		controller1.getReview();
+		controller2.getReview();
 	}
 	
 	@Test

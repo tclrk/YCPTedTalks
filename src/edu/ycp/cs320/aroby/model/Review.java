@@ -4,10 +4,10 @@ import java.time.ZonedDateTime;
 
 public class Review {
 	private String name, author, topic, review, descript, link, recommendation;
-	private double rating;
+	private int rating;
 	private ZonedDateTime date;
 	
-	public void setReview(String name, String author, String topic, String descript, String review, String link, String recommendation, double rating) {
+	public void setReview(String name, String author, String topic, String descript, String review, String link, String recommendation, int rating) {
 		this.topic = topic;
 		this.review = review;
 		this.descript = descript;
@@ -48,7 +48,7 @@ public class Review {
 		return recommendation;
 	}
 	
-	public double getRating(){
+	public int getRating(){
 		return rating;
 	}
 	

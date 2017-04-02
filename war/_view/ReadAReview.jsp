@@ -6,8 +6,12 @@
 	<title>Read_A_Review</title>
 	<style> p {
 	float: right;
-	border: 3px solid #000080;
+	border: 1px solid #000080;
 	padding: 10px;
+	}
+	body{
+	background-color: #FFFF91; /*pale yellow*/
+	
 	}
 	</style>
 	
@@ -17,20 +21,41 @@
 
 <body>
 	<form action="${pageContext.servletContext.contextPath}/ReadAReview" method="get">
+	
+	<jsp:declaration>
+		String name = "";
+		String link = "";
+		String title = "";
+		String topic = "";
+		String description = "";
+		String review = "";
+		String author = "";
+	</jsp:declaration>
+	<jsp:scriptlet>
+		name = request.getParameter("name");
+		link = request.getParameter("link");
+		title = request.getParameter("title");
+		topic = request.getParameter("topic");
+		description = request.getParameter("description");
+		review = request.getParameter("review");
+		author = request.getParameter("author");
+	</jsp:scriptlet>
+	
+	
 	<table>
 		<tr>
-			<td>Review</td>
-		
-			<td> <textarea name="Review_message" rows="15" cols="100">
-				${reviewText}
-			</textarea> </td> 
+			<td> Name </td>
+	
+			<td><textarea name="Review_message" rows="1" cols="100">
+				Person (name)
+			</textarea> </td>
 		
 		</tr>
 		<tr>
 			<td>Link</td>
 		
 			<td><textarea name="Review_message" rows="1" cols="100">
-				${link}
+				www.ted.com
 			</textarea>
 			</td>
 		
@@ -39,35 +64,37 @@
 		<td>Title</td>
 		
 		<td> <textarea name="Review_message" rows="1" cols="100">
-			${title}
+			title
 		</textarea> </td>
 		</tr>
 		<tr>
 			<td> Author </td>
 	
 		<td><textarea name="Review_message" rows="1" cols="100">
-			${author}
+			author
 		</textarea> </td>
 		
 		</tr>
 		<tr>
 			<td>Topic</td>
 		<td> <textarea name="Review_message" rows="1" cols="100">
-			${topic}
+			topic
 		</textarea></td>
 		
 		<tr>
 			<td>Description</td>
 		
 		<td> <textarea name="Review_message" rows="10" cols="100">
-			${description}
+			description
 		</textarea></td>
 		
-		<tr>
-			<td> Rating</td>
-		<td>Date posted: 
-			${date}</td>
-			</tr>
+			<td>Review</td>
+		
+			<td> <textarea name="Review_message" rows="15" cols="100">
+				review
+			</textarea> </td> 
+		
+		</tr>
 	</table>
 	</form>
 	

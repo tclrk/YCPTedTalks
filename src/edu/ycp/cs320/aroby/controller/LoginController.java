@@ -14,7 +14,7 @@ public class LoginController {
 	}
 	
 	public boolean checkPassword() {
-		if(model.getPassword() == "password") {
+		if(model.getPassword().equals("admin")) {
 			return true;
 		} else {
 			return false;
@@ -22,7 +22,7 @@ public class LoginController {
 	}
 	
 	public boolean checkEmail() {
-		if(model.getEmail() == "email") {
+		if(model.getEmail().equals("admin")) {
 			return true;
 		} else {
 			return false;

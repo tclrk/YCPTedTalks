@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import edu.ycp.cs320.aroby.controller.LoginController;
 import edu.ycp.cs320.aroby.controller.NumbersController;
@@ -24,20 +25,31 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Account model = new Account();
 		LoginController controller= new LoginController();
-		controller.setModel(model);
 		
+		// TODO: check database to see if this matches any accounts we have
 		String inputEmail = req.getParameter("email");
 		String inputPass = req.getParameter("password");
 		
-		if(inputEmail != null) {
+		if(inputEmail != null && inputPass != null) {
 			model.setEmail(inputEmail);
-		}
-		if(inputPass != null) {
 			model.setPassword(inputPass);
 		}
-
-		// TODO: check database to see if this matches any accounts we have
+		controller.setModel(model);
 		
-		resp.sendRedirect("/aroby");
+		// TODO: Session information
+		if (controller.checkEmail() == true && controller.checkPassword() == true) {
+			HttpSession session =  req.getSession(true);
+			session.setAttribute("login", true);
+			session.setAttribute("name", model.getName());
+			if(session.getAttribute("login_failure") != null) {
+				session.removeAttribute("login_failure");
+			}
+			resp.sendRedirect("/aroby/index");
+		}
+		else {
+			HttpSession session = req.getSession(true);
+			session.setAttribute("login_failure", true);
+			resp.sendRedirect("/aroby/login");
+		}
 	}
 }

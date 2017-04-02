@@ -9,21 +9,24 @@
 		.error {
 			color: red;
 		}
-		
 		td.label {
 			text-align: top;
 		}
-		body{background-color: green;}
-		p{font-weight:bold;}
-		submit{text-align: right}
+		body {
+			background-color: green;
+			}
+		p {
+			font-weight:bold;
+			}
+		submit {
+			text-align: right;
+			}
 		</style>
 	</head>
-
 	<body>
 		<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>
-	
 		<form action="${pageContext.servletContext.contextPath}/createAccount" method="post">
 			<%if((Boolean)request.getSession().getAttribute("bad_info") != null) {%>
 				<p>Please fill out all required fields!</p><%} %>
@@ -65,7 +68,6 @@
 					<td><input type="Submit" name="submit" value="Login"></td>
 				</tr>
 			</table>
-			
 		</form>
 	</body>
 </html>

@@ -4,24 +4,11 @@
 
 <head>
 	<title>Read_A_Review</title>
-	<style> p {
-	float: right;
-	border: 1px solid #000080;
-	padding: 10px;
-	}
-	body{
-	background-color: #FFFF91; /*pale yellow*/
-	
-	}
-	</style>
-	
-
-	
+	<link rel="stylesheet" href="ReadAReviewPage.css">	
 </head>
 
 <body>
 	<form action="${pageContext.servletContext.contextPath}/ReadAReview" method="get">
-	
 	<jsp:declaration>
 		String name = "";
 		String link = "";
@@ -31,6 +18,7 @@
 		String review = "";
 		String author = "";
 	</jsp:declaration>
+	
 	<jsp:scriptlet>
 		name = request.getParameter("name");
 		link = request.getParameter("link");
@@ -47,7 +35,7 @@
 			<td> Name </td>
 	
 			<td><textarea name="Review_message" rows="1" cols="100">
-				Person (name)
+				<jsp:expression>name</jsp:expression>
 			</textarea> </td>
 		
 		</tr>
@@ -55,7 +43,7 @@
 			<td>Link</td>
 		
 			<td><textarea name="Review_message" rows="1" cols="100">
-				www.ted.com
+				<jsp:expression>link</jsp:expression>
 			</textarea>
 			</td>
 		
@@ -64,34 +52,34 @@
 		<td>Title</td>
 		
 		<td> <textarea name="Review_message" rows="1" cols="100">
-			title
+			<jsp:expression>title</jsp:expression>
 		</textarea> </td>
 		</tr>
 		<tr>
 			<td> Author </td>
 	
 		<td><textarea name="Review_message" rows="1" cols="100">
-			author
+			<jsp:expression>author</jsp:expression>
 		</textarea> </td>
 		
 		</tr>
 		<tr>
 			<td>Topic</td>
 		<td> <textarea name="Review_message" rows="1" cols="100">
-			topic
+			<jsp:expression>topic</jsp:expression>
 		</textarea></td>
 		
 		<tr>
 			<td>Description</td>
 		
 		<td> <textarea name="Review_message" rows="10" cols="100">
-			description
+			<jsp:expression>description</jsp:expression>
 		</textarea></td>
 		
 			<td>Review</td>
 		
 			<td> <textarea name="Review_message" rows="15" cols="100">
-				review
+				<jsp:expression>review</jsp:expression>
 			</textarea> </td> 
 		
 		</tr>

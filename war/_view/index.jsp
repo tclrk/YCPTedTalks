@@ -20,6 +20,7 @@
 			<input name="login" type="submit" value="Login" />
 			<input name="createAccount" type="submit" value="Create An Account" /><%} %>
 			<input name="readPage" type="submit" value="Read A Review" />
+			<input name="searchPage" type="submit" value="Search"/>
 
 		</form>
 	</body>

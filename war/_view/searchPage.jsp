@@ -34,6 +34,8 @@
    		 -webkit-transition-duration: 0.4s; /* for Safari */
     	transition-duration: 0.4s;
    		 cursor: pointer;
+   		 font-size: 16px;
+ 		font-family: Helvetica Neue;
 		}
 
 		input[type=submit]:hover{

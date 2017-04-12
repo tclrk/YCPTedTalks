@@ -50,7 +50,7 @@ public class ReviewServlet extends HttpServlet {
 			else{
 				controller.isDone();
 				System.out.print("Your review was submitted");
-				resp.sendRedirect("/aroby/readPage");
+				resp.sendRedirect("/aroby/index");
 			}	
 	}
 }

@@ -32,7 +32,7 @@ public class TedTalkServlet extends HttpServlet {
 		String errorMessage = null;
 		
 		if(talk.equals(null)){
-			errorMessage = "no such Ted Talk exists";
+			errorMessage = "No such Ted Talk exists";
 		}
 		else{
 			req.setAttribute("talk", talk);

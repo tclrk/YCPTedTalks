@@ -23,7 +23,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import edu.ycp.cs320.sqldemo.DBUtil;
 
 
 public class SearchServlet extends HttpServlet{
@@ -54,27 +53,29 @@ public class SearchServlet extends HttpServlet{
 			}
 			control.setModel(model);
 			
-			ArrayList<TedTalk> searchList = null;
+			ArrayList <TedTalk> foundList = null;
+			ArrayList <TedTalk> searchList = new ArrayList();
 			query = conn.prepareStatement(
 					"select * "
-					+ "  from (reviews)"
+					+ "  from ted_talks"
 					+ "  where concat(author, title, topic, description, review, rating) like %" + searchInput + "% ");
-		
-			query.setString(1, searchInput);
+
 			resultSet = query.executeQuery();
 			
 			while(resultSet.next()){
-				searchList = new ArrayList();
+				foundList = new ArrayList();
+				query.setString(1, searchInput);
+				foundList.add((TedTalk) resultSet.getObject(0)); //get Ted Talk 
 				
-				searchList.add(resultSet.getArray(0));
+				for(int i = 0; i < foundList.size(); i++){
+					searchList.add(foundList.get(0));
+				}
 			}
 			req.setAttribute("model", model);
 			req.getRequestDispatcher("/_view/searchView.jsp").forward(req, resp);
-		}
-		finally{
-			DBUtil.closeQuietly(conn);
-			DBUtil.closeQuietly(query);
-			DBUtil.closeQuietly(resultSet);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

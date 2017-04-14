@@ -107,6 +107,11 @@
   	<servlet-name>SearchServlet</servlet-name>
   	<url-pattern>/searchPage</url-pattern>
   </servlet-mapping>
+  <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
   <servlet-mapping>
   	<servlet-name>TedTalkServlet</servlet-name>
   	<url-pattern>/tedTalkPage</url-pattern>

@@ -2,6 +2,8 @@ package edu.ycp.cs320.aroby.model;
 
 import static org.junit.Assert.*;
 
+import java.net.URL;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,6 +13,7 @@ public class ReviewTest {
 	private Review model1;
 	private Review model2;
 	private Review model3;
+
 	
 	@Before
 	public void setUp() throws Exception {
@@ -18,9 +21,9 @@ public class ReviewTest {
 		model2 = new Review();
 		model3 = new Review();
 		
-		model1.setReview("clocke3", "bab", "Bees", "They're dying.", "I really liked it.", "https://drive.google.com/drive/u/1/my-drive", "I hate it", 2);
-		model2.setReview("aroby", "cab", "Trims", "I need one.", "I can do it by myself.", "http://www.sqlcourse2.com/having.html", "10/10 would recommend",5);
-		model3.setReview("tclrk", "dab", "Sustainability", "We need it.", "I'm interested in it.", "http://www.w3schools.com/html/html_examples.asp","I think the info was lacking", 3);
+		model1.setReview("clocke3", "bab", "Secret Life of Bees", "Bees", "They're dying.", "I really liked it.", "https://www.example.com/docs/resource1.html" , "I hate it", 2);
+		model2.setReview("aroby", "cab", "History of Shape-Ups", "Trims", "I need one.", "I can do it by myself.", "http://www.sqlcourse2.com/having.html", "10/10 would recommend",5);
+		model3.setReview("tclrk", "dab", "Reduce, Reuse, and Recycle", "Sustainability", "We need it.", "I'm interested in it.", "http://www.w3schools.com/html/html_examples.asp","I think the info was lacking", 3);
 	}
 	
 	@Test
@@ -60,7 +63,7 @@ public class ReviewTest {
 	
 	@Test
 	public void test_getLink(){
-		assertEquals("https://drive.google.com/drive/u/1/my-drive", model1.getLink());
+		assertEquals("https://www.example.com/docs/resource1.html", model1.getLink());
 		assertEquals("http://www.sqlcourse2.com/having.html", model2.getLink());
 		assertEquals("http://www.w3schools.com/html/html_examples.asp", model3.getLink());
 	}
@@ -76,7 +79,7 @@ public class ReviewTest {
 	public void test_getRating(){
 		assertTrue(model1.getRating() == 2);
 		assertTrue(model2.getRating() == 5);
-		assertTrue(model3.getRating() == 3);
+		assertFalse(model3.getRating() == 2);
 	}
 }
 

@@ -34,12 +34,12 @@ public class ReviewServlet extends HttpServlet {
 			String description = req.getParameter("descript");
 			String topic = req.getParameter("topic");
 			String review = req.getParameter("review");
-			Object link = req.getRequestDispatcher("link");
+			String link = req.getParameter("link");
 			String recommendations = req.getParameter("recommendations");
 			String rating_string = req.getParameter("rating");
 			if(rating_string != "" & rating_string != null){
 				rating = Integer.parseInt(rating_string);
-				model.setReview(name, author, title, topic, description, review, (URL) link, recommendations, rating);
+				model.setReview(name, author, title, topic, description, review, link, recommendations, rating);
 			}
 			controller.setModel(model);
 			String errorMessage = null;

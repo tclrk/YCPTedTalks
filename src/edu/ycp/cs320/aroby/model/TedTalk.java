@@ -4,11 +4,10 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class TedTalk {
-	private URL link;
-	private String title, author, topic, descript;
+	private String title, link, author, topic, descript;
 	private ArrayList<Review> reviews = new ArrayList<Review>();
 	
-	public void setTedTalk(String title, String author, String topic, String descript, URL link){
+	public void setTedTalk(String title, String author, String topic, String descript, String link){
 		this.title = title;
 		this.author = author;
 		this.topic = topic;
@@ -17,7 +16,9 @@ public class TedTalk {
 	}
 	
 	public ArrayList <Review> getReviews(){
-		reviews.add(reviews.get(0));
+		for (int i = 0; i < reviews.size(); i++){
+			reviews.add(reviews.get(i));
+		}
 		return reviews;
 	}
 	public String getTitle(){
@@ -29,7 +30,7 @@ public class TedTalk {
 	public String getDescript(){
 		return descript;
 	}
-	public URL getLink(){
+	public String getLink(){
 		return link;
 	}
 	public String getTopic(){

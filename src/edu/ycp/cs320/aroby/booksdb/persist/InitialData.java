@@ -10,8 +10,10 @@ import edu.ycp.cs320.aroby.booksdb.model.Author;
 import edu.ycp.cs320.aroby.booksdb.model.Book;
 import edu.ycp.cs320.aroby.booksdb.model.BookAuthor;
 import edu.ycp.cs320.aroby.model.Account;
+import edu.ycp.cs320.aroby.model.Speaker;
 import edu.ycp.cs320.aroby.model.Student;
 import edu.ycp.cs320.aroby.model.TedTalk;
+import edu.ycp.cs320.aroby.model.Topic;
 
 public class InitialData {
 
@@ -164,6 +166,58 @@ public class InitialData {
 		}
 	}
 	
+	public static List<Topic> getTopics() throws IOException {
+		List<Topic> topicList = new ArrayList<Topic>();
+		ReadCSV readTopics = new ReadCSV("topics.csv");
+		try {
+			Integer topic_id = 1;
+			while(true) {
+				List<String> tuple = readTopics.next();
+				if(tuple == null) {
+					break;
+				}
+				Iterator<String> i = tuple.iterator();
+				Topic topic = new Topic();
+				// Throw away the topic id
+				Integer.parseInt(i.next());
+				// Auto-assign ID and get the rest of the data
+				topic.setTopicId(topic_id++);
+				topic.setTopic(i.next());
+				topicList.add(topic);
+			}
+			return topicList;
+		} finally {
+			readTopics.close();
+		}
+	}
+	
+	public static List<Speaker> getSpeakers() throws IOException {
+		List<Speaker> speakerList = new ArrayList<Speaker>();
+		ReadCSV readSpeakers = new ReadCSV("speakers.csv");
+		try {
+			Integer speaker_id = 1;
+			while(true) {
+				List<String> tuple = readSpeakers.next();
+				if(tuple == null) {
+					break;
+				}
+				Iterator<String> i = tuple.iterator();
+				Speaker speaker = new Speaker();
+				// Throw away speaker id
+				Integer.parseInt(i.next());
+				// Auto-assign speaker id
+				speaker.setSpeakerId(speaker_id++);
+				speaker.setFirstname(i.next());
+				speaker.setLastname(i.next());
+				speakerList.add(speaker);
+			}
+			return speakerList;
+		} finally {
+			readSpeakers.close();
+		}
+	}
+	
+	// TODO: Fix this to be in-line with schema
 	public static List<TedTalk> getTedTalks() throws IOException {
 		List<TedTalk> tedTalkList = new ArrayList<TedTalk>();
 		ReadCSV readTedTalks = new ReadCSV("tedtalks.csv");
@@ -180,16 +234,16 @@ public class InitialData {
 				Integer.parseInt(i.next());
 				// Auto-assign ID and get the rest of our data
 				talk.setTedTalkId(tedtalk_id++);
+				talk.setSpeakerId(Integer.parseInt(i.next()));
+				talk.setTopicId(Integer.parseInt(i.next()));
 				talk.setTitle(i.next());
-				talk.setSpeaker(i.next());
-				talk.setTopic(i.next());
 				talk.setDescription(i.next());
 				talk.setLink(new URL(i.next()));
 				tedTalkList.add(talk);
 			}
+			return tedTalkList;
 		} finally {
 			readTedTalks.close();
 		}
-		return tedTalkList;
 	}
 }

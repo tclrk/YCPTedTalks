@@ -14,7 +14,10 @@ import edu.ycp.cs320.aroby.booksdb.model.Book;
 import edu.ycp.cs320.aroby.booksdb.model.BookAuthor;
 import edu.ycp.cs320.aroby.booksdb.model.Pair;
 import edu.ycp.cs320.aroby.model.Account;
+import edu.ycp.cs320.aroby.model.Speaker;
 import edu.ycp.cs320.aroby.model.Student;
+import edu.ycp.cs320.aroby.model.TedTalk;
+import edu.ycp.cs320.aroby.model.Topic;
 
 public class DerbyDatabase implements IDatabase {
 	static {
@@ -614,12 +617,16 @@ public class DerbyDatabase implements IDatabase {
 	//  creates the Authors and Books tables
 	public void createTables() {
 		executeTransaction(new Transaction<Boolean>() {
+			@SuppressWarnings("resource")
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt1 = null;
 				PreparedStatement stmt2 = null;
 				PreparedStatement stmt3 = null;				
 				PreparedStatement stmt4 = null;
 				PreparedStatement stmt5 = null;
+				PreparedStatement stmt6 = null;
+				PreparedStatement stmt7 = null;
+				PreparedStatement stmt8 = null;
 			
 				try {
 					stmt1 = conn.prepareStatement(
@@ -671,6 +678,7 @@ public class DerbyDatabase implements IDatabase {
 					);
 					
 					stmt4.executeUpdate();
+					System.out.println("Account table created");
 					
 					stmt5 = conn.prepareStatement(
 							"create table students (" +
@@ -683,10 +691,55 @@ public class DerbyDatabase implements IDatabase {
 					);
 					
 					stmt5.executeUpdate();
+					System.out.println("Students table created");
+					
+					stmt6 = conn.prepareStatement(
+							"create table topics ("
+							+ "topic_id integer primary key"
+							+ "	generated always as identity (start with 1, increment by 1),"
+							+ "topic varchar(70)"
+							+ ")"
+							);
+					stmt6.executeUpdate();
+					System.out.println("Topics table created");
+					
+					stmt7 = conn.prepareStatement(
+							"create table speakers (" +
+							" 	speaker_id integer primary key" +
+							"		generated always as identity (start with 1, increment by 1)," +
+							"firstname varchar(70)," +
+							"lastname varchar(70)"
+							+ ")"
+					);
+					stmt7.executeUpdate();
+					System.out.println("Speakers table created");
+					
+					stmt8 = conn.prepareStatement(
+							"create table tedtalks (" +
+							"	tedtalk_id integer primary key" +
+							"		generated always as identity (start with 1, increment by 1)," +
+							"speaker_id integer constraint speaker_id references speakers,"
+							+ "topic_id integer constraint topic_id references topics,"
+							+ "title varchar(70),"
+							+ "description varchar(140),"
+							+ "url varchar(140)"
+							+ ")"
+					);
+					
+					stmt8.executeUpdate();
+					System.out.println("TedTalks table created");
+					
+					
 					return true;
 				} finally {
 					DBUtil.closeQuietly(stmt1);
 					DBUtil.closeQuietly(stmt2);
+					DBUtil.closeQuietly(stmt3);
+					DBUtil.closeQuietly(stmt4);
+					DBUtil.closeQuietly(stmt5);
+					DBUtil.closeQuietly(stmt6);
+					DBUtil.closeQuietly(stmt7);
+					DBUtil.closeQuietly(stmt8);
 				}
 			}
 		});
@@ -701,6 +754,9 @@ public class DerbyDatabase implements IDatabase {
 				List<BookAuthor> bookAuthorList;
 				List<Account> accountList;
 				List<Student> studentList;
+				List<Topic> topicList;
+				List<Speaker> speakerList;
+				List<TedTalk> tedtalkList;
 				
 				try {
 					authorList     = InitialData.getAuthors();
@@ -708,6 +764,9 @@ public class DerbyDatabase implements IDatabase {
 					bookAuthorList = InitialData.getBookAuthors();	
 					accountList	   = InitialData.getAccounts();
 					studentList	   = InitialData.getStudents();
+					topicList  	   = InitialData.getTopics();
+					speakerList    = InitialData.getSpeakers();
+					tedtalkList    = InitialData.getTedTalks();
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
 				}
@@ -717,6 +776,9 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement insertBookAuthor = null;
 				PreparedStatement insertAccounts   = null;
 				PreparedStatement insertStudents   = null;
+				PreparedStatement insertTopics 	   = null;
+				PreparedStatement insertSpeakers   = null;
+				PreparedStatement insertTedTalks   = null;
 
 				try {
 					// must completely populate Authors table before populating BookAuthors table because of primary keys
@@ -782,12 +844,51 @@ public class DerbyDatabase implements IDatabase {
 					}
 					insertStudents.executeBatch();
 					System.out.println("Students table populated");
+					
+					insertTopics = conn.prepareStatement(
+							"insert into topics (topic) values (?)"
+					);
+					for (Topic topic : topicList) {
+						insertTopics.setString(1, topic.getTopic());
+						insertTopics.addBatch();
+					}
+					insertTopics.executeBatch();
+					System.out.println("Topics table populated");
+					
+					insertSpeakers = conn.prepareStatement(
+							"insert into speakers (firstname, lastname) values (?,?)"
+					);
+					for (Speaker speaker : speakerList) {
+						insertSpeakers.setString(1, speaker.getFirstname());
+						insertSpeakers.setString(2, speaker.getLastname());
+						insertSpeakers.addBatch();
+					}
+					insertSpeakers.executeBatch();
+					System.out.println("Speakers table populated");
+					
+					insertTedTalks = conn.prepareStatement(
+							"insert into tedtalks (speaker_id, topic_id, title, description, url) values (?,?,?,?,?)"
+					);
+					for (TedTalk talk : tedtalkList) {
+						insertTedTalks.setInt(1, talk.getSpeakerId());
+						insertTedTalks.setInt(2, talk.getTopicId());
+						insertTedTalks.setString(3, talk.getTitle());
+						insertTedTalks.setString(4, talk.getDescription());
+						insertTedTalks.setString(5, talk.getLink().toString());
+						insertTedTalks.addBatch();
+					}
+					insertTedTalks.executeBatch();
+					System.out.println("TedTalks table populated");
+					
 					return true;
 				} finally {
 					DBUtil.closeQuietly(insertBook);
 					DBUtil.closeQuietly(insertAuthor);
 					DBUtil.closeQuietly(insertBookAuthor);		
 					DBUtil.closeQuietly(insertAccounts);
+					DBUtil.closeQuietly(insertTopics);
+					DBUtil.closeQuietly(insertSpeakers);
+					DBUtil.closeQuietly(insertTedTalks);
 				}
 			}
 		});

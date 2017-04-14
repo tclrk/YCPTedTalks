@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class TedTalk {
 	private URL link;
-	private int tedTalk_id;
-	private String title, speaker, topic, description;
+	private int tedTalk_id, speaker_id, topic_id;
+	private String title, description;
 	private ArrayList<Review> review = new ArrayList<Review>();
 	
 	public URL getLink() {
@@ -32,14 +32,6 @@ public class TedTalk {
 		this.review = review;
 	}
 	
-	public String getTopic() {
-		return topic;
-	}
-	
-	public void setTopic(String topic) {
-		this.topic = topic;
-	}
-	
 	public String getTitle() {
 		return title;
 	}
@@ -48,17 +40,27 @@ public class TedTalk {
 		this.title = title;
 	}
 	
-	public String getSpeaker() {
-		return speaker;
-	}
-	
-	public void setSpeaker(String speaker) {
-		this.speaker = speaker;
-	}
 	public int getTedTalkId() {
 		return tedTalk_id;
 	}
+	
 	public void setTedTalkId(int tedTalk_id) {
 		this.tedTalk_id = tedTalk_id;
+	}
+	
+	public int getTopicId() {
+		return topic_id;
+	}
+	
+	public void setTopicId(int topic_id) {
+		this.topic_id = topic_id;
+	}
+	
+	public int getSpeakerId() {
+		return speaker_id;
+	}
+	
+	public void setSpeakerId(int speaker_id) {
+		this.speaker_id = speaker_id;
 	}
 }

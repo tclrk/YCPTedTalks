@@ -5,23 +5,7 @@
 <html>
 	<head>
 		<title>Account Creation</title>
-		<style type="text/css">
-		.error {
-			color: red;
-		}
-		td.label {
-			text-align: top;
-		}
-		body {
-			background-color: green;
-			}
-		p {
-			font-weight:bold;
-			}
-		submit {
-			text-align: right;
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="indexPage.css">
 	</head>
 	<body>
 		<c:if test="${! empty errorMessage}">

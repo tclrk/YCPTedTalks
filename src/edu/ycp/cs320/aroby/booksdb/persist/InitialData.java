@@ -1,6 +1,7 @@
 package edu.ycp.cs320.aroby.booksdb.persist;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -10,6 +11,7 @@ import edu.ycp.cs320.aroby.booksdb.model.Book;
 import edu.ycp.cs320.aroby.booksdb.model.BookAuthor;
 import edu.ycp.cs320.aroby.model.Account;
 import edu.ycp.cs320.aroby.model.Student;
+import edu.ycp.cs320.aroby.model.TedTalk;
 
 public class InitialData {
 
@@ -160,5 +162,34 @@ public class InitialData {
 		} finally {
 			readStudents.close();
 		}
+	}
+	
+	public static List<TedTalk> getTedTalks() throws IOException {
+		List<TedTalk> tedTalkList = new ArrayList<TedTalk>();
+		ReadCSV readTedTalks = new ReadCSV("tedtalks.csv");
+		try {
+			Integer tedtalk_id = 1;
+			while(true) {
+				List<String> tuple = readTedTalks.next();
+				if(tuple == null){
+					break;
+				}
+				Iterator<String> i = tuple.iterator();
+				TedTalk talk = new TedTalk();
+				// Throw away the TT id
+				Integer.parseInt(i.next());
+				// Auto-assign ID and get the rest of our data
+				talk.setTedTalkId(tedtalk_id++);
+				talk.setTitle(i.next());
+				talk.setSpeaker(i.next());
+				talk.setTopic(i.next());
+				talk.setDescription(i.next());
+				talk.setLink(new URL(i.next()));
+				tedTalkList.add(talk);
+			}
+		} finally {
+			readTedTalks.close();
+		}
+		return tedTalkList;
 	}
 }

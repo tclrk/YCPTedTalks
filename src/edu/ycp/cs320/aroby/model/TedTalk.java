@@ -8,32 +8,50 @@ public class TedTalk {
 	private String title, speaker, topic, description;
 	private ArrayList<Review> review = new ArrayList<Review>();
 	
-	public void setTedTalk(ArrayList<Review> review, String title, String speaker, String topic, String descript, URL link){
-		this.review = review;
-		this.title = title;
-		this.speaker = speaker;
-		this.topic = topic;
-		this.description = descript;
+	public URL getLink() {
+		return link;
+	}
+	public void setLink(URL link) {
 		this.link = link;
 	}
 	
-	public Review getReview(int index){
-		Review review = this.review.get(index);
-		return review;
-	}
-	public String getTitle(){
-		return title;
-	}
-	public String getSpeaker(){
-		return speaker;
-	}
-	public String getDescript(){
+	public String getDescription() {
 		return description;
 	}
-	public URL getLink(){
-		return link;
+	
+	public void setDescription(String description) {
+		this.description = description;
 	}
-	public String getTopic(){
+	
+	public ArrayList<Review> getReview() {
+		return review;
+	}
+	
+	public void setReview(ArrayList<Review> review) {
+		this.review = review;
+	}
+	
+	public String getTopic() {
 		return topic;
+	}
+	
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public String getSpeaker() {
+		return speaker;
+	}
+	
+	public void setSpeaker(String speaker) {
+		this.speaker = speaker;
 	}
 }

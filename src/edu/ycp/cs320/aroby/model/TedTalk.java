@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class TedTalk {
 	private URL link;
+	private int tedTalk_id;
 	private String title, speaker, topic, description;
 	private ArrayList<Review> review = new ArrayList<Review>();
 	
@@ -53,5 +54,11 @@ public class TedTalk {
 	
 	public void setSpeaker(String speaker) {
 		this.speaker = speaker;
+	}
+	public int getTedTalkId() {
+		return tedTalk_id;
+	}
+	public void setTedTalkId(int tedTalk_id) {
+		this.tedTalk_id = tedTalk_id;
 	}
 }

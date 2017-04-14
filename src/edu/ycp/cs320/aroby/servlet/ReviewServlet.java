@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs320.aroby.model.Review;
 import edu.ycp.cs320.aroby.controller.ReviewController;
+import edu.ycp.cs320.aroby.model.TedTalk;
 
 public class ReviewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,18 +27,19 @@ public class ReviewServlet extends HttpServlet {
 		Review model = new Review();
 		ReviewController controller = new ReviewController();
 		int rating;
-
+	
 			String name = req.getParameter("name");
 			String author = req.getParameter("author");
+			String title = req.getParameter("title");
 			String description = req.getParameter("descript");
 			String topic = req.getParameter("topic");
 			String review = req.getParameter("review");
-			String link = req.getParameter("link");
+			Object link = req.getRequestDispatcher("link");
 			String recommendations = req.getParameter("recommendations");
 			String rating_string = req.getParameter("rating");
 			if(rating_string != "" & rating_string != null){
 				rating = Integer.parseInt(rating_string);
-				model.setReview(name, author, topic, description, review, link, recommendations, rating);
+				model.setReview(name, author, title, topic, description, review, (URL) link, recommendations, rating);
 			}
 			controller.setModel(model);
 			String errorMessage = null;
@@ -49,8 +51,9 @@ public class ReviewServlet extends HttpServlet {
 			}
 			else{
 				controller.isDone();
+				req.setAttribute("model", model);
 				System.out.print("Your review was submitted");
 				resp.sendRedirect("/aroby/index");
 			}	
+		}
 	}
-}

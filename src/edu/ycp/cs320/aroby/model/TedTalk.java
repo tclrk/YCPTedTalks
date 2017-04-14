@@ -6,10 +6,9 @@ import java.util.ArrayList;
 public class TedTalk {
 	private URL link;
 	private String title, author, topic, descript;
-	private ArrayList<Review> review = new ArrayList<Review>();
+	private ArrayList<Review> reviews = new ArrayList<Review>();
 	
-	public void setTedTalk(ArrayList<Review> review, String title, String author, String topic, String descript, URL link){
-		this.review = review;
+	public void setTedTalk(String title, String author, String topic, String descript, URL link){
 		this.title = title;
 		this.author = author;
 		this.topic = topic;
@@ -17,9 +16,9 @@ public class TedTalk {
 		this.link = link;
 	}
 	
-	public Review getReview(int index){
-		Review review1 = review.get(index);
-		return review1;
+	public ArrayList <Review> getReviews(){
+		reviews.add(reviews.get(0));
+		return reviews;
 	}
 	public String getTitle(){
 		return title;

@@ -3,6 +3,7 @@ package edu.ycp.cs320.aroby.servlet;
 import java.io.IOException;
 import java.sql.Connection;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -57,16 +58,18 @@ public class SearchServlet extends HttpServlet{
 			query = conn.prepareStatement(
 					"select * "
 					+ "  from (reviews)"
-					+ "  where concat(author, title, topic, description, review, rating) like '" + searchInput + "' ");
+					+ "  where concat(author, title, topic, description, review, rating) like %" + searchInput + "% ");
 		
 			query.setString(1, searchInput);
 			resultSet = query.executeQuery();
 			
 			while(resultSet.next()){
 				searchList = new ArrayList();
+				
+				searchList.add(resultSet.getArray(0));
 			}
 			req.setAttribute("model", model);
-			req.getRequestDispatcher("/_view/searchPage.jsp").forward(req, resp);
+			req.getRequestDispatcher("/_view/searchView.jsp").forward(req, resp);
 		}
 		finally{
 			DBUtil.closeQuietly(conn);

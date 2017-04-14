@@ -3,7 +3,6 @@ package edu.ycp.cs320.aroby.servlet;
 import java.io.IOException;
 import java.sql.Connection;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,11 +17,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 
 public class SearchServlet extends HttpServlet{
@@ -57,24 +53,29 @@ public class SearchServlet extends HttpServlet{
 			ArrayList <TedTalk> searchList = new ArrayList();
 			query = conn.prepareStatement(
 					"select * "
-					+ "  from ted_talks"
-					+ "  where concat(author, title, topic, description, review, rating) like %" + searchInput + "% ");
+					+ "  from tedtalks, speakers, topics"
+					+ "  where tedtalks.speaker_id = speakers.speaker_id"
+					+ "  and tedtalks.topic_id = topics.topid_id"
+					+ "  and reviews.tedtalk_id = tedtalks.tedtalk_id"
+					+ "  and title like %" + searchInput + "% "
+					+ "  or text like %" + searchInput + "% "
+					+ "  or topic like %" + searchInput + "% " 
+					+ "  or Description like %" + searchInput + "% " 
+					+ "  or URL like %" + searchInput + "% " );
 
+			query.setString(1, searchInput);			
 			resultSet = query.executeQuery();
 			
 			while(resultSet.next()){
 				foundList = new ArrayList();
-				query.setString(1, searchInput);
-				foundList.add((TedTalk) resultSet.getObject(0)); //get Ted Talk 
-				
 				for(int i = 0; i < foundList.size(); i++){
-					searchList.add(foundList.get(0));
+					foundList.add((TedTalk) resultSet.getObject(0));
+					searchList.add(foundList.get(i));
 				}
 			}
 			req.setAttribute("model", model);
 			req.getRequestDispatcher("/_view/searchView.jsp").forward(req, resp);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

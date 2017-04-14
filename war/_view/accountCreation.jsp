@@ -5,7 +5,43 @@
 <html>
 	<head>
 		<title>Account Creation</title>
-		<link rel="stylesheet" type="text/css" href="indexPage.css">
+		<style>
+		td.label {
+			text-align: right;
+		}
+		input[type=text]{
+			box-sizing: border-box;
+			border: 2px solid #ff193d;
+ 			font-size: 16px;
+ 			font-family: Helvetica Neue;
+		}
+		input[type=password]{
+			box-sizing: border-box;
+			border: 2px solid #ff193d;
+ 			font-size: 16px;
+ 			font-family: Helvetica Neue;
+		}
+		
+		input[type=submit]{
+   		 background-color: white; 
+   		 color: black; 
+   		 border: 2px solid #E62B1E;
+   		 padding: 6px 20px;
+   		 text-align: center;
+   		 text-decoration: none;
+   		 display: inline-block;
+    		 font-size: 16px;
+   		 margin: 4px 2px;
+   		 -webkit-transition-duration: 0.4s; /* for Safari */
+    		 transition-duration: 0.4s;
+   		 cursor: pointer;
+		}
+
+		input[type=submit]:hover{
+			background-color: #E62B1E;
+   		    color: white;
+		}
+		</style>
 	</head>
 	<body>
 		<c:if test="${! empty errorMessage}">
@@ -33,7 +69,7 @@
 				</tr>
 				<tr>
 					<td class="label">Student ID:</td>
-					<td><input type="text" name="student_id" size="12" value="${model.student_id}"></td>
+					<td><input type="text" name="student_id" size="12" value="${model.ycp_id}"></td>
 				</tr>
 				<tr>
 					<td class="label">Professor ID:</td>

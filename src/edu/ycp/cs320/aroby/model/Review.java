@@ -4,11 +4,12 @@ import java.net.URL;
 import java.time.ZonedDateTime;
 
 public class Review {
-	private String name, author, title, topic, link, review, descript, recommendation;
+	private URL link;
+	private String name, author, title, topic, review, descript, recommendation;
 	private int rating;
 	private ZonedDateTime date;
 	
-	public void setReview(String name, String author, String title, String topic, String descript, String review, String link, String recommendation, int rating) {
+	public void setReview(String name, String author, String title, String topic, String descript, String review, URL link, String recommendation, int rating) {
 		this.topic = topic;
 		this.title = title;
 		this.review = review;
@@ -47,7 +48,7 @@ public class Review {
 		return descript;
 	}
 	
-	public String getLink(){
+	public URL getLink(){
 		return link;
 	}
 	

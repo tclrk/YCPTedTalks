@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import edu.ycp.cs320.aroby.model.Review;
 import edu.ycp.cs320.aroby.controller.ReviewController;
+import edu.ycp.cs320.aroby.controller.TedTalkController;
 import edu.ycp.cs320.aroby.model.TedTalk;
 
 public class TedTalkServlet extends HttpServlet {
@@ -23,12 +24,9 @@ public class TedTalkServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Review model = new Review();
-		ReviewController controller = new ReviewController();
-		controller.setModel(model);
 		TedTalk talk = new TedTalk();
-		talk.setTedTalk(model.getAuthor(), model.getTitle(), model.getTopic(), model.getDescription(), model.getLink());
-		talk.getReviews();
+		TedTalkController controller = new TedTalkController();
+		controller.set_TedTalk(talk.getDescription(), talk.getTitle(), talk.getTedTalkId(), talk.getTopicId(), talk.getSpeakerId(), talk.getLink(),talk.getReview());
 		String errorMessage = null;
 		
 		if(talk.equals(null)){

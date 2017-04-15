@@ -21,9 +21,13 @@ public class ReviewTest {
 		model2 = new Review();
 		model3 = new Review();
 		
-		model1.setReview("clocke3", "bab", "Secret Life of Bees", "Bees", "They're dying.", "I really liked it.", "https://www.example.com/docs/resource1.html" , "I hate it", 2);
-		model2.setReview("aroby", "cab", "History of Shape-Ups", "Trims", "I need one.", "I can do it by myself.", "http://www.sqlcourse2.com/having.html", "10/10 would recommend",5);
-		model3.setReview("tclrk", "dab", "Reduce, Reuse, and Recycle", "Sustainability", "We need it.", "I'm interested in it.", "http://www.w3schools.com/html/html_examples.asp","I think the info was lacking", 3);
+		URL link_1 = new URL("https://www.example.com/docs/resource1.html");
+		URL link_2 = new URL("http://www.sqlcourse2.com/having.html");
+		URL link_3 = new URL("http://www.w3schools.com/html/html_examples.asp");
+		
+		model1.setReview("clocke3", "bab", "Secret Life of Bees", "Bees", "They're dying.", "I really liked it.", link_1, "I hate it", 2);
+		model2.setReview("aroby", "cab", "History of Shape-Ups", "Trims", "I need one.", "I can do it by myself.", link_2, "10/10 would recommend",5);
+		model3.setReview("tclrk", "dab", "Reduce, Reuse, and Recycle", "Sustainability", "We need it.", "I'm interested in it.", link_3,"I think the info was lacking", 3);
 	}
 	
 	@Test
@@ -63,9 +67,9 @@ public class ReviewTest {
 	
 	@Test
 	public void test_getLink(){
-		assertEquals("https://www.example.com/docs/resource1.html", model1.getLink());
-		assertEquals("http://www.sqlcourse2.com/having.html", model2.getLink());
-		assertEquals("http://www.w3schools.com/html/html_examples.asp", model3.getLink());
+		assertEquals("https://www.example.com/docs/resource1.html", model1.getLink().toString());
+		assertEquals("http://www.sqlcourse2.com/having.html", model2.getLink().toString());
+		assertEquals("http://www.w3schools.com/html/html_examples.asp", model3.getLink().toString());
 	}
 	
 	@Test

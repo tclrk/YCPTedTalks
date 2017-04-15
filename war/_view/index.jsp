@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<title>Index</title>
-		<h1> TED Talk Reviews </h1>
+		<h1> TEDTalk Reviews </h1>
 		 <link rel="stylesheet" type="text/css" href="indexPage.css">
 	</head>
 
@@ -21,5 +21,9 @@
 			<input name="login" type="submit" value="Login" />
 			<input name="createAccount" type="submit" value="Create An Account" /><%} %>
 		</form>
+		<br>
+	<div class="popular_reviews">
+		<h2>Popular Ted Talks</h2>
+	</div>
 	</body>
 </html>

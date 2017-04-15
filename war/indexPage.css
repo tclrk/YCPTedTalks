@@ -9,6 +9,18 @@ h1{
 	padding: 0px;
 }
 
+h2{
+	color: #E62B1E;
+	text-align: center;
+	font-family: Helvetica Neue;
+	font-size: 35px;
+	font-weight: 900px;
+	text-align: left;
+		margin-left: 100px;
+	padding: 0px;
+}
+
+
 body{
 	text-align: center;
 }

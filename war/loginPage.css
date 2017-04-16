@@ -1,28 +1,28 @@
 @CHARSET "UTF-8";
-
-h1{
-	color: #E62B1E;
-	text-align: center;
-	font-family: Helvetica Neue;
-	font-weight: 900px;
-	font-size: 120px;
-	padding: 0px;
-}
-
-h2{
-	color: #E62B1E;
-	text-align: center;
-	font-family: Helvetica Neue;
-	font-size: 35px;
-	font-weight: 900px;
-	text-align: left;
-		margin-left: 100px;
-	padding: 0px;
-}
-
-
 body{
-	text-align: center;
+	background-color: white;
+	text-align: left;
+	font-family: Helvetica;
+	font-size: 20px;
+	font-weight: 700px;
+}
+
+p{
+	font-size: 22px;
+	color: #E62B1E;
+}
+	
+input{
+	width: 300px;
+
+  	/*give same size to all text fields */
+  	width: 150px;
+  	box-sizing: border-box;
+
+  	/* make all text boxes appear the same */
+ 	border: 2px solid #E62B1E;
+ 	font-size: 16px;
+ 	font-family: Helvetica Neue;
 }
 
 input[type=submit]{

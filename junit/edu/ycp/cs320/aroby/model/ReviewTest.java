@@ -80,4 +80,3 @@ public class ReviewTest {
 		assertTrue(model3.getRating() == 3);
 	}
 }
-

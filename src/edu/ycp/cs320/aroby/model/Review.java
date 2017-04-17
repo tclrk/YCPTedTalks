@@ -49,5 +49,4 @@ public class Review {
 	public void setReviewId(int review_id) {
 		this.review_id = review_id;
 	}
-	
 }

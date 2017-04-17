@@ -7,6 +7,11 @@ import java.util.List;
 import edu.ycp.cs320.aroby.booksdb.model.Author;
 import edu.ycp.cs320.aroby.booksdb.model.Book;
 import edu.ycp.cs320.aroby.booksdb.model.Pair;
+import edu.ycp.cs320.aroby.model.Account;
+import edu.ycp.cs320.aroby.model.Review;
+import edu.ycp.cs320.aroby.model.Student;
+import edu.ycp.cs320.aroby.model.TedTalk;
+import edu.ycp.cs320.aroby.model.Topic;
 
 public class FakeDatabase implements IDatabase {
 	
@@ -156,6 +161,81 @@ public class FakeDatabase implements IDatabase {
 				return author;
 			}
 		}
+		return null;
+	}
+
+	public List<TedTalk> findTedTalkbyAuthor(String search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<TedTalk> findTedTalkbyTopic(String search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<TedTalk> findTedTalkbyTitle(String search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void createNewAccount() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void insertNewTedTalk() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void insertNewSpeaker() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void insertNewTopic() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void insertReview() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void createNewStudent() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Account findAccount() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Student findStudent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Review findReviewbyAuthor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Review findReviewbyTopic() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Review findReviewbyTitle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Topic findTopic() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

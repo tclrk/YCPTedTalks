@@ -8,14 +8,14 @@ public class TedTalk {
 	private int tedTalk_id, speaker_id, topic_id;
 	private String title, description;
 	private ArrayList<Review> review = new ArrayList<Review>();
-	
+
 	public URL getLink() {
 		return link;
 	}
 	public void setLink(URL link) {
 		this.link = link;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
@@ -43,7 +43,7 @@ public class TedTalk {
 	public int getTedTalkId() {
 		return tedTalk_id;
 	}
-	
+
 	public void setTedTalkId(int tedTalk_id) {
 		this.tedTalk_id = tedTalk_id;
 	}

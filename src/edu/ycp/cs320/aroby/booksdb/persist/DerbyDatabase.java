@@ -534,6 +534,42 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 	
+	public void createNewAccount(){
+		
+	}
+	
+	public void insertNewTedTalk(){
+
+	}
+	
+	public void insertNewSpeaker(){
+		
+	}
+	
+	public void insertNewTopic(){
+		
+	}
+	
+	public void insertReview(){
+
+	}
+	
+	public List<TedTalk> findTedTalkbyAuthor(String search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public List<TedTalk> findTedTalkbyTopic(String search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public List<TedTalk> findTedTalkbyTitle(String search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	// wrapper SQL transaction function that calls actual transaction function (which has retries)
 	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
@@ -957,5 +993,47 @@ public class DerbyDatabase implements IDatabase {
 		db.loadInitialData();
 		
 		System.out.println("Library DB successfully initialized!");
+	}
+
+
+	public void createNewStudent() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public Account findAccount() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public Student findStudent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public Review findReviewbyAuthor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public Review findReviewbyTopic() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public Review findReviewbyTitle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public Topic findTopic() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

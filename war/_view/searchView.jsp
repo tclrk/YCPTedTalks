@@ -10,7 +10,7 @@
 <form action="${pageContext.servletContext.contextPath}/searchView" method="post">
 	<table>
 		<tr>
-			<td><b>Results></b></td>
+			<td><b>Results</b></td>
 		</tr>
 		<% int count = 0;
 		String color = "#F9EBB3";

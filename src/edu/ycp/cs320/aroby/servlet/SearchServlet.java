@@ -34,50 +34,22 @@ public class SearchServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		Search model = new Search();
-		SearchController control = new SearchController();
-		Connection conn =  null;
-		PreparedStatement  query = null;
-		ResultSet resultSet = null;
-		
-		try{
-			conn = DriverManager.getConnection("jdbc:derby:test.db;create=true");
-			String searchInput = req.getParameter("search");
+			Search model = new Search();
+			SearchController controller = new SearchController();
 			
-			if(searchInput != ""){
-				model.setSearch(searchInput);
+			String search = req.getParameter("search");
+			
+			model.setSearch(search);
+			String errorMessage = null;
+			
+			if(model.getSearch() != ""){
+				controller.setModel(model);
+				req.setAttribute("model", model);
+				req.getRequestDispatcher("/_view/searchView.jsp").forward(req, resp);
 			}
-			control.setModel(model);
-			
-			ArrayList <TedTalk> foundList = null;
-			ArrayList <TedTalk> searchList = new ArrayList();
-			query = conn.prepareStatement(
-					"select * "
-					+ "  from tedtalks, speakers, topics"
-					+ "  where tedtalks.speaker_id = speakers.speaker_id"
-					+ "  and tedtalks.topic_id = topics.topid_id"
-					+ "  and reviews.tedtalk_id = tedtalks.tedtalk_id"
-					+ "  and title like %" + searchInput + "% "
-					+ "  or text like %" + searchInput + "% "
-					+ "  or topic like %" + searchInput + "% " 
-					+ "  or Description like %" + searchInput + "% " 
-					+ "  or URL like %" + searchInput + "% " );
-
-			query.setString(1, searchInput);			
-			resultSet = query.executeQuery();
-			
-			while(resultSet.next()){
-				foundList = new ArrayList();
-				for(int i = 0; i < foundList.size(); i++){
-					foundList.add((TedTalk) resultSet.getObject(0));
-					searchList.add(foundList.get(i));
-				}
+			else{
+				errorMessage = "Type in something!";
 			}
-			req.setAttribute("model", model);
-			req.getRequestDispatcher("/_view/searchView.jsp").forward(req, resp);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	//private int getInteger(HttpServletRequest req, String name) {

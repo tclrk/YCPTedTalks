@@ -1,13 +1,124 @@
-----------------------------------------------------------------
-Sun Apr 16 11:59:24 EDT 2017:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-015b-777d-7d78-0000026caa28 
-on database directory /Users/chihealocke/git/YCPTedTalks/test.db with class loader sun.misc.Launcher$AppClassLoader@1b6d3586 
-Loaded from file:/Users/chihealocke/Downloads/CS320_Derby/lib/derby.jar
-java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_60-b27
-user.dir=/Users/chihealocke/git/YCPTedTalks
-os.name=Mac OS X
-os.arch=x86_64
-os.version=10.10.5
-derby.system.home=null
-Database Class Loader started - derby.database.classpath=''
+Tue Apr 18 17:54:54 EDT 2017 Thread[main,5,main] Cleanup action starting
+java.sql.SQLException: Failed to start database 'C:/CS320/library.db' with class loader sun.misc.Launcher$AppClassLoader@1b6d3586, see the next exception for details.
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.getSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.Util.seeNextException(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.bootDatabase(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection40.<init>(Unknown Source)
+	at org.apache.derby.jdbc.Driver40.getNewEmbedConnection(Unknown Source)
+	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
+	at org.apache.derby.jdbc.Driver20.connect(Unknown Source)
+	at org.apache.derby.jdbc.AutoloadedDriver.connect(Unknown Source)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:270)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.connect(DerbyDatabase.java:589)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.doExecuteTransaction(DerbyDatabase.java:551)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.executeTransaction(DerbyDatabase.java:543)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.createTables(DerbyDatabase.java:622)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.main(DerbyDatabase.java:956)
+Caused by: java.sql.SQLException: Failed to start database 'C:/CS320/library.db' with class loader sun.misc.Launcher$AppClassLoader@1b6d3586, see the next exception for details.
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.wrapArgsForTransportAcrossDRDA(Unknown Source)
+	... 17 more
+Caused by: java.sql.SQLException: Java exception: ': java.lang.NullPointerException'.
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.wrapArgsForTransportAcrossDRDA(Unknown Source)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.getSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.Util.javaException(Unknown Source)
+	... 14 more
+Caused by: java.lang.NullPointerException
+	at java.util.Hashtable.put(Hashtable.java:459)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.bootService(Unknown Source)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.startProviderService(Unknown Source)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.findProviderAndStartService(Unknown Source)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.startPersistentService(Unknown Source)
+	at org.apache.derby.iapi.services.monitor.Monitor.startPersistentService(Unknown Source)
+	... 14 more
+============= begin nested exception, level (1) ===========
+java.sql.SQLException: Java exception: ': java.lang.NullPointerException'.
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.getSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.Util.javaException(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.bootDatabase(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection40.<init>(Unknown Source)
+	at org.apache.derby.jdbc.Driver40.getNewEmbedConnection(Unknown Source)
+	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
+	at org.apache.derby.jdbc.Driver20.connect(Unknown Source)
+	at org.apache.derby.jdbc.AutoloadedDriver.connect(Unknown Source)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:270)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.connect(DerbyDatabase.java:589)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.doExecuteTransaction(DerbyDatabase.java:551)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.executeTransaction(DerbyDatabase.java:543)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.createTables(DerbyDatabase.java:622)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.main(DerbyDatabase.java:956)
+Caused by: java.sql.SQLException: Java exception: ': java.lang.NullPointerException'.
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.wrapArgsForTransportAcrossDRDA(Unknown Source)
+	... 17 more
+Caused by: java.lang.NullPointerException
+	at java.util.Hashtable.put(Hashtable.java:459)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.bootService(Unknown Source)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.startProviderService(Unknown Source)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.findProviderAndStartService(Unknown Source)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.startPersistentService(Unknown Source)
+	at org.apache.derby.iapi.services.monitor.Monitor.startPersistentService(Unknown Source)
+	... 14 more
+============= end nested exception, level (1) ===========
+============= begin nested exception, level (2) ===========
+java.sql.SQLException: Java exception: ': java.lang.NullPointerException'.
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.wrapArgsForTransportAcrossDRDA(Unknown Source)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.getSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.Util.javaException(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.bootDatabase(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection40.<init>(Unknown Source)
+	at org.apache.derby.jdbc.Driver40.getNewEmbedConnection(Unknown Source)
+	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
+	at org.apache.derby.jdbc.Driver20.connect(Unknown Source)
+	at org.apache.derby.jdbc.AutoloadedDriver.connect(Unknown Source)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:270)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.connect(DerbyDatabase.java:589)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.doExecuteTransaction(DerbyDatabase.java:551)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.executeTransaction(DerbyDatabase.java:543)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.createTables(DerbyDatabase.java:622)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.main(DerbyDatabase.java:956)
+Caused by: java.lang.NullPointerException
+	at java.util.Hashtable.put(Hashtable.java:459)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.bootService(Unknown Source)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.startProviderService(Unknown Source)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.findProviderAndStartService(Unknown Source)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.startPersistentService(Unknown Source)
+	at org.apache.derby.iapi.services.monitor.Monitor.startPersistentService(Unknown Source)
+	... 14 more
+============= end nested exception, level (2) ===========
+============= begin nested exception, level (3) ===========
+java.lang.NullPointerException
+	at java.util.Hashtable.put(Hashtable.java:459)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.bootService(Unknown Source)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.startProviderService(Unknown Source)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.findProviderAndStartService(Unknown Source)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.startPersistentService(Unknown Source)
+	at org.apache.derby.iapi.services.monitor.Monitor.startPersistentService(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.bootDatabase(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection40.<init>(Unknown Source)
+	at org.apache.derby.jdbc.Driver40.getNewEmbedConnection(Unknown Source)
+	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
+	at org.apache.derby.jdbc.Driver20.connect(Unknown Source)
+	at org.apache.derby.jdbc.AutoloadedDriver.connect(Unknown Source)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:270)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.connect(DerbyDatabase.java:589)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.doExecuteTransaction(DerbyDatabase.java:551)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.executeTransaction(DerbyDatabase.java:543)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.createTables(DerbyDatabase.java:622)
+	at edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase.main(DerbyDatabase.java:956)
+============= end nested exception, level (3) ===========
+Cleanup action completed

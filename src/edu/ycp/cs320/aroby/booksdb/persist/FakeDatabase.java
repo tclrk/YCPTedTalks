@@ -1,6 +1,7 @@
 package edu.ycp.cs320.aroby.booksdb.persist;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -184,21 +185,6 @@ public class FakeDatabase implements IDatabase {
 		
 	}
 
-	public void insertNewTedTalk() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void insertNewSpeaker() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void insertNewTopic() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void insertReview() {
 		// TODO Auto-generated method stub
 		
@@ -237,5 +223,20 @@ public class FakeDatabase implements IDatabase {
 	public Topic findTopic() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void insertNewTedTalk(String title, String description, URL url, String name, String topic) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void insertNewSpeaker(String firstname, String lastname) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void insertNewTopic(String topic) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -21,7 +21,7 @@ import edu.ycp.cs320.aroby.model.Speaker;
 import edu.ycp.cs320.aroby.model.Student;
 import edu.ycp.cs320.aroby.model.TedTalk;
 import edu.ycp.cs320.aroby.model.Topic;
-import edu.ycp.cs320.booksdb.persist.DerbyDatabase.Transaction;
+import edu.ycp.cs320.aroby.booksdb.persist.DBUtil;
 
 public class DerbyDatabase implements IDatabase {
 	static {
@@ -537,206 +537,6 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 	
-	
-	public void insertNewTedTalk(final String title, final String description, final URL url, final String name, final String topic){
-		executeTransaction(new Transaction<Boolean>() {
-			public Boolean execute(Connection conn) throws SQLException {
-				PreparedStatement stmt1 = null;
-				PreparedStatement stmt2 = null;
-
-				ResultSet resultSet2 = null;
-				ResultSet resultSet3 = null;
-				try{
-				stmt2 = conn.prepareStatement(
-						"select speakers.speaker_id"
-						+ " from speakers, "
-						+ " where concat(lastname, firstname) like '%?%'"
-						);
-				
-				stmt2.setString(1, name);
-				stmt2.setString(2, topic);
-				
-				resultSet2 = stmt2.executeQuery();
-				
-				ResultSetMetaData resultSchema2 = stmt2.getMetaData();
-				// iterate through the returned tuples
-				if(resultSchema2.getColumnCount() != 0){
-					resultSet2.next();
-					int run_thru = resultSet2.getInt(1);
-				
-				stmt1 = conn.prepareStatement(
-						"insert into tedtalks"
-						+ " (speaker_id, topic_id, title, Description, Url)"
-						+ " values(?, ? , ? , ? , ? , ? )"
-						);
-				
-				stmt1.setInt(1, run_thru);
-				stmt1.setInt(2, x);
-				stmt1.setString(3, title);
-				stmt1.setString(4, description);
-				stmt1.setURL(5, url);
-				stmt1.execute();
-				}
-			}finally{
-				DBUtil.closeQuietly(stmt1);
-				DBUtil.closeQuietly(stmt2);
-				DBUtil.closeQuietly(resultSet2);
-				DBUtil.closeQuietly(resultSet3);
-			}
-			}
-		});
-
-	}
-	
-	public void insertNewSpeaker(final String firstname, final String lastname){ //good!
-		executeTransaction(new Transaction<Boolean>() {
-			public Boolean execute(Connection conn) throws SQLException {
-				PreparedStatement stmt1 = null;
-			try{	
-				stmt1 = conn.prepareStatement(
-						"insert into speakers"
-						+ " (firstname, lastname)"
-						+ " values (?, ?)"
-						);
-				
-				stmt1.setString(1, firstname);
-				stmt1.setString(2, lastname);
-				stmt1.executeUpdate();
-				return true;
-			}
-			finally{
-				DBUtil.closeQuietly(stmt1);
-			}
-		}});
-	}
-	
-	public void insertNewTopic(final String topic){ //good!
-		executeTransaction(new Transaction<Boolean>() {
-			public Boolean execute(Connection conn) throws SQLException {
-				PreparedStatement stmt1 = null;
-			try{	
-				stmt1 = conn.prepareStatement(
-						"insert into topics"
-						+ " (topic)"
-						+ " values (?)"
-						);
-				
-				stmt1.setString(1, topic);
-				stmt1.executeUpdate();
-				return true;
-			}
-			finally{
-				DBUtil.closeQuietly(stmt1);
-			}
-		}});
-	}
-	
-	public void insertReview(){
-
-	}
-	
-	public List<TedTalk> findTedTalkbyAuthor(final String search) {
-		return executeTransaction(new Transaction<List<TedTalk>>() {
-			public List<TedTalk> execute(Connection conn) throws SQLException {
-				PreparedStatement stmt1 = null;
-				ResultSet resultSet1 = null;	
-				List<TedTalk> result = new ArrayList<TedTalk>();
-				
-				try{
-				stmt1 = conn.prepareStatement(
-						"select * "
-						+ " from tedtalks, speakers"
-						+ " where tedtalks.speaker_id = speakers.speaker_id "
-						+ " and concat(speakers.firstname, speakers.lastname) like '%?%'");	
-				
-				stmt1.setString(1, search);
-				
-				resultSet1 = stmt1.executeQuery();
-				
-				while (resultSet1.next()) {
-					TedTalk talk = new TedTalk();
-					result.add(talk);
-				}
-				return result;
-				
-				}
-				finally{
-					DBUtil.closeQuietly(resultSet1);
-					DBUtil.closeQuietly(stmt1);
-				}
-			}
-		});
-	}
-
-
-	public List<TedTalk> findTedTalkbyTopic(final String search) {
-		return executeTransaction(new Transaction<List<TedTalk>>() {
-			public List<TedTalk> execute(Connection conn) throws SQLException {
-				PreparedStatement stmt1 = null;
-				ResultSet resultSet1 = null;	
-				List<TedTalk> result = new ArrayList<TedTalk>();
-				
-				try{
-				stmt1 = conn.prepareStatement(
-						"select * "
-						+ " from tedtalks, topics"
-						+ " where tedtalks.topic_id = topics.topic_id "
-						+ " and topics.topic like '%?%'");	
-				
-				stmt1.setString(1, search);
-				
-				resultSet1 = stmt1.executeQuery();
-				
-				while (resultSet1.next()) {
-					TedTalk talk = new TedTalk();
-					result.add(talk);
-				}
-				return result;
-				
-				}
-				finally{
-					DBUtil.closeQuietly(resultSet1);
-					DBUtil.closeQuietly(stmt1);
-				}
-			}
-		});
-	}
-
-
-
-
-	public List<TedTalk> findTedTalkbyTitle(final String search) {
-		return executeTransaction(new Transaction<List<TedTalk>>() {
-			public List<TedTalk> execute(Connection conn) throws SQLException {
-				PreparedStatement stmt1 = null;
-				ResultSet resultSet1 = null;	
-				List<TedTalk> result = new ArrayList<TedTalk>();
-				
-				try{
-				stmt1 = conn.prepareStatement(
-						"select * "
-						+ " from tedtalks"
-						+ " where title like '%?%'");	
-				
-				stmt1.setString(1, search);
-				
-				resultSet1 = stmt1.executeQuery();
-				
-				while (resultSet1.next()) {
-					TedTalk talk = new TedTalk();
-					result.add(talk);
-				}
-				return result;
-				
-				}
-				finally{
-					DBUtil.closeQuietly(resultSet1);
-					DBUtil.closeQuietly(stmt1);
-				}
-			}
-		});
-	}
-	
 	// wrapper SQL transaction function that calls actual transaction function (which has retries)
 	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
 		try {
@@ -1203,6 +1003,50 @@ public class DerbyDatabase implements IDatabase {
 
 
 	public Topic findTopic() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+////Chihea's stuff
+	
+	
+	public void insertNewTedTalk(String title, String description, URL url, String name, String topic) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void insertNewSpeaker(String firstname, String lastname) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void insertNewTopic(String topic) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void insertReview() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public List<TedTalk> findTedTalkbyAuthor(String search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public List<TedTalk> findTedTalkbyTopic(String search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public List<TedTalk> findTedTalkbyTitle(String search) {
 		// TODO Auto-generated method stub
 		return null;
 	}

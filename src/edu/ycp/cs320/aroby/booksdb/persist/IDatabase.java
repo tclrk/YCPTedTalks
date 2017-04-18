@@ -1,5 +1,6 @@
 package edu.ycp.cs320.aroby.booksdb.persist;
 
+import java.net.URL;
 import java.util.List;
 
 import edu.ycp.cs320.aroby.booksdb.model.Author;
@@ -33,9 +34,9 @@ public interface IDatabase {
 	public Topic findTopic();
 	
 	//Chihea's 
-	public void insertNewTedTalk();
-	public void insertNewSpeaker();
-	public void insertNewTopic();
+	public void insertNewTedTalk(String title, String description, URL url, String name,String topic);
+	public void insertNewSpeaker(String firstname, String lastname);
+	public void insertNewTopic(String topic);
 	public void insertReview();
 	public List<TedTalk> findTedTalkbyAuthor(String search);
 	public List<TedTalk> findTedTalkbyTopic(String search);

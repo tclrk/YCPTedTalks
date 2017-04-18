@@ -2,6 +2,7 @@ package edu.ycp.cs320.aroby.booksdb.persist;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -10,6 +11,7 @@ import edu.ycp.cs320.aroby.booksdb.model.Author;
 import edu.ycp.cs320.aroby.booksdb.model.Book;
 import edu.ycp.cs320.aroby.booksdb.model.BookAuthor;
 import edu.ycp.cs320.aroby.model.Account;
+import edu.ycp.cs320.aroby.model.Review;
 import edu.ycp.cs320.aroby.model.Speaker;
 import edu.ycp.cs320.aroby.model.Student;
 import edu.ycp.cs320.aroby.model.TedTalk;
@@ -154,6 +156,7 @@ public class InitialData {
 				// Throw away CSV student id
 				Integer.parseInt(i.next());
 				// Get rest of the fields
+				student.setStudentId(student_id++);
 				student.setAccountId(Integer.parseInt(i.next()));
 				student.setYCPId(Integer.parseInt(i.next()));
 				student.setMajor(i.next());
@@ -217,7 +220,6 @@ public class InitialData {
 		}
 	}
 	
-	// TODO: Fix this to be in-line with schema
 	public static List<TedTalk> getTedTalks() throws IOException {
 		List<TedTalk> tedTalkList = new ArrayList<TedTalk>();
 		ReadCSV readTedTalks = new ReadCSV("tedtalks.csv");
@@ -244,6 +246,36 @@ public class InitialData {
 			return tedTalkList;
 		} finally {
 			readTedTalks.close();
+		}
+	}
+	
+	public static List<Review> getReviews() throws IOException{
+		List<Review> reviewList = new ArrayList<Review>();
+		ReadCSV readReviews = new ReadCSV("reviews.csv");
+		try {
+			Integer review_id = 1;
+			while(true) {
+				List<String> tuple = readReviews.next();
+				if(tuple == null) {
+					break;
+				}
+				Iterator<String> i = tuple.iterator();
+				Review review = new Review();
+				// Throw away review id
+				Integer.parseInt(i.next());
+				// Auto assign id and get the rest of the data
+				review.setReviewId(review_id++);
+				review.setAccountId(Integer.parseInt(i.next()));
+				review.setTedTalkId(Integer.parseInt(i.next()));
+				review.setRating(Integer.parseInt(i.next()));
+				review.setDate(ZonedDateTime.parse(i.next()));
+				review.setReview(i.next());
+				review.setRecommendation(i.next());
+				reviewList.add(review);
+			}
+			return reviewList;
+		} finally {
+			readReviews.close();
 		}
 	}
 }

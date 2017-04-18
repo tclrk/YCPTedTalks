@@ -534,9 +534,6 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 	
-	public void createNewAccount(){
-		
-	}
 	
 	public void insertNewTedTalk(){
 
@@ -664,8 +661,10 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement stmt6 = null;
 				PreparedStatement stmt7 = null;
 				PreparedStatement stmt8 = null;
+				PreparedStatement stmt9 = null;
 			
 				try {
+					// Create authors table
 					stmt1 = conn.prepareStatement(
 						"create table authors (" +
 						"	author_id integer primary key " +
@@ -678,6 +677,7 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Authors table created");
 					
+					// Create books table
 					stmt2 = conn.prepareStatement(
 							"create table books (" +
 							"	book_id integer primary key " +
@@ -692,6 +692,7 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("Books table created");					
 					
+					// Create bookauthors table
 					stmt3 = conn.prepareStatement(
 							"create table bookAuthors (" +
 							"	book_id   integer constraint book_id references books, " +
@@ -702,6 +703,7 @@ public class DerbyDatabase implements IDatabase {
 					
 					System.out.println("BookAuthors table created");
 					
+					// Create accounts table
 					stmt4 = conn.prepareStatement(
 							"create table accounts (" +
 							"	account_id integer primary key" +
@@ -717,6 +719,7 @@ public class DerbyDatabase implements IDatabase {
 					stmt4.executeUpdate();
 					System.out.println("Account table created");
 					
+					// Create students table
 					stmt5 = conn.prepareStatement(
 							"create table students (" +
 							"	student_id integer primary key" +
@@ -730,6 +733,7 @@ public class DerbyDatabase implements IDatabase {
 					stmt5.executeUpdate();
 					System.out.println("Students table created");
 					
+					// Create topics table
 					stmt6 = conn.prepareStatement(
 							"create table topics ("
 							+ "topic_id integer primary key"
@@ -740,6 +744,7 @@ public class DerbyDatabase implements IDatabase {
 					stmt6.executeUpdate();
 					System.out.println("Topics table created");
 					
+					// Create speakers table
 					stmt7 = conn.prepareStatement(
 							"create table speakers (" +
 							" 	speaker_id integer primary key" +
@@ -751,6 +756,7 @@ public class DerbyDatabase implements IDatabase {
 					stmt7.executeUpdate();
 					System.out.println("Speakers table created");
 					
+					// Create ted talks table
 					stmt8 = conn.prepareStatement(
 							"create table tedtalks (" +
 							"	tedtalk_id integer primary key" +
@@ -766,6 +772,22 @@ public class DerbyDatabase implements IDatabase {
 					stmt8.executeUpdate();
 					System.out.println("TedTalks table created");
 					
+					// Create reviews table
+					stmt9 = conn.prepareStatement(
+							"create table reviews ("
+							+ "		review_id integer primary key"
+							+ "			generated always as identity (start with 1, increment by 1),"
+							+ "account_id integer references accounts,"
+							+ "tedtalk_id integer constraint tedtalk_id references tedtalks,"
+							+ "rating integer,"
+							+ "date varchar(70),"
+							+ "review varchar(500),"
+							+ "recommendations varchar(70)"
+							+ ")"
+					);
+					
+					stmt9.executeUpdate();
+					System.out.println("Review table created");
 					
 					return true;
 				} finally {
@@ -777,6 +799,7 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(stmt6);
 					DBUtil.closeQuietly(stmt7);
 					DBUtil.closeQuietly(stmt8);
+					DBUtil.closeQuietly(stmt9);
 				}
 			}
 		});
@@ -794,6 +817,7 @@ public class DerbyDatabase implements IDatabase {
 				List<Topic> topicList;
 				List<Speaker> speakerList;
 				List<TedTalk> tedtalkList;
+				List<Review> reviewList;
 				
 				try {
 					authorList     = InitialData.getAuthors();
@@ -804,6 +828,7 @@ public class DerbyDatabase implements IDatabase {
 					topicList  	   = InitialData.getTopics();
 					speakerList    = InitialData.getSpeakers();
 					tedtalkList    = InitialData.getTedTalks();
+					reviewList     = InitialData.getReviews();
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
 				}
@@ -816,6 +841,7 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement insertTopics 	   = null;
 				PreparedStatement insertSpeakers   = null;
 				PreparedStatement insertTedTalks   = null;
+				PreparedStatement insertReviews    = null;
 
 				try {
 					// must completely populate Authors table before populating BookAuthors table because of primary keys
@@ -870,6 +896,7 @@ public class DerbyDatabase implements IDatabase {
 					insertAccounts.executeBatch();
 					System.out.println("Accounts table populated");
 					
+					// Inserts the student info into the student table
 					insertStudents = conn.prepareStatement(
 							"insert into students (account_id, ycp_id, major) values (?,?,?)"
 					);
@@ -882,6 +909,7 @@ public class DerbyDatabase implements IDatabase {
 					insertStudents.executeBatch();
 					System.out.println("Students table populated");
 					
+					// Inserts the possible ted talk topics into the topics table
 					insertTopics = conn.prepareStatement(
 							"insert into topics (topic) values (?)"
 					);
@@ -892,6 +920,7 @@ public class DerbyDatabase implements IDatabase {
 					insertTopics.executeBatch();
 					System.out.println("Topics table populated");
 					
+					// Inserts the speakers for a particular ted talk into the speakers table
 					insertSpeakers = conn.prepareStatement(
 							"insert into speakers (firstname, lastname) values (?,?)"
 					);
@@ -903,6 +932,7 @@ public class DerbyDatabase implements IDatabase {
 					insertSpeakers.executeBatch();
 					System.out.println("Speakers table populated");
 					
+					// Inserts the ted talks into the ted talks table
 					insertTedTalks = conn.prepareStatement(
 							"insert into tedtalks (speaker_id, topic_id, title, description, url) values (?,?,?,?,?)"
 					);
@@ -917,6 +947,24 @@ public class DerbyDatabase implements IDatabase {
 					insertTedTalks.executeBatch();
 					System.out.println("TedTalks table populated");
 					
+					// Inserts reviews into the review table
+					insertReviews = conn.prepareStatement(
+							"insert into reviews "
+							+ "(account_id, tedtalk_id, rating, date, review, recommendations)"
+							+ "values (?,?,?,?,?,?)"
+					);
+					for (Review review : reviewList) {
+						insertReviews.setInt(1, review.getAccountId());
+						insertReviews.setInt(2, review.getTedTalkId());
+						insertReviews.setInt(3, review.getRating());
+						insertReviews.setString(4, review.getDate().toString());
+						insertReviews.setString(5, review.getReview());
+						insertReviews.setString(6, review.getRecommendation());
+						insertReviews.addBatch();
+					}
+					insertReviews.executeBatch();
+					System.out.println("Reviews table populated");
+					
 					return true;
 				} finally {
 					DBUtil.closeQuietly(insertBook);
@@ -926,6 +974,7 @@ public class DerbyDatabase implements IDatabase {
 					DBUtil.closeQuietly(insertTopics);
 					DBUtil.closeQuietly(insertSpeakers);
 					DBUtil.closeQuietly(insertTedTalks);
+					DBUtil.closeQuietly(insertReviews);
 				}
 			}
 		});
@@ -941,6 +990,10 @@ public class DerbyDatabase implements IDatabase {
 		db.loadInitialData();
 		
 		System.out.println("Library DB successfully initialized!");
+	}
+	
+	public void createNewAccount(){
+		
 	}
 
 

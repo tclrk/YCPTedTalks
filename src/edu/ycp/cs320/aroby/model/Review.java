@@ -1,66 +1,52 @@
 package edu.ycp.cs320.aroby.model;
 
-import java.net.URL;
 import java.time.ZonedDateTime;
 
 public class Review {
-	private URL link;
-	private String name, author, title, topic, review, descript, recommendation;
-	private int rating;
+	private String review, recommendation;
+	private int rating, account_id, tedTalk_id, review_id;
 	private ZonedDateTime date;
 	
-	public void setReview(String name, String author, String title, String topic, String descript, String review, URL link, String recommendation, int rating) {
-		this.topic = topic;
-		this.title = title;
-		this.review = review;
-		this.descript = descript;
-		this.name = name;
-		this.author = author;
-		this.link = link;
-		this.rating = rating;
-	}
-	
-	public void setTime (ZonedDateTime date){
-		date = ZonedDateTime.now();
-	}
-	
-	public String getAuthor(){
-		return author;
-	}
-	
-	public String getTitle(){
-		return title;
-	}
-	
-	public String getName(){
-		return name;
-	}
-	
-	public String getReview(){
-		return review;
-	}
-	
-	public String getTopic(){
-		return topic;
-	}
-	
-	public String getDescription(){
-		return descript;
-	}
-	
-	public URL getLink(){
-		return link;
-	}
-	
-	public String getRecommendation(){
+	public String getRecommendation() {
 		return recommendation;
 	}
-	
-	public int getRating(){
+	public void setRecommendation(String recommendation) {
+		this.recommendation = recommendation;
+	}
+	public int getRating() {
 		return rating;
 	}
-	
-	public ZonedDateTime getDate(){
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+	public String getReview() {
+		return review;
+	}
+	public void setReview(String review) {
+		this.review = review;
+	}
+	public ZonedDateTime getDate() {
 		return date;
+	}
+	public void setDate(ZonedDateTime date) {
+		this.date = date;
+	}
+	public int getTedTalkId() {
+		return tedTalk_id;
+	}
+	public void setTedTalkId(int tedTalk_id) {
+		this.tedTalk_id = tedTalk_id;
+	}
+	public int getAccountId() {
+		return account_id;
+	}
+	public void setAccountId(int account_id) {
+		this.account_id = account_id;
+	}
+	public int getReviewId() {
+		return review_id;
+	}
+	public void setReviewId(int review_id) {
+		this.review_id = review_id;
 	}
 }

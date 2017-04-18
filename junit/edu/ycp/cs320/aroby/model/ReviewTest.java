@@ -21,41 +21,51 @@ public class ReviewTest {
 		model2 = new Review();
 		model3 = new Review();
 		
-		URL link_1 = new URL("https://www.example.com/docs/resource1.html");
-		URL link_2 = new URL("http://www.sqlcourse2.com/having.html");
-		URL link_3 = new URL("http://www.w3schools.com/html/html_examples.asp");
+		//separate setter methods
+		model1.setAccountId(1);
+		model2.setAccountId(5);
+		model3.setAccountId(1);
 		
-		model1.setReview("clocke3", "bab", "Secret Life of Bees", "Bees", "They're dying.", "I really liked it.", link_1, "I hate it", 2);
-		model2.setReview("aroby", "cab", "History of Shape-Ups", "Trims", "I need one.", "I can do it by myself.", link_2, "10/10 would recommend",5);
-		model3.setReview("tclrk", "dab", "Reduce, Reuse, and Recycle", "Sustainability", "We need it.", "I'm interested in it.", link_3,"I think the info was lacking", 3);
+		model1.setRating(3);
+		model2.setRating(5);
+		model3.setRating(1);
+		
+		model1.setRecommendation("I hate it");
+		model2.setRecommendation("10/10 would recommend");
+		model3.setRecommendation("I think the info was lacking");
+		
+		model1.setReview("I really liked it.");
+		model2.setReview( "I can do it by myself.");
+		model3.setReview("I'm interested in it.");
+		
+		model1.setReviewId(1);
+		model2.setReviewId(7);
+		model3.setReviewId(44);
+		
+		model1.setTedTalkId(1);
+		model2.setTedTalkId(3);
+		model3.setTedTalkId(33);
 	}
 	
 	@Test
-	public void test_getAuthor(){
-		assertEquals("bab", model1.getAuthor());
-		assertEquals("cab", model2.getAuthor());
-		assertEquals("dab", model3.getAuthor());
+	public void test_getAccountId(){
+		assertEquals(1, model1.getAccountId());
+		assertEquals(5, model2.getAccountId());
+		assertEquals(1, model3.getAccountId());
 	}
 	
 	@Test
-	public void test_getName(){
-		assertEquals("clocke3", model1.getName());
-		assertEquals("aroby", model2.getName());
-		assertEquals("tclrk", model3.getName());
+	public void test_getRating(){
+		assertTrue(model1.getRating() == 3);
+		assertTrue(model2.getRating() == 5);
+		assertFalse(model3.getRating() == 4);
 	}
 	
 	@Test
-	public void test_getTopic(){
-		assertEquals("Bees", model1.getTopic());
-		assertEquals("Trims", model2.getTopic());
-		assertEquals("Sustainability", model3.getTopic());
-	}
-	
-	@Test
-	public void test_getDescription(){
-		assertEquals("They're dying.", model1.getDescription());
-		assertEquals("I need one.", model2.getDescription());
-		assertEquals("We need it.", model3.getDescription());
+	public void test_getRecommendation(){
+		assertEquals("I hate it", model1.getRecommendation());
+		assertEquals("10/10 would recommend", model2.getRecommendation());
+		assertEquals("I think the info was lacking", model3.getRecommendation());
 	}
 	
 	@Test
@@ -66,24 +76,18 @@ public class ReviewTest {
 	}
 	
 	@Test
-	public void test_getLink(){
-		assertEquals("https://www.example.com/docs/resource1.html", model1.getLink().toString());
-		assertEquals("http://www.sqlcourse2.com/having.html", model2.getLink().toString());
-		assertEquals("http://www.w3schools.com/html/html_examples.asp", model3.getLink().toString());
+	public void test_getReviewId(){
+		assertEquals(1, model1.getReviewId());
+		assertEquals(7, model2.getReviewId());
+		assertEquals(44, model3.getReviewId());
 	}
 	
 	@Test
-	public void test_getRecommendation(){
-		assertEquals("I hate it", model1.getRecommendation());
-		assertEquals("10/10 would recommend", model2.getRecommendation());
-		assertEquals("http://www.w3schools.com/html/html_examples.asp", model3.getRecommendation());
+	public void test_getTedTalkId(){
+		assertEquals(1, model1.getTedTalkId());
+		assertEquals(3, model2.getTedTalkId());
+		assertEquals(33, model3.getTedTalkId());
 	}
-
-	@Test
-	public void test_getRating(){
-		assertTrue(model1.getRating() == 2);
-		assertTrue(model2.getRating() == 5);
-		assertFalse(model3.getRating() == 2);
-	}
+	
 }
 

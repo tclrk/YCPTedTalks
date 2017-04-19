@@ -807,6 +807,7 @@ public class DerbyDatabase implements IDatabase {
 				
 					while (resultSet1.next()) {
 						TedTalk talk = new TedTalk();
+						loadTedT
 						result.add(talk);
 					}
 					return result;

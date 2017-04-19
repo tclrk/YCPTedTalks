@@ -2,6 +2,8 @@ package edu.ycp.cs320.aroby.model;
 
 import java.time.ZonedDateTime;
 
+import java.time.ZonedDateTime;
+
 public class Review {
 	private String review, recommendation;
 	private int rating, account_id, tedTalk_id, review_id;

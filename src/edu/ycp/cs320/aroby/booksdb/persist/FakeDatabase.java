@@ -164,24 +164,24 @@ public class FakeDatabase implements IDatabase {
 		return null;
 	}
 
-	public List<TedTalk> findTedTalkbyAuthor(String search) {
+	public Boolean createNewAccount(String email, String password, String firstname, String lastname, boolean admin) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public List<TedTalk> findTedTalkbyTopic(String search) {
+	public Boolean createNewStudent(int ycp_id, String major, String email) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public List<TedTalk> findTedTalkbyTitle(String search) {
+	public Account findAccount(String email) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public void createNewAccount() {
+	public Student findStudent(String email) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	public void insertNewTedTalk() {
@@ -204,38 +204,40 @@ public class FakeDatabase implements IDatabase {
 		
 	}
 
-	public void createNewStudent() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public Account findAccount() {
+	public List<Review> findReviewsbyAuthor(String firstname, String lastname) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Student findStudent() {
+	public List<Review> findReviewbyTopic(String topic) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Review findReviewbyAuthor() {
+	public List<Review> findReviewbyTitle(String title) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Review findReviewbyTopic() {
+	public Topic findTopic(String topic) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Review findReviewbyTitle() {
+	public List<TedTalk> findTedTalkbyAuthor(String search) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Topic findTopic() {
+	public List<TedTalk> findTedTalkbyTopic(String search) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public List<TedTalk> findTedTalkbyTitle(String search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 }

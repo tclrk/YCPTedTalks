@@ -2,6 +2,7 @@ package edu.ycp.cs320.aroby.booksdb.persist;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -236,6 +237,11 @@ public class FakeDatabase implements IDatabase {
 	}
 
 	public void insertNewTopic(String topic) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void insertReview(String name, String title, int rating, Date date, String review, String recommendations) {
 		// TODO Auto-generated method stub
 		
 	}

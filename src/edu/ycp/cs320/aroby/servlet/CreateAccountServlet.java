@@ -28,7 +28,7 @@ public class CreateAccountServlet extends HttpServlet {
 		// Create our account controller, generic model object, and some objects for session info
 		AccountController controller= new AccountController();
 		Account model = new Account();
-		Boolean accountCreated = null;
+		Boolean accountCreated = false;
 		Boolean noPasswordMatch = false;
 		HttpSession session =  req.getSession(true);
 		
@@ -105,13 +105,12 @@ public class CreateAccountServlet extends HttpServlet {
 			resp.sendRedirect("/aroby/index");
 		}
 		else {
-			if (accountCreated == false) {
-				session.setAttribute("bad_info", true);	
-			}
 			if (noPasswordMatch) {
 				session.setAttribute("no_pw_match", true);
+			} else if(!accountCreated){
+				session.setAttribute("bad_info", true);
 			}
-			resp.sendRedirect("/aroby/createAccount");
+			req.getRequestDispatcher("/_view/accountCreation.jsp").forward(req, resp);
 		}
 	}
 }

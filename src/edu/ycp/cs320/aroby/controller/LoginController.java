@@ -22,9 +22,11 @@ public class LoginController {
 		boolean success = false;
 		
 		Account retrievedAccount = db.findAccount(model.getEmail());
-		if (retrievedAccount.getEmail().equals(model.getEmail())
-				&& retrievedAccount.getPassword().equals(model.getPassword())) {
-			success = true;
+		if (retrievedAccount.getEmail() != null && retrievedAccount.getPassword() != null) {
+			if (retrievedAccount.getEmail().equals(model.getEmail()) &&
+					retrievedAccount.getPassword().equals(model.getPassword())) {
+				success = true;
+			}
 		}
 		
 		return success;

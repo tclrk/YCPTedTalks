@@ -12,6 +12,7 @@ import edu.ycp.cs320.aroby.model.Account;
 import edu.ycp.cs320.aroby.model.Student;
 import edu.ycp.cs320.aroby.model.Topic;
 import edu.ycp.cs320.aroby.model.Review;
+import edu.ycp.cs320.aroby.model.Speaker;
 
 public class DerbyDatabaseTest {
 	private IDatabase db = null;
@@ -164,6 +165,19 @@ public class DerbyDatabaseTest {
 			fail("No reviews found.");
 		} else {
 			System.out.print("Reviews found successfully.");
+		}
+	}
+	
+	@Test
+	public void FindSpeakerTest() {
+		Speaker speaker = new Speaker();
+		
+		speaker = db.findSpeaker("Aaron", "Roby");
+		
+		if (speaker == null) {
+			fail("No speaker found.");
+		} else {
+			System.out.println("Speaker found successfully!");
 		}
 	}
 }

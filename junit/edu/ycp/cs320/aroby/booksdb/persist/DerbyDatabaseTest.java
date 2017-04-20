@@ -207,14 +207,17 @@ public class DerbyDatabaseTest {
 	public void insertTedTalkTest() throws MalformedURLException {
 		
 		Speaker speaker = new Speaker();
-		speaker = db.findAuthor("Roby");	
+		speaker = db.findSpeaker("Aaron","Roby");	
 		
-		Boolean result = db.insertNewTedTalk(talk.getTitle(), talk.getDescription(),talk.getLink(),speaker.getFirstname(), speaker.getLastname(), topic.getTopic());
+		Topic topic = new Topic();
+		topic.setTopic("BS");
+		
+		Boolean result = db.insertNewTedTalk("Bulldogs","They're not vicious", new URL("https://github.com/mailbox2112/YCPTedTalks") ,speaker.getFirstname(), speaker.getLastname(), topic.getTopic());
 		
 		if (result == true) {
-			System.out.println("Account created successfully.");
+			System.out.println("TedTalk created successfully.");
 		} else {
-			fail("Uh oh, the account wasn't created successfully.");
+			fail("Uh oh, the TedTalk wasn't created successfully.");
 		}
 	}
 	
@@ -262,6 +265,19 @@ public class DerbyDatabaseTest {
 			System.out.println("Topic added successfully.");
 		} else {
 			fail("Uh oh, the topic wasn't added successfully.");
+		}
+	}
+	
+	@Test
+	public void FindSpeakerTest() {
+		Speaker speaker = new Speaker();
+		
+		speaker = db.findSpeaker("Aaron", "Roby");
+		
+		if (speaker == null) {
+			fail("No speaker found.");
+		} else {
+			System.out.println("Speaker found successfully!");
 		}
 	}
 }

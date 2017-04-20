@@ -1335,6 +1335,44 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	
+	public Speaker findSpeaker(final String firstname, final String lastname) {
+		// TODO Auto-generated method stub
+		return executeTransaction(new Transaction<Speaker>() {
+			public Speaker execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					// First, create an empty topic
+					Speaker speaker = new Speaker();
+					
+					// Then, select the topic that matches
+					stmt = conn.prepareStatement("select * from speakers " + "where firstname = ? and lastname = ?");
+					stmt.setString(1, firstname);
+					stmt.setString(2, lastname);
+					resultSet = stmt.executeQuery();
+
+					// Load the topic info into the topic object
+					Boolean found = false;
+					while (resultSet.next()) {
+						found = true;
+						loadSpeaker(speaker, resultSet, 1);
+					}
+
+					// Check if any topics were found
+					if (!found) {
+						System.out.println("No students were found in the database");
+					}
+
+					return speaker;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
 
 	public Boolean insertNewTedTalk(final String title, final String description, final URL url, final String firstname, final String lastname, final String topic) {
 		return executeTransaction(new Transaction<Boolean>() {

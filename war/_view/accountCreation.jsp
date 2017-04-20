@@ -51,6 +51,8 @@
 		<form action="${pageContext.servletContext.contextPath}/createAccount" method="post">
 			<%if((Boolean)request.getSession().getAttribute("bad_info") != null) {%>
 				<p>Please fill out all required fields!</p><%} %>
+			<%if((Boolean)request.getSession().getAttribute("no_pw_match") != null) {%>
+				<p>Passwords do not match!</p><%} %>
 			<table>
 				<tr>
 					<td class="label">Email:</td>
@@ -65,24 +67,24 @@
 					<td><input type="password" name="reenteredPassword" size="12" value="${model.password}" /></td>
 				</tr>
 				<tr>
-					<td class="label">Name:</td>
-					<td><input type="text" name="name" size="12" value="${model.name}" /></td>
+					<td class="label">First Name:</td>
+					<td><input type="text" name="firstname" size="12" value="${model.firstName}" /></td>
+				</tr>
+				<tr>
+					<td class="label">Last Name:</td>
+					<td><input type="text" name="lastname" size="12" value="${model.lastName}" /></td>
 				</tr>
 				<tr>
 					<td class="label">Student ID:</td>
-					<td><input type="text" name="student_id" size="12" value="${model.ycp_id}"></td>
+					<td><input type="text" name="ycp_id" size="12" value="${model.ycp_id}"></td>
 				</tr>
 				<tr>
-					<td class="label">Professor ID:</td>
-					<td><input type="text" name="professor_id" size="12" value="${model.professor_id}"></td>
+					<td class="label">Administrator Key:</td>
+					<td><input type="text" name="admin_key" size="12"></td>
 				</tr>
 				<tr>
 					<td class="label">Major:</td>
 					<td><input type="text" name="major" size="12" value="${model.major}" /></td>
-				</tr>
-				<tr>
-					<td class="label">Year:</td>
-					<td><input type="text" name="year" size="12" value="${model.year}" /></td>
 				</tr>
 				<tr>
 					<td />

@@ -13,6 +13,7 @@ import edu.ycp.cs320.aroby.model.Topic;
 import edu.ycp.cs320.aroby.model.Account;
 import edu.ycp.cs320.aroby.model.Review;
 import edu.ycp.cs320.aroby.model.Search;
+import edu.ycp.cs320.aroby.model.Speaker;
 import edu.ycp.cs320.aroby.model.Student;
 
 public interface IDatabase {
@@ -42,6 +43,7 @@ public interface IDatabase {
 	public List<Review> findReviewbyTopic(String topic);
 	public List<Review> findReviewbyTitle(String title);
 	public Topic findTopic(String topic);
+	public Speaker findSpeaker(String firstname, String lastname);
 	
 	//Chihea
 	public List<TedTalk> findTedTalkbyAuthor(String search);

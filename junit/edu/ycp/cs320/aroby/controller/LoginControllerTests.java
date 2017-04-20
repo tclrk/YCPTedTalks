@@ -18,7 +18,7 @@ public class LoginControllerTests {
 		model = new Account();
 		controller = new LoginController();
 		
-		model.setEmail("email");
+		model.setEmail("aroby@ycp.edu");
 		model.setPassword("password");
 		
 		controller.setModel(model);
@@ -27,13 +27,5 @@ public class LoginControllerTests {
 	@Test
 	public void TestLogin() {
 		assertTrue(controller.login());
-	}
-	
-	public void TestCheckPassword() {
-		assertTrue(controller.checkPassword());
-	}
-	
-	public void TestCheckEmail() {
-		assertTrue(controller.checkEmail());
 	}
 }

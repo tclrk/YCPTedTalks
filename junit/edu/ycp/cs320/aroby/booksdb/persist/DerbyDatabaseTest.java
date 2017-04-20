@@ -174,10 +174,10 @@ public class DerbyDatabaseTest {
 		
 		speaker = db.findSpeaker("Aaron", "Roby");
 		
-		if (speaker == null) {
-			fail("No speaker found.");
-		} else {
+		if (speaker.getFirstname().equals("Aaron") && speaker.getLastname().equals("Roby")) {
 			System.out.println("Speaker found successfully!");
+		} else {
+			fail("No speaker found.");
 		}
 	}
 }

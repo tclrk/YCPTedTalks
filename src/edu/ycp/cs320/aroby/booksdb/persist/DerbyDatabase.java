@@ -1371,7 +1371,7 @@ public class DerbyDatabase implements IDatabase {
 					// Then, select the topic that matches
 					stmt = conn.prepareStatement("select * from speakers " + "where firstname = ? and lastname = ?");
 					stmt.setString(1, firstname);
-					stmt.setString(2, firstname);
+					stmt.setString(2, lastname);
 					resultSet = stmt.executeQuery();
 
 					// Load the topic info into the topic object

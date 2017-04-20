@@ -166,6 +166,28 @@ public class FakeDatabase implements IDatabase {
 		return null;
 	}
 
+	public Boolean insertNewTedTalk(String title, String description, URL url, String firstname, String lastname,
+			String topic) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Boolean insertNewSpeaker(String firstname, String lastname) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Boolean insertNewTopic(String top) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Boolean insertReview(int rating, String date, String review, String recommendations, String firstname,
+			String lastname, String title) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public Boolean createNewAccount(String email, String password, String firstname, String lastname, boolean admin) {
 		// TODO Auto-generated method stub
 		return null;
@@ -184,11 +206,6 @@ public class FakeDatabase implements IDatabase {
 	public Student findStudent(String email) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	public void insertReview() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public List<Review> findReviewsbyAuthor(String firstname, String lastname) {
@@ -221,43 +238,8 @@ public class FakeDatabase implements IDatabase {
 		return null;
 	}
 
-	public void insertNewTedTalk(String title, String description, URL url, String name, String topic) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void insertNewSpeaker(String firstname, String lastname) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void insertNewTopic(String topic) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void insertReview(String name, String title, int rating, Date date, String review, String recommendations) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public List<TedTalk> findTedTalkbyTitle(String search) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	public void insertNewTedTalk() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void insertNewSpeaker() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void insertNewTopic() {
-		// TODO Auto-generated method stub
-		
 	}
 }

@@ -2,6 +2,7 @@ package edu.ycp.cs320.aroby.servlet;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -28,38 +29,61 @@ public class TedTalkServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Speaker speaker = new Speaker();
-		Topic topic = new Topic();
+		Review model = new Review();
+		ReviewController control = new ReviewController();
 		TedTalk talk = new TedTalk();
-		URL link = null;
-		Review review = new Review();
-		ArrayList<Review> reviewList = new ArrayList<Review>();
 		TedTalkController controller = new TedTalkController();
-		ArrayList<TedTalk> list = new ArrayList<TedTalk>();
+		Boolean talkCreated = false;
+		int rating = 0;
 		
-		for(int i = 1; i < list.size(); i++){
-			String description = req.getParameter("description");
-			String title = req.getParameter("title");
-			String review_string = req.getParameter("review");
-			review.setReview(review_string);
-			reviewList.add(review);
+		ArrayList<Review> review = new ArrayList<Review>();
+		HttpSession session = req.getSession(true);
+		
+		String title = req.getParameter("title");
+		String description = req.getParameter("description");
+		String url_string = req.getParameter("url");
+		String topic = req.getParameter("topic");
+		String author = req.getParameter("author");
+		String review_1 = req.getParameter("review");
+		ZonedDateTime date = ZonedDateTime.now();
+		String recommend = req.getParameter("recommendations");
+		String rating_s =req.getParameter("rating");
+		if(rating_s != "" & rating_s != null){
+			rating = Integer.parseInt(rating_s);
+		}
+		if(title != "" || description != "" || url_string != null 
+				|| topic != "" || author != null || review_1 != null){
+			Topic tops = new Topic();
+			tops.setTopic("topic");
+			
+			Speaker auth = new Speaker();
+			int ind = author.indexOf(" ");
+			auth.setFirstname(author.substring(0, ind+ 1));
+			auth.setLastname(author.substring(ind+1));
+			
+			model.setReview(review_1);
+			model.setDate(date);
+			model.setTedTalkId(talk.getTedTalkId());
+			model.setReviewId(1);
+			model.setDate(date);
+			model.setTedTalkId(talk.getTedTalkId());
+			model.setRecommendation(recommend);
+			
+			review.add(model);
+			
 			talk.setDescription(description);
-			String link_string = req.getParameter("link");
-			link = new URL(link_string);
-			talk.setLink(link);
+			talk.setLink(new URL(url_string));
 			talk.setTitle(title);
-			talk.setTedTalkId(i);
-			talk.setReview(reviewList);
-		//find their IDs from database	
-			//talk.setTopicId();
-			//talk.setSpeakerId();
-			controller.set_TedTalk(talk.getDescription(), talk.getTitle(), talk.getTedTalkId(), talk.getTopicId(), talk.getSpeakerId(), talk.getLink(),talk.getReview());
-			String errorMessage = null;
-		
-			req.setAttribute("model", talk);
-			System.out.print("TedTalk submitted.");
-			list.add(talk);
-			resp.sendRedirect("/aroby/index");
+			talk.setSpeakerId(auth.getSpeakerId());
+			talk.setTopicId (tops.getTopicId());
+			talk.setReview(null);
+			controller.set_TedTalk(talk.getTitle(), talk.getDescription(), talk.getTedTalkId(), talk.getSpeakerId(), talk.getTopicId(), talk.getLink(), talk.getReview());
+			talkCreated = true;
 			}
+		else{
+			talkCreated = false;
+		}
+		req.setAttribute("model", talk);
+		resp.sendRedirect("/aroby/index");
 		}	
 	}

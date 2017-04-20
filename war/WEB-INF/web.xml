@@ -50,9 +50,6 @@
   </servlet><servlet>
     <servlet-name>NextGuessAjaxServlet</servlet-name>
     <servlet-class>edu.ycp.cs320.aroby.servlet.ajax.NextGuessAjaxServlet</servlet-class>
-  </servlet><servlet>
-    <servlet-name>TedTalkAjaxServlet</servlet-name>
-    <servlet-class>edu.ycp.cs320.aroby.servlet.ajax.TedTalkAjaxServlet</servlet-class>
   </servlet>
 
   <!-- Servlet mappings -->
@@ -89,9 +86,6 @@
     <servlet-mapping>
     <servlet-name>AddNumbersAjaxServlet</servlet-name>
     <url-pattern>/ajax/addNumbers</url-pattern>
-  </servlet-mapping> <servlet-mapping>
-    <servlet-name>TedTalkAjaxServlet</servlet-name>
-    <url-pattern>/ajax/tedTalk</url-pattern>
   </servlet-mapping><servlet-mapping>
   	<servlet-name>MultiplyNumbersAjaxServlet</servlet-name>
   	<url-pattern>/ajax/multiplyNumbers</url-pattern>
@@ -113,13 +107,7 @@
   <servlet-mapping>
   	<servlet-name>SearchServlet</servlet-name>
   	<url-pattern>/searchPage</url-pattern>
-  </servlet-mapping>
-  <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>
-  <servlet-mapping>
+  </servlet-mapping> <servlet-mapping>
   	<servlet-name>TedTalkServlet</servlet-name>
   	<url-pattern>/tedTalkPage</url-pattern>
   </servlet-mapping>

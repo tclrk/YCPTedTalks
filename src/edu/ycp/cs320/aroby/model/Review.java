@@ -27,8 +27,9 @@ public class Review {
 	public void setReview(String review) {
 		this.review = review;
 	}
-	public ZonedDateTime getDate() {
-		return date;
+	public String getDate() {
+		date = ZonedDateTime.now();
+		return date.toString();
 	}
 	public void setDate(ZonedDateTime date) {
 		this.date = date;

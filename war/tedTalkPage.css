@@ -60,3 +60,21 @@ input[type=submit]:hover{
 	background-color: #E62B1E;
     color: white;
 }
+
+
+#rating1{
+	width: 10px;
+}
+#rating2{
+	width: 10px;
+}
+#rating3{
+	width: 10px;
+}
+#rating4{
+	width: 10px;
+}
+#rating5{
+	width: 10px;
+}
+

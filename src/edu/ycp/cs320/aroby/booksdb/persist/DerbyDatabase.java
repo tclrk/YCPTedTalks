@@ -1,20 +1,16 @@
 package edu.ycp.cs320.aroby.booksdb.persist;
 
 import java.io.IOException;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import edu.ycp.cs320.aroby.booksdb.model.Author;
 import edu.ycp.cs320.aroby.booksdb.model.Book;
@@ -512,372 +508,9 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 
-	public void insertNewTedTalk(){
-		executeTransaction(new Transaction<Boolean>() {
-			public Boolean execute(Connection conn) throws SQLException {
-				PreparedStatement stmt1 = null;
-				PreparedStatement stmt2 = null;
-				PreparedStatement stmt3 = null;
-				
-				ResultSet resultSet1 = null;
-				ResultSet resultSet2 = null;
-				
-				Connection conn2= null;
-				int speaker_id = 0;
-				int topic_id = 0;
-				Scanner keyboard = new Scanner(System.in);
-				
-				try{
-					System.out.println("Enter lastname of author: ");
-					String lastname = keyboard.nextLine();
-					stmt1 = conn.prepareStatement(
-							"select speaker_id "
-							+ " from speakers"
-							+ " where lastname = ?"
-							);
-					
-					stmt1.setString(1, lastname);
-					resultSet1 = stmt1.executeQuery();
-					
-					ResultSetMetaData resultSchema1 = stmt1.getMetaData();
-					// iterate through the returned tuples
-					if(resultSchema1.getColumnCount() != 0){
-						resultSet1.next();
-						speaker_id = resultSet1.getInt(1);
-					}
-					
-					conn2 = DriverManager.getConnection("jdbc:derby:test.db;create=true"); ;
-					System.out.println("Enter topic name: ");
-					String topic = keyboard.nextLine();
-					stmt2 = conn.prepareStatement(
-							"select topic_id"
-							+ " from topics"
-							+ " where topic = ?"
-							);
-					
-					stmt2.setString(1, topic);
-					resultSet2 = stmt2.executeQuery();
-
-					ResultSetMetaData resultSchema2 = stmt2.getMetaData();
-					// iterate through the returned tuples
-					if(resultSchema2.getColumnCount() != 0){
-						resultSet2.next();
-						topic_id = resultSet2.getInt(1);
-					}
-					
-					System.out.println("Enter title of new TedTalk: ");
-					String title = keyboard.nextLine();
-					System.out.println("Enter description of new TedTalk: ");
-					String description = keyboard.nextLine();
-					System.out.println("Enter url of new TedTalk: ");
-					String url = keyboard.nextLine();
-					
-					stmt3 = conn2.prepareStatement(
-							"insert into tedtalks"
-							+ " (speaker_id, topic_id, title, description, url)"
-							+ " values (?, ?, ?, ?, ?)"
-							);
-					
-					stmt3.setInt(1, speaker_id);
-					stmt3.setInt(2, topic_id);
-					stmt3.setString(3, title);
-					stmt3.setString(4, description);
-					stmt3.setString(5, url);
-					
-					stmt3.execute();
-					
-				}
-				finally{
-					DBUtil.closeQuietly(stmt1);
-					DBUtil.closeQuietly(stmt2);
-					DBUtil.closeQuietly(stmt3);
-					DBUtil.closeQuietly(resultSet1);
-					DBUtil.closeQuietly(resultSet2);
-					DBUtil.closeQuietly(conn);
-					DBUtil.closeQuietly(conn2);
-					keyboard.close();
-				}
-				return true;
-					}});
-			}
-	
-	public void insertNewSpeaker(){
-		executeTransaction(new Transaction<Boolean>() {
-			public Boolean execute(Connection conn) throws SQLException {
-				PreparedStatement stmt1 = null;
-				Scanner keyboard = new Scanner(System.in);
-			
-			try{	
-				System.out.println("Enter in new speaker's first name:");
-				String firstname = keyboard.nextLine();
-				System.out.println("Enter in new speaker's last name:");
-				String lastname = keyboard.nextLine();
-				
-				stmt1 = conn.prepareStatement(
-						"insert into speakers"
-						+ " (firstname, lastname)"
-						+ " values (?, ?)"
-						);
-				
-				stmt1.setString(1, firstname);
-				stmt1.setString(1, lastname);
-				stmt1.execute();
-				return true;
-			}
-			finally{
-				DBUtil.closeQuietly(stmt1);
-				DBUtil.closeQuietly(conn);
-				keyboard.close();
-			}
-		}});
-	}
-	
-	public void insertNewTopic(){
-		executeTransaction(new Transaction<Boolean>() {
-		public Boolean execute(Connection conn) throws SQLException {
-			PreparedStatement stmt1 = null;
-			Scanner keyboard = new Scanner(System.in);
-		
-		try{	
-			System.out.println("Enter in new topic:");
-			String topic = keyboard.nextLine();
-			
-			stmt1 = conn.prepareStatement(
-					"insert into topics"
-					+ " (topic)"
-					+ " values (?)"
-					);
-			
-			stmt1.setString(1, topic);
-			stmt1.execute();
-			return true;
-		}
-		finally{
-			DBUtil.closeQuietly(stmt1);
-			DBUtil.closeQuietly(conn);
-			keyboard.close();
-		}
-	}});
-}
-
-	public void insertReview(){
-		executeTransaction(new Transaction<Boolean>() {
-			public Boolean execute(Connection conn) throws SQLException {
-				PreparedStatement stmt1 = null;
-				PreparedStatement stmt2 = null;
-				PreparedStatement stmt3 = null;
-				
-				ResultSet resultSet1 = null;
-				ResultSet resultSet2 = null;
-				
-				int account_id = 0;
-				int talk_id = 0;
-				int rating = 0;
-				String name = null;
-				String title = null;
-				Date date = null;
-				String review = null;
-				String recommendations = null;
-				Scanner keyboard = new Scanner(System.in);
-			
-			try{
-				//find account id 
-				System.out.println("Enter your lastname:" );
-				stmt1 = conn.prepareStatement(
-						"select account_id"
-						+ " from accounts"
-						+ " where lastname = ?"
-						);
-				
-				stmt1.setString(1, name);
-				
-				resultSet1 = stmt1.executeQuery();
-				
-
-				ResultSetMetaData resultSchema1 = stmt1.getMetaData();
-				// iterate through the returned tuples
-				if(resultSchema1.getColumnCount() != 0){
-					resultSet1.next();
-					account_id = resultSet1.getInt(1);
-				}
-				
-				Connection conn2 = DriverManager.getConnection("jdbc:derby:test.db;create=true"); 
-				
-				//find tedtalk id 
-				System.out.println("Enter TedTalk title:" );
-				stmt2 = conn2.prepareStatement(
-						"select tedtalk_id"
-						+ " from tedtalks"
-						+ " where title like  '%?%'"
-						);
-				
-				stmt2.setString(1, name);
-				
-				resultSet2 = stmt1.executeQuery();
-				
-
-				ResultSetMetaData resultSchema2 = stmt1.getMetaData();
-				// iterate through the returned tuples
-				if(resultSchema2.getColumnCount() != 0){
-					resultSet2.next();
-					talk_id = resultSet2.getInt(1);
-				}
-				
-				//enter new review
-				System.out.println("Enter in new review:");
-				review = keyboard.nextLine();
-				System.out.println("Rate ted talk from 1 to 5:");
-				rating = keyboard.nextInt();
-				System.out.println("Write a recommendation based off Ted Talk:");
-				recommendations = keyboard.nextLine();
-				
-				stmt3 = conn.prepareStatement(
-						"insert into reviews"
-						+ " (account_id, tedtalk_id, rating, date, review, recommendations)"
-						+ " values (?)"
-						);
-				
-				stmt3.setInt(1, account_id);
-				stmt3.setInt(2, talk_id);
-				stmt3.setInt(3,  rating);
-				stmt3.setDate(4, date);
-				stmt3.setString(5, review);
-				stmt3.setString(6, recommendations);
-				stmt3.execute();
-				keyboard.close();
-				return true;
-			}
-			finally{
-				DBUtil.closeQuietly(stmt3);
-				DBUtil.closeQuietly(conn);
-			}
-		}});
-	}
-
-	
-	public List<TedTalk> findTedTalkbyAuthor(String search) {
-		return executeTransaction(new Transaction<List<TedTalk>>() {
-			public List<TedTalk> execute(Connection conn) throws SQLException {
-				PreparedStatement stmt1 = null;
-				ResultSet resultSet1 = null;	
-				List<TedTalk> result = new ArrayList<TedTalk>();
-				
-				Scanner keyboard = new Scanner(System.in);
-				
-				try{
-					System.out.println("Search keyword: ");
-					String search = keyboard.nextLine();
-				
-					stmt1 = conn.prepareStatement(
-						"select tedtalks.tedtalk_id, tedtalks.speaker_id, tedtalks.topic_id, tedtalks.title, tedtalks.description, tedtalks.url "
-						+ " from tedtalks, speakers"
-						+ " where tedtalks.speaker_id = speakers.speaker_id"
-						+ " and speakers.firstname like '%?%' or speakers.lastname like '%?%'");	
-				
-					stmt1.setString(1, search);
-				
-					resultSet1 = stmt1.executeQuery();
-				
-					while (resultSet1.next()) {
-						TedTalk talk = new TedTalk();
-						result.add(talk);
-					}
-					return result;
-				
-					}
-					finally{
-						DBUtil.closeQuietly(resultSet1);
-						DBUtil.closeQuietly(stmt1);
-						DBUtil.closeQuietly(conn);
-						keyboard.close();
-					}
-				}
-			});
-		}
-
-
-	public List<TedTalk> findTedTalkbyTopic(String search) {
-		return executeTransaction(new Transaction<List<TedTalk>>() {
-			public List<TedTalk> execute(Connection conn) throws SQLException {
-				PreparedStatement stmt1 = null;
-				ResultSet resultSet1 = null;	
-				List<TedTalk> result = new ArrayList<TedTalk>();
-				
-				Scanner keyboard = new Scanner(System.in);
-				
-				try{
-					System.out.println("Search keyword: ");
-					String search = keyboard.nextLine();
-				
-					stmt1 = conn.prepareStatement(
-							"select tedtalks.tedtalk_id, tedtalks.speaker_id, tedtalks.topic_id, tedtalks.title, tedtalks.description, tedtalks.url "
-						+ " from tedtalks, topics"
-						+ " where tedtalks.topic_id = topics.topic_id"
-						+ " and topics.topic like '%?%'");	
-				
-					stmt1.setString(1, search);
-				
-					resultSet1 = stmt1.executeQuery();
-				
-					while (resultSet1.next()) {
-						TedTalk talk = new TedTalk();
-						result.add(talk);
-					}
-					return result;
-				
-					}
-					finally{
-						DBUtil.closeQuietly(resultSet1);
-						DBUtil.closeQuietly(stmt1);
-						DBUtil.closeQuietly(conn);
-						keyboard.close();
-					}
-				}
-			});
-		}
-
-
-	public List<TedTalk> findTedTalkbyTitle(String search) {
-		return executeTransaction(new Transaction<List<TedTalk>>() {
-		public List<TedTalk> execute(Connection conn) throws SQLException {
-			PreparedStatement stmt1 = null;
-			ResultSet resultSet1 = null;	
-			List<TedTalk> result = new ArrayList<TedTalk>();
-			
-			Scanner keyboard = new Scanner(System.in);
-			
-			try{
-				System.out.println("Search keyword: ");
-				String search = keyboard.nextLine();
-			
-				stmt1 = conn.prepareStatement(
-						"select tedtalk_id, speaker_id, topic_id, title, description, url "
-					+ " from tedtalks"
-					+ " where title like '%?%'");	
-			
-				stmt1.setString(1, search);
-			
-				resultSet1 = stmt1.executeQuery();
-			
-				while (resultSet1.next()) {
-					TedTalk talk = new TedTalk();
-					result.add(talk);
-				}
-				return result;
-			
-				}
-				finally{
-					DBUtil.closeQuietly(resultSet1);
-					DBUtil.closeQuietly(stmt1);
-					DBUtil.closeQuietly(conn);
-					keyboard.close();
-				}
-			}
-		});
-	}
-	
-	// wrapper SQL transaction function that calls actual transaction function (which has retries)
-	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
+	// wrapper SQL transaction function that calls actual transaction function
+	// (which has retries)
+	public <ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
 		try {
 			return doExecuteTransaction(txn);
 		} catch (SQLException e) {
@@ -929,7 +562,7 @@ public class DerbyDatabase implements IDatabase {
 	// TODO: Change it here and in SQLDemo under
 	// CS320_Lab06->edu.ycp.cs320.sqldemo
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby: Users/chihealocke/Desktop/CS320/library.db;create=true");		
+		Connection conn = DriverManager.getConnection("jdbc:derby: Users/chihealocke/Desktop/CS320/library.db;create=true");
 
 		// Set autocommit() to false to allow the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -986,6 +619,12 @@ public class DerbyDatabase implements IDatabase {
 		topic.setTopic(resultSet.getString(index++));
 	}
 	
+	private void loadSpeaker(Speaker speaker, ResultSet resultSet, int index) throws SQLException {
+		speaker.setSpeakerId(resultSet.getInt(index++));
+		speaker.setFirstname(resultSet.getString(index++));
+		speaker.setLastname(resultSet.getString(index++));
+	}
+	
 	private void loadReview(Review review, ResultSet resultSet, int index) throws SQLException {
 		review.setReviewId(resultSet.getInt(index++));
 		review.setAccountId(resultSet.getInt(index++));
@@ -1022,35 +661,12 @@ public class DerbyDatabase implements IDatabase {
 
 				try {
 					// Create authors table
-					stmt1 = conn.prepareStatement(
-						"create table authors (" +
-						"	author_id integer primary key " +
-						"		generated always as identity (start with 1, increment by 1), " +									
-						"	lastname varchar(40)," +
-						"	firstname varchar(40)" +
-						")"
-					);	
-
 					stmt1 = conn.prepareStatement("create table authors (" + "	author_id integer primary key "
 							+ "		generated always as identity (start with 1, increment by 1), "
 							+ "	lastname varchar(40)," + "	firstname varchar(40)" + ")");
-
 					stmt1.executeUpdate();
 
 					System.out.println("Authors table created");
-
-					
-					// Create books table
-					stmt2 = conn.prepareStatement(
-							"create table books (" +
-							"	book_id integer primary key " +
-							"		generated always as identity (start with 1, increment by 1), " +
-//							"	author_id integer constraint author_id references authors, " +
-							"	title varchar(70)," +
-							"	isbn varchar(15)," +
-							"   published integer" +
-							")"
-					);
 
 					// Create books table
 					stmt2 = conn.prepareStatement("create table books (" + "	book_id integer primary key "
@@ -1058,15 +674,9 @@ public class DerbyDatabase implements IDatabase {
 					// " author_id integer constraint author_id references
 					// authors, " +
 					"	title varchar(70)," + "	isbn varchar(15)," + "   published integer" + ")");
-
 					stmt2.executeUpdate();
 
-					
-					System.out.println("Books table created");					
-					
-
 					System.out.println("Books table created");
-
 
 					// Create bookauthors table
 					stmt3 = conn.prepareStatement(
@@ -1076,44 +686,14 @@ public class DerbyDatabase implements IDatabase {
 
 					System.out.println("BookAuthors table created");
 
-					
-					// Create accounts table
-					stmt4 = conn.prepareStatement(
-							"create table accounts (" +
-							"	account_id integer primary key" +
-							" 		generated always as identity (start with 1, increment by 1)," +
-							"	email varchar(70)," +
-							"	password varchar(70)," +
-							"	firstname varchar(70)," +
-							"	lastname varchar(70)," +
-							"	admin boolean" +
-							")"
-					);
-					
-
 					// Create accounts table
 					stmt4 = conn.prepareStatement("create table accounts (" + "	account_id integer primary key"
 							+ " 		generated always as identity (start with 1, increment by 1),"
 							+ "	email varchar(70)," + "	password varchar(70)," + "	firstname varchar(70),"
 							+ "	lastname varchar(70)," + "	admin boolean" + ")");
 
-
 					stmt4.executeUpdate();
 					System.out.println("Account table created");
-
-					
-					// Create students table
-					stmt5 = conn.prepareStatement(
-							"create table students (" +
-							"	student_id integer primary key" +
-							"		generated always as identity (start with 1, increment by 1)," +
-							" account_id integer constraint account_id references accounts," +
-							" ycp_id integer," +
-							" major varchar(70)" +
-							")"
-					);
-					
-
 
 					// Create students table
 					stmt5 = conn.prepareStatement("create table students (" + "	student_id integer primary key"
@@ -1121,64 +701,22 @@ public class DerbyDatabase implements IDatabase {
 							+ " account_id integer constraint account_id references accounts," + " ycp_id integer,"
 							+ " major varchar(70)" + ")");
 
-
 					stmt5.executeUpdate();
 					System.out.println("Students table created");
-
-					
-					// Create topics table
-					stmt6 = conn.prepareStatement(
-							"create table topics ("
-							+ "topic_id integer primary key"
-							+ "	generated always as identity (start with 1, increment by 1),"
-							+ "topic varchar(70)"
-							+ ")"
-							);
-
 
 					// Create topics table
 					stmt6 = conn.prepareStatement("create table topics (" + "topic_id integer primary key"
 							+ "	generated always as identity (start with 1, increment by 1)," + "topic varchar(70)"
 							+ ")");
-
 					stmt6.executeUpdate();
 					System.out.println("Topics table created");
-
-					
-					// Create speakers table
-					stmt7 = conn.prepareStatement(
-							"create table speakers (" +
-							" 	speaker_id integer primary key" +
-							"		generated always as identity (start with 1, increment by 1)," +
-							"firstname varchar(70)," +
-							"lastname varchar(70)"
-							+ ")"
-					);
-
 
 					// Create speakers table
 					stmt7 = conn.prepareStatement("create table speakers (" + " 	speaker_id integer primary key"
 							+ "		generated always as identity (start with 1, increment by 1),"
 							+ "firstname varchar(70)," + "lastname varchar(70)" + ")");
-
 					stmt7.executeUpdate();
 					System.out.println("Speakers table created");
-
-					
-					// Create ted talks table
-					stmt8 = conn.prepareStatement(
-							"create table tedtalks (" +
-							"	tedtalk_id integer primary key" +
-							"		generated always as identity (start with 1, increment by 1)," +
-							"speaker_id integer constraint speaker_id references speakers,"
-							+ "topic_id integer constraint topic_id references topics,"
-							+ "title varchar(70),"
-							+ "description varchar(140),"
-							+ "url varchar(140)"
-							+ ")"
-					);
-					
-
 
 					// Create ted talks table
 					stmt8 = conn.prepareStatement("create table tedtalks (" + "	tedtalk_id integer primary key"
@@ -1187,29 +725,8 @@ public class DerbyDatabase implements IDatabase {
 							+ "topic_id integer constraint topic_id references topics," + "title varchar(70),"
 							+ "description varchar(140)," + "url varchar(140)" + ")");
 
-
 					stmt8.executeUpdate();
 					System.out.println("TedTalks table created");
-
-					
-					// Create reviews table
-					stmt9 = conn.prepareStatement(
-							"create table reviews ("
-							+ "		review_id integer primary key"
-							+ "			generated always as identity (start with 1, increment by 1),"
-							+ "account_id integer references accounts,"
-							+ "tedtalk_id integer constraint tedtalk_id references tedtalks,"
-							+ "rating integer,"
-							+ "date varchar(70),"
-							+ "review varchar(500),"
-							+ "recommendations varchar(70)"
-							+ ")"
-					);
-					
-					stmt9.executeUpdate();
-					System.out.println("Review table created");
-					
-
 
 					// Create reviews table
 					stmt9 = conn.prepareStatement("create table reviews (" + "		review_id integer primary key"
@@ -1220,7 +737,6 @@ public class DerbyDatabase implements IDatabase {
 
 					stmt9.executeUpdate();
 					System.out.println("Review table created");
-
 
 					return true;
 				} finally {
@@ -1253,16 +769,6 @@ public class DerbyDatabase implements IDatabase {
 				List<Review> reviewList;
 
 				try {
-					authorList     = InitialData.getAuthors();
-					bookList       = InitialData.getBooks();
-					bookAuthorList = InitialData.getBookAuthors();	
-					accountList	   = InitialData.getAccounts();
-					studentList	   = InitialData.getStudents();
-					topicList  	   = InitialData.getTopics();
-					speakerList    = InitialData.getSpeakers();
-					tedtalkList    = InitialData.getTedTalks();
-					reviewList     = InitialData.getReviews();
-					
 					authorList = InitialData.getAuthors();
 					bookList = InitialData.getBooks();
 					bookAuthorList = InitialData.getBookAuthors();
@@ -1272,7 +778,6 @@ public class DerbyDatabase implements IDatabase {
 					speakerList = InitialData.getSpeakers();
 					tedtalkList = InitialData.getTedTalks();
 					reviewList = InitialData.getReviews();
-
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
 				}
@@ -1280,13 +785,12 @@ public class DerbyDatabase implements IDatabase {
 				PreparedStatement insertAuthor = null;
 				PreparedStatement insertBook = null;
 				PreparedStatement insertBookAuthor = null;
-				PreparedStatement insertAccounts   = null;
-				PreparedStatement insertStudents   = null;
-				PreparedStatement insertTopics 	   = null;
-				PreparedStatement insertSpeakers   = null;
-				PreparedStatement insertTedTalks   = null;
-				PreparedStatement insertReviews    = null;
-
+				PreparedStatement insertAccounts = null;
+				PreparedStatement insertStudents = null;
+				PreparedStatement insertTopics = null;
+				PreparedStatement insertSpeakers = null;
+				PreparedStatement insertTedTalks = null;
+				PreparedStatement insertReviews = null;
 
 				try {
 					// must completely populate Authors table before populating
@@ -1348,15 +852,9 @@ public class DerbyDatabase implements IDatabase {
 					insertAccounts.executeBatch();
 					System.out.println("Accounts table populated");
 
-					
 					// Inserts the student info into the student table
-					insertStudents = conn.prepareStatement(
-							"insert into students (account_id, ycp_id, major) values (?,?,?)"
-					);
-
-
-					// Inserts the student info into the student table
-					insertStudents = conn.prepareStatement("insert into students (account_id, ycp_id, major) values (?,?,?)");
+					insertStudents = conn
+							.prepareStatement("insert into students (account_id, ycp_id, major) values (?,?,?)");
 					for (Student student : studentList) {
 						insertStudents.setInt(1, student.getAccountId());
 						insertStudents.setInt(2, student.getYCPId());
@@ -1365,13 +863,6 @@ public class DerbyDatabase implements IDatabase {
 					}
 					insertStudents.executeBatch();
 					System.out.println("Students table populated");
-
-					
-					// Inserts the possible ted talk topics into the topics table
-					insertTopics = conn.prepareStatement(
-							"insert into topics (topic) values (?)"
-					);
-
 
 					// Inserts the possible ted talk topics into the topics
 					// table
@@ -1383,17 +874,9 @@ public class DerbyDatabase implements IDatabase {
 					insertTopics.executeBatch();
 					System.out.println("Topics table populated");
 
-					
-					// Inserts the speakers for a particular ted talk into the speakers table
-					insertSpeakers = conn.prepareStatement(
-							"insert into speakers (firstname, lastname) values (?,?)"
-					);
-
-
 					// Inserts the speakers for a particular ted talk into the
 					// speakers table
 					insertSpeakers = conn.prepareStatement("insert into speakers (firstname, lastname) values (?,?)");
-
 					for (Speaker speaker : speakerList) {
 						insertSpeakers.setString(1, speaker.getFirstname());
 						insertSpeakers.setString(2, speaker.getLastname());
@@ -1415,25 +898,6 @@ public class DerbyDatabase implements IDatabase {
 					}
 					insertTedTalks.executeBatch();
 					System.out.println("TedTalks table populated");
-					
-					// Inserts reviews into the review table
-					insertReviews = conn.prepareStatement(
-							"insert into reviews "
-							+ "(account_id, tedtalk_id, rating, date, review, recommendations)"
-							+ "values (?,?,?,?,?,?)"
-					);
-					for (Review review : reviewList) {
-						insertReviews.setInt(1, review.getAccountId());
-						insertReviews.setInt(2, review.getTedTalkId());
-						insertReviews.setInt(3, review.getRating());
-						insertReviews.setString(4, review.getDate().toString());
-						insertReviews.setString(5, review.getReview());
-						insertReviews.setString(6, review.getRecommendation());
-						insertReviews.addBatch();
-					}
-					insertReviews.executeBatch();
-					System.out.println("Reviews table populated");
-					
 
 					// Inserts reviews into the review table
 					insertReviews = conn.prepareStatement(
@@ -1653,8 +1117,7 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
-
-
+	
 	public List<Review> findReviewsbyAuthor(final String firstname, final String lastname) {
 		return executeTransaction(new Transaction<List<Review>>() {
 			public List<Review> execute(Connection conn) throws SQLException {
@@ -1838,7 +1301,6 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	public Topic findTopic(final String topic) {
-		// TODO Auto-generated method stub
 		return executeTransaction(new Transaction<Topic>() {
 			public Topic execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
@@ -1873,4 +1335,378 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+
+	public Boolean insertNewTedTalk(final String title, final String description, final URL url, final String firstname, final String lastname, final String topic) {
+		return executeTransaction(new Transaction<Boolean>() {
+			@SuppressWarnings("resource")
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					stmt = conn.prepareStatement("select * from speakers " + "where firstname = ? or lastname = ?");
+					stmt.setString(1, firstname);
+					stmt.setString(2, lastname);
+					resultSet = stmt.executeQuery();
+
+					Speaker speaker = new Speaker();
+					
+					// Read through the ResultSet to see if the account exists
+					Boolean found = false;
+					while (resultSet.next()) {
+						found = true;
+						loadSpeaker(speaker, resultSet, 1);
+					}
+					
+					stmt = conn.prepareStatement("select * from topics " + "where topic = ?");
+					stmt.setString(1, topic);
+					resultSet = stmt.executeQuery();
+
+					Topic topic = new Topic();
+					
+					// Read through the ResultSet to see if the account exists
+					while (resultSet.next()) {
+						found = true;
+						loadTopic(topic, resultSet, 1);
+					}
+
+					// Now that we have speaker and topic id, we can use the IDs as a FK to the tedtalk
+					if (found) {
+						stmt = conn.prepareStatement(
+								"insert into tedtalks "
+								+ "(speaker_id, topic_id, title, description, url) "
+								+ "values (?,?,?, ?, ?) "
+						);
+						stmt.setInt(1, speaker.getSpeakerId());
+						stmt.setInt(2, topic.getTopicId());
+						stmt.setString(3, title);
+						stmt.setString(4, title);
+						stmt.setString(5, title);
+						stmt.executeUpdate();
+						
+						return true;
+					} else {
+						// If we didn't find an account for the student (which really shouldn't happen),
+						// return false
+						return false;
+					}
+
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});	
+	}
+
+	public Boolean insertNewSpeaker(final String firstname, final String lastname) {
+		return executeTransaction(new Transaction<Boolean>() {
+			@SuppressWarnings("resource")
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					stmt = conn.prepareStatement("select * from speakers " + "where firstname = ? or lastname = ?");
+					stmt.setString(1, firstname);
+					stmt.setString(2, lastname);
+					resultSet = stmt.executeQuery();
+
+					Speaker speaker = new Speaker();
+					
+					// Read through the ResultSet to see if the account exists
+					Boolean found = false;
+					while (resultSet.next()) {
+						found = true;
+						loadSpeaker(speaker, resultSet, 1);
+					}
+
+					// Now that we have speaker and topic id, we can use the IDs as a FK to the tedtalk
+					if (found) {
+						return false;
+					} else {
+						stmt = conn.prepareStatement(
+								"insert into speakers "
+								+ "(firstname, lastname) "
+								+ "values (?,?) "
+						);
+						stmt.setString(1, firstname);
+						stmt.setString(2, lastname);
+						stmt.executeUpdate();
+						return true;
+					}
+
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});	
+	}
+
+	public Boolean insertNewTopic(final String top) {
+		return executeTransaction(new Transaction<Boolean>() {
+			@SuppressWarnings("resource")
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					stmt = conn.prepareStatement("select * from topics " + "where topic = ?");
+					stmt.setString(1, top);
+					resultSet = stmt.executeQuery();
+
+					Topic topic = new Topic();
+					
+					// Read through the ResultSet to see if the account exists
+					Boolean found = false;
+					while (resultSet.next()) {
+						found = true;
+						loadTopic(topic,resultSet, 1);
+					}
+
+					// Now that we have speaker and topic id, we can use the IDs as a FK to the tedtalk
+					if (found) {
+						return false;
+					} else {
+						stmt = conn.prepareStatement(
+								"insert into topics "
+								+ "(topic) "
+								+ "values (?) "
+						);
+						stmt.setString(1, top);
+						stmt.executeUpdate();
+						return true;
+					}
+
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});	
+	}
+
+	public Boolean insertReview(final int rating, final String date, final String review, final String recommendations, final String firstname, final String lastname, final String title) {
+		return executeTransaction(new Transaction<Boolean>() {
+			@SuppressWarnings("resource")
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet = null;
+				ResultSet resultSet2 = null;
+
+				try {
+					stmt = conn.prepareStatement("select * from accounts " + "where firstname = ? or lastname = ?");
+					stmt.setString(1, firstname);
+					stmt.setString(2, lastname);
+					resultSet = stmt.executeQuery();
+
+					Account account = new Account();
+					
+					// Read through the ResultSet to see if the account exists
+					Boolean found = false;
+					while (resultSet.next()) {
+						found = true;
+						loadAccount(account, resultSet, 1);
+					}
+					
+					stmt2 = conn.prepareStatement("select * from tedtalks where title = ?");
+					stmt2.setString(1, title);
+					resultSet2 = stmt2.executeQuery();
+
+					TedTalk talk = new TedTalk();
+					// Read through the ResultSet to see if the account exists
+					while (resultSet2.next()) {
+						found = true;
+						loadTedTalk(talk, resultSet2, 1);
+					}
+
+					// Now that we have speaker and topic id, we can use the IDs as a FK to the tedtalk
+					if (found) {
+						stmt = conn.prepareStatement(
+								"insert into reviews "
+								+ "(account_id, tedtalk_id, rating, date, review, recommendations) "
+								+ "values (?,?,?, ?, ?, ?) "
+						);
+						stmt.setInt(1, account.getAccountId());
+						stmt.setInt(2, talk.getTedTalkId());
+						stmt.setInt(3, rating);
+						stmt.setString(4, date);
+						stmt.setString(5, review);
+						stmt.setString(6, recommendations);
+						stmt.executeUpdate();
+						
+					} else {
+						// If we didn't find an account for the student or a tedtalk,
+						// return false
+						System.out.println("Need account and speaker ids to complete transaction");
+						return false;
+					}
+
+				} catch (MalformedURLException e) {
+					System.out.println("Bad urls...");
+					e.printStackTrace();
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(stmt2);
+				}
+				return true;
+			}
+		});	
+	}
+
+	public List<TedTalk> findTedTalkbyAuthor(final String search) {
+		return executeTransaction(new Transaction<List<TedTalk>>() {
+			@SuppressWarnings("resource")
+			public List<TedTalk> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				List<TedTalk> result = new ArrayList<TedTalk>();
+				
+				try {
+					// First, create a list of reviews and a TED Talk
+					
+					Speaker speaker = new Speaker();
+					
+					// Next, get the topic
+					stmt = conn.prepareStatement(
+							"select * from speakers where firstname = ? or lastname = ?"
+					);
+					stmt.setString(1, search);
+					stmt.setString(2, search);
+	
+					resultSet = stmt.executeQuery();
+					
+					Boolean found = false;
+					while (resultSet.next()) {
+						found = true;
+						loadSpeaker(speaker, resultSet, 1);
+					}
+					
+					// Get all the reviews for that talk
+					stmt = conn.prepareStatement("select * from tedtalks where speaker_id = ?");
+					stmt.setInt(1, speaker.getSpeakerId());
+					resultSet = stmt.executeQuery();
+					
+					found = false;
+					while (resultSet.next()) {
+						TedTalk talk = new TedTalk();
+						found = true;
+						loadTedTalk(talk, resultSet, 1);
+						result.add(talk);
+					}
+					
+					if (!found) {
+						System.out.println("No tedtalks were found in the database");
+					}
+
+				} catch (MalformedURLException e) {
+					System.out.println("Bad url!");
+					e.printStackTrace();
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return result;
+			}
+		});
+	}
+	
+	public List<TedTalk> findTedTalkbyTopic(final String search) {
+		return executeTransaction(new Transaction<List<TedTalk>>() {
+			public List<TedTalk> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet = null;
+				ResultSet resultSet2 = null;
+				List<TedTalk> result = new ArrayList<TedTalk>();
+				
+				try {
+					// First, create a list of reviews and a TED Talk
+					
+					Topic topic = new Topic();
+					
+					// Next, get the topic
+					stmt = conn.prepareStatement(
+							"select * from topics where topic = ?"
+					);
+					stmt.setString(1, search);
+					resultSet = stmt.executeQuery();
+					
+					Boolean found = false;
+					while (resultSet.next()) {
+						found = true;
+						loadTopic(topic, resultSet, 1);
+					}
+					
+					// Get all the tedtalks for that topic
+					stmt2 = conn.prepareStatement("select * from tedtalks where topic_id = ?");
+					stmt2.setInt(1, topic.getTopicId());
+					resultSet2 = stmt2.executeQuery();
+		
+					while (resultSet2.next()) {
+						TedTalk talk = new TedTalk();
+						found = true;
+						loadTedTalk(talk, resultSet, 1);
+						result.add(talk);
+					}
+					
+					if (!found) {
+						System.out.println("No tedtalks were found in the database");
+					}
+
+				} catch (MalformedURLException e) {
+					System.out.println("Bad url!");
+					e.printStackTrace();
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+				}
+				return result;
+			}
+		});
+	}
+
+	public List<TedTalk> findTedTalkbyTitle(final String search) {
+		return executeTransaction(new Transaction<List<TedTalk>>() {
+			public List<TedTalk> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				List<TedTalk> result = new ArrayList<TedTalk>();
+				
+				try {
+					// First, create a list of TED Talks
+					
+					TedTalk talk = new TedTalk();
+					
+					// Query for title 
+					stmt = conn.prepareStatement(
+							"select * from tedtalks where title = ?"
+					);
+					stmt.setString(1, search);
+					resultSet = stmt.executeQuery();
+					
+					Boolean found = false;
+					while (resultSet.next()) {
+						found = true;
+						loadTedTalk(talk, resultSet, 1);
+						result.add(talk);
+					}
+				}catch (MalformedURLException e) {
+					System.out.println("Bad url!");
+					e.printStackTrace();
+				}
+				finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return result;
+			}
+		});
+		}
 }

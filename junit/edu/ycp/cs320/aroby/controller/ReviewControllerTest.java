@@ -17,9 +17,21 @@ public class ReviewControllerTest {
 		model2 = new Review();
 		controller1 = new ReviewController();
 		controller2 = new ReviewController();
+
+		model1.setTedTalkId(2);
+		model1.setAccountId(33);
+		model1.setReview("I love it");
+		model1.setReviewId(1);
+		model1.setRecommendation("We don't care about this project");
+		model1.setRating(3);
 		
-		//model1.setReview("A", "Agatha Christie", "Murder", "She writes suspenseful books.", "I like her books.", "https://en.wikipedia.org/wiki/Agatha_Christie", "Absolute read", 4);
-		//model2.setReview("A", "", "Murder", "", "I like her books.", "https://en.wikipedia.org/wiki/Agatha_Christie", "", 1);
+		model2.setTedTalkId(3);
+		model2.setAccountId(22);
+		model2.setReview("I hate it");
+		model2.setReviewId(3);
+		model2.setRecommendation("I wanna go party!");
+		model2.setRating(8);
+		
 		
 		controller1.setModel(model1);
 		controller2.setModel(model2);
@@ -29,8 +41,8 @@ public class ReviewControllerTest {
 	}
 	
 	@Test
-	public void test_isDone(){
-		assertTrue(controller1.isDone());
-		assertFalse(!controller2.isDone());
+	public void test_isCorrect(){
+		assertTrue(controller1.isCorrect());
+		assertFalse(!controller2.isCorrect());
 	}
 }

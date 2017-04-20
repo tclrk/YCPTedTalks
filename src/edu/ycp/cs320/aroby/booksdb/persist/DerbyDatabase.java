@@ -1344,7 +1344,7 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet = null;
 
 				try {
-					stmt = conn.prepareStatement("select * from speakers " + "where firstname = ? or lastname = ?");
+					stmt = conn.prepareStatement("select * from speakers " + "where firstname = ? and lastname = ?");
 					stmt.setString(1, firstname);
 					stmt.setString(2, lastname);
 					resultSet = stmt.executeQuery();
@@ -1380,8 +1380,8 @@ public class DerbyDatabase implements IDatabase {
 						stmt.setInt(1, speaker.getSpeakerId());
 						stmt.setInt(2, topic.getTopicId());
 						stmt.setString(3, title);
-						stmt.setString(4, title);
-						stmt.setString(5, title);
+						stmt.setString(4, description);
+						stmt.setString(5, url.toString());
 						stmt.executeUpdate();
 						
 						return true;
@@ -1497,7 +1497,7 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet2 = null;
 
 				try {
-					stmt = conn.prepareStatement("select * from accounts " + "where firstname = ? or lastname = ?");
+					stmt = conn.prepareStatement("select * from accounts " + "where firstname = ? and lastname = ?");
 					stmt.setString(1, firstname);
 					stmt.setString(2, lastname);
 					resultSet = stmt.executeQuery();
@@ -1516,7 +1516,7 @@ public class DerbyDatabase implements IDatabase {
 					resultSet2 = stmt2.executeQuery();
 
 					TedTalk talk = new TedTalk();
-					// Read through the ResultSet to see if the account exists
+					// Read through the ResultSet to see if the tedtalk exists
 					while (resultSet2.next()) {
 						found = true;
 						loadTedTalk(talk, resultSet2, 1);
@@ -1558,7 +1558,7 @@ public class DerbyDatabase implements IDatabase {
 		});	
 	}
 
-	public List<TedTalk> findTedTalkbyAuthor(final String search) {
+	public List<TedTalk> findTedTalkbyAuthor(final String search) { 
 		return executeTransaction(new Transaction<List<TedTalk>>() {
 			@SuppressWarnings("resource")
 			public List<TedTalk> execute(Connection conn) throws SQLException {
@@ -1567,16 +1567,12 @@ public class DerbyDatabase implements IDatabase {
 				List<TedTalk> result = new ArrayList<TedTalk>();
 				
 				try {
-					// First, create a list of reviews and a TED Talk
-					
 					Speaker speaker = new Speaker();
 					
-					// Next, get the topic
 					stmt = conn.prepareStatement(
-							"select * from speakers where firstname = ? or lastname = ?"
+							"select * from speakers where lastname = ?"
 					);
 					stmt.setString(1, search);
-					stmt.setString(2, search);
 	
 					resultSet = stmt.executeQuery();
 					
@@ -1586,7 +1582,7 @@ public class DerbyDatabase implements IDatabase {
 						loadSpeaker(speaker, resultSet, 1);
 					}
 					
-					// Get all the reviews for that talk
+					// Get all the tedtalks 
 					stmt = conn.prepareStatement("select * from tedtalks where speaker_id = ?");
 					stmt.setInt(1, speaker.getSpeakerId());
 					resultSet = stmt.executeQuery();
@@ -1625,8 +1621,6 @@ public class DerbyDatabase implements IDatabase {
 				List<TedTalk> result = new ArrayList<TedTalk>();
 				
 				try {
-					// First, create a list of reviews and a TED Talk
-					
 					Topic topic = new Topic();
 					
 					// Next, get the topic
@@ -1672,12 +1666,12 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 
-	public List<TedTalk> findTedTalkbyTitle(final String search) {
-		return executeTransaction(new Transaction<List<TedTalk>>() {
-			public List<TedTalk> execute(Connection conn) throws SQLException {
+	public TedTalk findTedTalkbyTitle(final String search) {
+		return executeTransaction(new Transaction<TedTalk>() {
+			public TedTalk execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
-				List<TedTalk> result = new ArrayList<TedTalk>();
+				TedTalk result = new TedTalk();
 				
 				try {
 					// First, create a list of TED Talks
@@ -1695,8 +1689,9 @@ public class DerbyDatabase implements IDatabase {
 					while (resultSet.next()) {
 						found = true;
 						loadTedTalk(talk, resultSet, 1);
-						result.add(talk);
 					}
+					
+					result = talk;
 				}catch (MalformedURLException e) {
 					System.out.println("Bad url!");
 					e.printStackTrace();
@@ -1708,5 +1703,5 @@ public class DerbyDatabase implements IDatabase {
 				return result;
 			}
 		});
-		}
+}
 }

@@ -46,5 +46,5 @@ public interface IDatabase {
 	//Chihea
 	public List<TedTalk> findTedTalkbyAuthor(String search);
 	public List<TedTalk> findTedTalkbyTopic(String search);
-	public List<TedTalk> findTedTalkbyTitle(String search);
+	public TedTalk findTedTalkbyTitle(String search);
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.ycp.cs320.aroby.controller.TedTalkController;
 import edu.ycp.cs320.aroby.model.Account;
 import edu.ycp.cs320.aroby.model.Student;
 import edu.ycp.cs320.aroby.model.TedTalk;
@@ -161,11 +162,11 @@ public class DerbyDatabaseTest {
 	
 	@Test
 	public void FindTedTalksByTitleTest() { //good
-		List<TedTalk> talks = new ArrayList<TedTalk>();
+		TedTalk talk = new TedTalk();
 		
-		talks = db.findTedTalkbyTitle("BS");
+		talk = db.findTedTalkbyTitle("BS");
 		
-		if(talks == null){
+		if(talk == null){
 			fail("No ted talks found.");
 		}
 		else{
@@ -206,29 +207,8 @@ public class DerbyDatabaseTest {
 	public void insertTedTalkTest() throws MalformedURLException {
 		
 		Speaker speaker = new Speaker();
-		speaker.setFirstname("Betty");
-		speaker.setLastname("Sue");
+		speaker = db.findAuthor("Roby");	
 		
-		Topic topic = new Topic();
-		topic.setTopic("Ladybugs");
-		
-		ArrayList<Review> reviews = new ArrayList<Review>();
-		Review rev = new Review();
-		ZonedDateTime date = ZonedDateTime.now();
-		rev.setReview("I love it");
-		rev.setDate(date);
-		rev.setRating(5);
-		rev.setRecommendation("Watch if you want to be a kid");
-		
-		reviews.add(rev);
-		
-		TedTalk talk = new TedTalk();
-		talk.setDescription("Great video");
-		talk.setLink(new URL("https://docs.google.com/document/d/1sVaXM1ijR3_E03e-PIx3alpqa1TsHG6zuhbJQT__pRw/edit"));
-		talk.setReview(reviews);
-		talk.setTitle("Loser");
-		
-		db.insertNewSpeaker(speaker.getFirstname(), speaker.getLastname());
 		Boolean result = db.insertNewTedTalk(talk.getTitle(), talk.getDescription(),talk.getLink(),speaker.getFirstname(), speaker.getLastname(), topic.getTopic());
 		
 		if (result == true) {
@@ -241,28 +221,13 @@ public class DerbyDatabaseTest {
 	@Test
 	public void insertReviewTest() throws MalformedURLException {
 		Account acc = new Account();
-		acc.setFirstName("Chihea");
-		acc.setLastName("Locke");
-		acc.setAdmin(true);
-		acc.setEmail("clocke3@ycp.edu");
-		acc.setPassword("yomama");
-		
-		Review rev = new Review();
-		rev.setDate(ZonedDateTime.now());
-		rev.setRating(4);
-		rev.setRecommendation("I love it");
-		rev.setReview("You are a piece of shit.");
-		ArrayList<Review> reviews = new ArrayList<Review>();
-		reviews.add(rev);
+		acc = db.findAccount("clocke3@ycp.edu");
 		
 		TedTalk talk = new TedTalk();
-		talk.setLink(new URL("https://github.com/mailbox2112/YCPTedTalks/blob/master/src/edu/ycp/cs320/aroby/booksdb/persist/DerbyDatabase.java"));
-		talk.setDescription("Fascinating");
-		talk.setReview(reviews);
-		talk.setTitle("Storybook");
+		talk = db.findTedTalkbyTitle("A Guide To Masterful BS");
 		
-		Boolean result = db.insertReview(rev.getRating(), rev.getDate(), rev.getReview(), rev.getRecommendation(), acc.getFirstName(), acc.getLastName(), talk.getTitle());
-
+		Boolean result = db.insertReview(4, ZonedDateTime.now().toString(), "You are shit", "I love it", acc.getFirstName(), acc.getLastName(), talk.getTitle());
+	
 		if (result == true) {
 			System.out.println("Speaker added successfully.");
 		} else {

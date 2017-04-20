@@ -238,7 +238,7 @@ public class FakeDatabase implements IDatabase {
 		return null;
 	}
 
-	public List<TedTalk> findTedTalkbyTitle(String search) {
+	public TedTalk findTedTalkbyTitle(String search) {
 		// TODO Auto-generated method stub
 		return null;
 	}

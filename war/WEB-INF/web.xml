@@ -38,6 +38,7 @@
   <servlet-name>TedTalkServlet</servlet-name>
   	<servlet-class>edu.ycp.cs320.aroby.servlet.TedTalkServlet</servlet-class>
   </servlet>
+  
 	<!-- Ajax Servlets -->
   <servlet>
     <servlet-name>AddNumbersAjaxServlet</servlet-name>
@@ -71,7 +72,7 @@
   	<url-pattern>/login</url-pattern>
    </servlet-mapping><servlet-mapping>
   	<servlet-name>ReviewServlet</servlet-name>
-  	<url-pattern>/reviewPage</url-pattern>
+  	<url-pattern>/shortReviewPage</url-pattern>
    </servlet-mapping><servlet-mapping>
   	<servlet-name>SearchServlet</servlet-name>
   	<url-pattern>/searchPage</url-pattern>
@@ -97,7 +98,7 @@
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>ReviewServlet</servlet-name>
-  	<url-pattern>/reviewPage</url-pattern>
+  	<url-pattern>/shortReviewPage</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>CreateAccountServlet</servlet-name>
@@ -106,13 +107,7 @@
   <servlet-mapping>
   	<servlet-name>SearchServlet</servlet-name>
   	<url-pattern>/searchPage</url-pattern>
-  </servlet-mapping>
-  <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>
-  <servlet-mapping>
+  </servlet-mapping> <servlet-mapping>
   	<servlet-name>TedTalkServlet</servlet-name>
   	<url-pattern>/tedTalkPage</url-pattern>
   </servlet-mapping>

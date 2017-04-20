@@ -16,19 +16,16 @@ public class ReviewController {
 	}
 	
 	public Review getReview(){
-		//model.setReview(model.getName(),model.getAuthor(), model.getTopic(), model.getDescription(), model.getReview(), model.getLink(), model.getRecommendation(), model.getRating());
-		//model.getDate();
 		return model;
 	}
 	
-	public boolean isDone(){
-		//if all the forms are filled out
-		/*if(model.getReview() != null || model.getDescription() != null|| model.getTopic() != null ||  model.getName() != null ||  model.getAuthor() != null ||  model.getLink() != null || model.getRecommendation() != null || model.getRating() > 0){
+	public Boolean isCorrect(){
+		if(model.getAccountId() != 0 || model.getRating() > 0 || model.getRating() < 5 || model.getRecommendation() != "" || model.getReview() != "" || model.getReviewId() != 0 
+				|| model.getTedTalkId() != 0){
 			return true;
 		}
 		else{
 			return false;
-		}*/
-		return true;
+		}
 	}
 }

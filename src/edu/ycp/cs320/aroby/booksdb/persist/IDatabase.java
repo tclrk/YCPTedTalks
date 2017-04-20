@@ -1,5 +1,7 @@
 package edu.ycp.cs320.aroby.booksdb.persist;
 
+import java.net.URL;
+import java.sql.Date;
 import java.util.List;
 
 import edu.ycp.cs320.aroby.booksdb.model.Author;
@@ -23,16 +25,18 @@ public interface IDatabase {
 	public List<Author> removeBookByTitle(String title);
 	//all above from lab 6
 	
+	
+	//Chihea's 
+	public Boolean insertNewTedTalk(String title, String description, URL url, String firstname, String lastname, String topic);
+	public Boolean insertNewSpeaker(String firstname, String lastname);
+	public Boolean insertNewTopic(String top);
+	public Boolean insertReview(int rating, String date, String review, String recommendations, String firstname, String lastname, String title);
+	
 	// Me
 	public Boolean createNewAccount(String email, String password, String firstname, String lastname, boolean admin);
 	public Boolean createNewStudent(int ycp_id, String major, String email);
 	public Account findAccount(String email);
 	public Student findStudent(String email);
-	
-	public void insertNewTedTalk();
-	public void insertNewSpeaker();
-	public void insertNewTopic();
-	public void insertReview();
 	
 	// Me
 	public List<Review> findReviewsbyAuthor(String firstname, String lastname);
@@ -41,7 +45,8 @@ public interface IDatabase {
 	public Topic findTopic(String topic);
 	public Speaker findSpeaker(String firstname, String lastname);
 	
+	//Chihea
 	public List<TedTalk> findTedTalkbyAuthor(String search);
 	public List<TedTalk> findTedTalkbyTopic(String search);
-	public List<TedTalk> findTedTalkbyTitle(String search);
+	public TedTalk findTedTalkbyTitle(String search);
 }

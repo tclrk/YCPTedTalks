@@ -2,14 +2,19 @@ package edu.ycp.cs320.aroby.booksdb.persist;
 
 import static org.junit.Assert.*;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.ycp.cs320.aroby.controller.TedTalkController;
 import edu.ycp.cs320.aroby.model.Account;
 import edu.ycp.cs320.aroby.model.Student;
+import edu.ycp.cs320.aroby.model.TedTalk;
 import edu.ycp.cs320.aroby.model.Topic;
 import edu.ycp.cs320.aroby.model.Review;
 import edu.ycp.cs320.aroby.model.Speaker;
@@ -26,7 +31,7 @@ public class DerbyDatabaseTest {
 	
 	
 	@Test
-	public void FindAccountTest() {
+	public void FindAccountTest() { //good
 		Account account = new Account();
 		
 		account = db.findAccount("aroby@ycp.edu");
@@ -47,7 +52,7 @@ public class DerbyDatabaseTest {
 	}
 	
 	@Test
-	public void FindStudentTest() {
+	public void FindStudentTest() { //good
 		Student student = new Student();
 		
 		student = db.findStudent("student@ycp.edu");
@@ -60,7 +65,7 @@ public class DerbyDatabaseTest {
 	}
 	
 	@Test
-	public void CreateAccountTest() {
+	public void CreateAccountTest() { //good
 		Account account = new Account();
 		account.setAdmin(true);
 		account.setEmail("test@ycp.edu");
@@ -93,7 +98,7 @@ public class DerbyDatabaseTest {
 	}
 
 	@Test
-	public void CreateStudentTest() {
+	public void CreateStudentTest() { //good
 		Student account = new Student();
 		account.setAdmin(false);
 		account.setEmail("testStudent@ycp.edu");
@@ -117,7 +122,7 @@ public class DerbyDatabaseTest {
 	}
 	
 	@Test
-	public void FindTopicTest() {
+	public void FindTopicTest() { //good
 		Topic topic = new Topic();
 		
 		topic = db.findTopic("Engineering");
@@ -130,7 +135,7 @@ public class DerbyDatabaseTest {
 	}
 	
 	@Test
-	public void FindReviewsByAuthorTest() {
+	public void FindReviewsByAuthorTest() { //good
 		List<Review> reviews = new ArrayList<Review>();
 		
 		reviews = db.findReviewsbyAuthor("Aaron", "Roby");
@@ -143,7 +148,7 @@ public class DerbyDatabaseTest {
 	}
 	
 	@Test
-	public void FindReviewsByTopicTest() {
+	public void FindReviewsByTopicTest() { //good
 		List<Review> reviews = new ArrayList<Review>();
 		
 		reviews = db.findReviewbyTopic("BS");
@@ -156,15 +161,110 @@ public class DerbyDatabaseTest {
 	}
 	
 	@Test
-	public void FindReviewsByTitleTest() {
-		List<Review> reviews = new ArrayList<Review>();
+	public void FindTedTalksByTitleTest() { //good
+		TedTalk talk = new TedTalk();
 		
-		reviews = db.findReviewbyTitle("A Guide To Masterful BS");
+		talk = db.findTedTalkbyTitle("BS");
 		
-		if (reviews == null) {
-			fail("No reviews found.");
+		if(talk == null){
+			fail("No ted talks found.");
+		}
+		else{
+			System.out.println("TedTalks found succesfully!");
+		}
+	
+	}
+	@Test
+	public void FindTedTalksBySpeakerTest() { //good
+		List<TedTalk> talks = new ArrayList<TedTalk>();
+		
+		talks = db.findTedTalkbyAuthor("Roby");
+		
+		if(talks == null){
+			fail("No ted talks found.");
+		}
+		else{
+			System.out.println("TedTalks found succesfully!");
+		}
+	
+	}
+	
+	@Test
+	public void FindTedTalksByTopicTest() { //good
+		List<TedTalk> talks = new ArrayList<TedTalk>();
+		
+		talks = db.findTedTalkbyTopic("Science");
+		
+		if(talks == null){
+			fail("No ted talks found.");
+		}
+		else{
+			System.out.println("TedTalks found succesfully!");
+		}
+	}
+	
+	@Test
+	public void insertTedTalkTest() throws MalformedURLException {
+		
+		Speaker speaker = new Speaker();
+		speaker = db.findSpeaker("Aaron","Roby");	
+		
+		Topic topic = new Topic();
+		topic.setTopic("BS");
+		
+		Boolean result = db.insertNewTedTalk("Bulldogs","They're not vicious", new URL("https://github.com/mailbox2112/YCPTedTalks") ,speaker.getFirstname(), speaker.getLastname(), topic.getTopic());
+		
+		if (result == true) {
+			System.out.println("TedTalk created successfully.");
 		} else {
-			System.out.print("Reviews found successfully.");
+			fail("Uh oh, the TedTalk wasn't created successfully.");
+		}
+	}
+	
+	@Test
+	public void insertReviewTest() throws MalformedURLException {
+		Account acc = new Account();
+		acc = db.findAccount("clocke3@ycp.edu");
+		
+		TedTalk talk = new TedTalk();
+		talk = db.findTedTalkbyTitle("A Guide To Masterful BS");
+		
+		Boolean result = db.insertReview(4, ZonedDateTime.now().toString(), "You are shit", "I love it", acc.getFirstName(), acc.getLastName(), talk.getTitle());
+	
+		if (result == true) {
+			System.out.println("Speaker added successfully.");
+		} else {
+			fail("Uh oh, the speaker wasn't added successfully.");
+		}
+	}
+	
+	@Test
+	public void insertNewSpeakerTest() { //good
+		Speaker speaker = new Speaker();
+		speaker.setFirstname("Hank");
+		speaker.setLastname("Hill");
+		
+		Boolean result = db.insertNewSpeaker(speaker.getFirstname(), speaker.getLastname());
+		
+		if (result == true) {
+			System.out.println("Speaker added successfully.");
+		} else {
+			fail("Uh oh, the speaker wasn't added successfully.");
+		}
+		
+	}
+	
+	@Test
+	public void insertNewTopicTest() { //good
+		Topic topic = new Topic();
+		topic.setTopic("Propane");
+		
+		Boolean result = db.insertNewTopic("Propane");
+		
+		if (result == true) {
+			System.out.println("Topic added successfully.");
+		} else {
+			fail("Uh oh, the topic wasn't added successfully.");
 		}
 	}
 	

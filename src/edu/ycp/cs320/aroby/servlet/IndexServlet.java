@@ -33,6 +33,8 @@ public class IndexServlet extends HttpServlet {
 			resp.sendRedirect("/aroby/createAccount");
 		} else if(req.getParameter("searchPage") != null) {
 			resp.sendRedirect("/aroby/searchPage");
+		}else if(req.getParameter("tedTalkPage") != null) {
+			resp.sendRedirect("/aroby/tedTalkPage");
 		}
 	}
 }

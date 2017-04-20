@@ -6,6 +6,9 @@
 	<head>
 		<title>Account Creation</title>
 		<style>
+		body{
+			font-family: Helvetica Neue;
+		}
 		td.label {
 			text-align: right;
 		}
@@ -13,13 +16,11 @@
 			box-sizing: border-box;
 			border: 2px solid #ff193d;
  			font-size: 16px;
- 			font-family: Helvetica Neue;
 		}
 		input[type=password]{
 			box-sizing: border-box;
 			border: 2px solid #ff193d;
  			font-size: 16px;
- 			font-family: Helvetica Neue;
 		}
 		
 		input[type=submit]{
@@ -30,10 +31,10 @@
    		 text-align: center;
    		 text-decoration: none;
    		 display: inline-block;
-    		 font-size: 16px;
+    	 font-size: 16px;
    		 margin: 4px 2px;
    		 -webkit-transition-duration: 0.4s; /* for Safari */
-    		 transition-duration: 0.4s;
+    	 transition-duration: 0.4s;
    		 cursor: pointer;
 		}
 

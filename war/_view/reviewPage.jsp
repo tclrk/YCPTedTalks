@@ -12,31 +12,6 @@
 			<div class="error">${errorMessage}</div>
 		</c:if>
 		<form id="reviewForm" name="reviewForm" action="${pageContext.servletContext.contextPath}/reviewPage" method="post">
-			<div class="Name">
-				<label for="name">Name</label><br>
-				<input type="text" name ="name" id="name" size=12 value ="${model.name}"/>
-			</div>
-		
-			<div class="Link">
-				<label for="link">TED Talk Link</label><br>
-				<input type="text" name ="link" id="link" size=12 value ="${model.link}"/>
-			</div>
-			
-			<div class="Topic">
-				<label for="topic">Topic</label><br>
-				<input type="text" name ="topic" id="topic" size=12 value ="${model.topic}"/>
-			</div>
-		
-			<div class="Author">
-				<label for="author">Author</label><br>
-				<input type="text" name ="author" id="author" size=12 value ="${model.author}"/>
-			</div>
-			
-			<div class ="Description">
-				<label for="description">Description</label><br>
-				<textarea name= "descript" id="descript" placeholder="Please write a description for the TED Talk" size = "12" value ="${model.description}"></textarea>
-			</div>
-
 			<div>
 				<label for="review">Review</label><br>
 				<textarea name= "review" id="review" placeholder="Please write a review for the TED Talk" size=12 value ="${model.review}"></textarea>
@@ -67,8 +42,7 @@
 	<div id ="review"></div>
 		<script> 
 		function check(){
-			if(document.reviewForm.name.value == "" || document.reviewForm.link.value == "" || document.reviewForm.topic.value == "" ||
-					document.reviewForm.author.value == "" || document.reviewForm.descript.value == "" || document.reviewForm.review.value == "" || document.reviewForm.rating.value == ""){
+			if(document.reviewForm.review.value == "" || document.reviewForm.rating.value == ""){
 				alert("Complete all required fields");
 			}
 			else{

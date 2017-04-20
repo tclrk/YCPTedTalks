@@ -2,6 +2,8 @@ package edu.ycp.cs320.aroby.model;
 
 import java.time.ZonedDateTime;
 
+import java.time.ZonedDateTime;
+
 public class Review {
 	private String review, recommendation;
 	private int rating, account_id, tedTalk_id, review_id;
@@ -25,8 +27,9 @@ public class Review {
 	public void setReview(String review) {
 		this.review = review;
 	}
-	public ZonedDateTime getDate() {
-		return date;
+	public String getDate() {
+		date = ZonedDateTime.now();
+		return date.toString();
 	}
 	public void setDate(ZonedDateTime date) {
 		this.date = date;

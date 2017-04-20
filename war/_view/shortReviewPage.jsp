@@ -11,7 +11,7 @@
 	<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>
-		<form id="shortReviewForm" name="reviewForm" action="${pageContext.servletContext.contextPath}/reviewPage" method="post">
+		<form id="shortReviewForm" name="reviewForm" action="${pageContext.servletContext.contextPath}/shortReviewPage" method="post">
 			<div class="Name">
 				<label for="name">Name</label><br>
 				<input type="text" name ="name" id="name" size=12 value ="${model.name}"/>

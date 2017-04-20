@@ -562,7 +562,7 @@ public class DerbyDatabase implements IDatabase {
 	// TODO: Change it here and in SQLDemo under
 	// CS320_Lab06->edu.ycp.cs320.sqldemo
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby:C:/CS320/library.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby: Users/chihealocke/Desktop/CS320/library.db;create=true");
 
 		// Set autocommit() to false to allow the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -619,6 +619,12 @@ public class DerbyDatabase implements IDatabase {
 		topic.setTopic(resultSet.getString(index++));
 	}
 	
+	private void loadSpeaker(Speaker speaker, ResultSet resultSet, int index) throws SQLException {
+		speaker.setSpeakerId(resultSet.getInt(index++));
+		speaker.setFirstname(resultSet.getString(index++));
+		speaker.setLastname(resultSet.getString(index++));
+	}
+	
 	private void loadReview(Review review, ResultSet resultSet, int index) throws SQLException {
 		review.setReviewId(resultSet.getInt(index++));
 		review.setAccountId(resultSet.getInt(index++));
@@ -636,12 +642,6 @@ public class DerbyDatabase implements IDatabase {
 		talk.setTitle(resultSet.getString(index++));
 		talk.setDescription(resultSet.getString(index++));
 		talk.setLink(new URL(resultSet.getString(index++)));
-	}
-	
-	private void loadSpeaker(Speaker speaker, ResultSet resultSet, int index) throws SQLException {
-		speaker.setSpeakerId(resultSet.getInt(index++));
-		speaker.setFirstname(resultSet.getString(index++));
-		speaker.setLastname(resultSet.getString(index++));
 	}
 
 	// creates the Authors and Books tables
@@ -1117,27 +1117,7 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
-
-	public void insertNewTedTalk() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void insertNewSpeaker() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void insertNewTopic() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void insertReview() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	public List<Review> findReviewsbyAuthor(final String firstname, final String lastname) {
 		return executeTransaction(new Transaction<List<Review>>() {
 			public List<Review> execute(Connection conn) throws SQLException {
@@ -1321,7 +1301,6 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	public Topic findTopic(final String topic) {
-		// TODO Auto-generated method stub
 		return executeTransaction(new Transaction<Topic>() {
 			public Topic execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
@@ -1395,18 +1374,372 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 
-	public List<TedTalk> findTedTalkbyAuthor(String search) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean insertNewTedTalk(final String title, final String description, final URL url, final String firstname, final String lastname, final String topic) {
+		return executeTransaction(new Transaction<Boolean>() {
+			@SuppressWarnings("resource")
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					stmt = conn.prepareStatement("select * from speakers " + "where firstname = ? and lastname = ?");
+					stmt.setString(1, firstname);
+					stmt.setString(2, lastname);
+					resultSet = stmt.executeQuery();
+
+					Speaker speaker = new Speaker();
+					
+					// Read through the ResultSet to see if the account exists
+					Boolean found = false;
+					while (resultSet.next()) {
+						found = true;
+						loadSpeaker(speaker, resultSet, 1);
+					}
+					
+					stmt = conn.prepareStatement("select * from topics " + "where topic = ?");
+					stmt.setString(1, topic);
+					resultSet = stmt.executeQuery();
+
+					Topic topic = new Topic();
+					
+					// Read through the ResultSet to see if the account exists
+					while (resultSet.next()) {
+						found = true;
+						loadTopic(topic, resultSet, 1);
+					}
+
+					// Now that we have speaker and topic id, we can use the IDs as a FK to the tedtalk
+					if (found) {
+						stmt = conn.prepareStatement(
+								"insert into tedtalks "
+								+ "(speaker_id, topic_id, title, description, url) "
+								+ "values (?,?,?, ?, ?) "
+						);
+						stmt.setInt(1, speaker.getSpeakerId());
+						stmt.setInt(2, topic.getTopicId());
+						stmt.setString(3, title);
+						stmt.setString(4, description);
+						stmt.setString(5, url.toString());
+						stmt.executeUpdate();
+						
+						return true;
+					} else {
+						// If we didn't find an account for the student (which really shouldn't happen),
+						// return false
+						return false;
+					}
+
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});	
 	}
 
-	public List<TedTalk> findTedTalkbyTopic(String search) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean insertNewSpeaker(final String firstname, final String lastname) {
+		return executeTransaction(new Transaction<Boolean>() {
+			@SuppressWarnings("resource")
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					stmt = conn.prepareStatement("select * from speakers " + "where firstname = ? or lastname = ?");
+					stmt.setString(1, firstname);
+					stmt.setString(2, lastname);
+					resultSet = stmt.executeQuery();
+
+					Speaker speaker = new Speaker();
+					
+					// Read through the ResultSet to see if the account exists
+					Boolean found = false;
+					while (resultSet.next()) {
+						found = true;
+						loadSpeaker(speaker, resultSet, 1);
+					}
+
+					// Now that we have speaker and topic id, we can use the IDs as a FK to the tedtalk
+					if (found) {
+						return false;
+					} else {
+						stmt = conn.prepareStatement(
+								"insert into speakers "
+								+ "(firstname, lastname) "
+								+ "values (?,?) "
+						);
+						stmt.setString(1, firstname);
+						stmt.setString(2, lastname);
+						stmt.executeUpdate();
+						return true;
+					}
+
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});	
 	}
 
-	public List<TedTalk> findTedTalkbyTitle(String search) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean insertNewTopic(final String top) {
+		return executeTransaction(new Transaction<Boolean>() {
+			@SuppressWarnings("resource")
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					stmt = conn.prepareStatement("select * from topics " + "where topic = ?");
+					stmt.setString(1, top);
+					resultSet = stmt.executeQuery();
+
+					Topic topic = new Topic();
+					
+					// Read through the ResultSet to see if the account exists
+					Boolean found = false;
+					while (resultSet.next()) {
+						found = true;
+						loadTopic(topic,resultSet, 1);
+					}
+
+					// Now that we have speaker and topic id, we can use the IDs as a FK to the tedtalk
+					if (found) {
+						return false;
+					} else {
+						stmt = conn.prepareStatement(
+								"insert into topics "
+								+ "(topic) "
+								+ "values (?) "
+						);
+						stmt.setString(1, top);
+						stmt.executeUpdate();
+						return true;
+					}
+
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});	
 	}
+
+	public Boolean insertReview(final int rating, final String date, final String review, final String recommendations, final String firstname, final String lastname, final String title) {
+		return executeTransaction(new Transaction<Boolean>() {
+			@SuppressWarnings("resource")
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet = null;
+				ResultSet resultSet2 = null;
+
+				try {
+					stmt = conn.prepareStatement("select * from accounts " + "where firstname = ? and lastname = ?");
+					stmt.setString(1, firstname);
+					stmt.setString(2, lastname);
+					resultSet = stmt.executeQuery();
+
+					Account account = new Account();
+					
+					// Read through the ResultSet to see if the account exists
+					Boolean found = false;
+					while (resultSet.next()) {
+						found = true;
+						loadAccount(account, resultSet, 1);
+					}
+					
+					stmt2 = conn.prepareStatement("select * from tedtalks where title = ?");
+					stmt2.setString(1, title);
+					resultSet2 = stmt2.executeQuery();
+
+					TedTalk talk = new TedTalk();
+					// Read through the ResultSet to see if the tedtalk exists
+					while (resultSet2.next()) {
+						found = true;
+						loadTedTalk(talk, resultSet2, 1);
+					}
+
+					// Now that we have speaker and topic id, we can use the IDs as a FK to the tedtalk
+					if (found) {
+						stmt = conn.prepareStatement(
+								"insert into reviews "
+								+ "(account_id, tedtalk_id, rating, date, review, recommendations) "
+								+ "values (?,?,?, ?, ?, ?) "
+						);
+						stmt.setInt(1, account.getAccountId());
+						stmt.setInt(2, talk.getTedTalkId());
+						stmt.setInt(3, rating);
+						stmt.setString(4, date);
+						stmt.setString(5, review);
+						stmt.setString(6, recommendations);
+						stmt.executeUpdate();
+						
+					} else {
+						// If we didn't find an account for the student or a tedtalk,
+						// return false
+						System.out.println("Need account and speaker ids to complete transaction");
+						return false;
+					}
+
+				} catch (MalformedURLException e) {
+					System.out.println("Bad urls...");
+					e.printStackTrace();
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(stmt2);
+				}
+				return true;
+			}
+		});	
+	}
+
+	public List<TedTalk> findTedTalkbyAuthor(final String search) { 
+		return executeTransaction(new Transaction<List<TedTalk>>() {
+			@SuppressWarnings("resource")
+			public List<TedTalk> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				List<TedTalk> result = new ArrayList<TedTalk>();
+				
+				try {
+					Speaker speaker = new Speaker();
+					
+					stmt = conn.prepareStatement(
+							"select * from speakers where lastname = ?"
+					);
+					stmt.setString(1, search);
+	
+					resultSet = stmt.executeQuery();
+					
+					Boolean found = false;
+					while (resultSet.next()) {
+						found = true;
+						loadSpeaker(speaker, resultSet, 1);
+					}
+					
+					// Get all the tedtalks 
+					stmt = conn.prepareStatement("select * from tedtalks where speaker_id = ?");
+					stmt.setInt(1, speaker.getSpeakerId());
+					resultSet = stmt.executeQuery();
+					
+					found = false;
+					while (resultSet.next()) {
+						TedTalk talk = new TedTalk();
+						found = true;
+						loadTedTalk(talk, resultSet, 1);
+						result.add(talk);
+					}
+					
+					if (!found) {
+						System.out.println("No tedtalks were found in the database");
+					}
+
+				} catch (MalformedURLException e) {
+					System.out.println("Bad url!");
+					e.printStackTrace();
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return result;
+			}
+		});
+	}
+	
+	public List<TedTalk> findTedTalkbyTopic(final String search) {
+		return executeTransaction(new Transaction<List<TedTalk>>() {
+			public List<TedTalk> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet = null;
+				ResultSet resultSet2 = null;
+				List<TedTalk> result = new ArrayList<TedTalk>();
+				
+				try {
+					Topic topic = new Topic();
+					
+					// Next, get the topic
+					stmt = conn.prepareStatement(
+							"select * from topics where topic = ?"
+					);
+					stmt.setString(1, search);
+					resultSet = stmt.executeQuery();
+					
+					Boolean found = false;
+					while (resultSet.next()) {
+						found = true;
+						loadTopic(topic, resultSet, 1);
+					}
+					
+					// Get all the tedtalks for that topic
+					stmt2 = conn.prepareStatement("select * from tedtalks where topic_id = ?");
+					stmt2.setInt(1, topic.getTopicId());
+					resultSet2 = stmt2.executeQuery();
+		
+					while (resultSet2.next()) {
+						TedTalk talk = new TedTalk();
+						found = true;
+						loadTedTalk(talk, resultSet, 1);
+						result.add(talk);
+					}
+					
+					if (!found) {
+						System.out.println("No tedtalks were found in the database");
+					}
+
+				} catch (MalformedURLException e) {
+					System.out.println("Bad url!");
+					e.printStackTrace();
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+				}
+				return result;
+			}
+		});
+	}
+
+	public TedTalk findTedTalkbyTitle(final String search) {
+		return executeTransaction(new Transaction<TedTalk>() {
+			public TedTalk execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				TedTalk result = new TedTalk();
+				
+				try {
+					// First, create a list of TED Talks
+					
+					TedTalk talk = new TedTalk();
+					
+					// Query for title 
+					stmt = conn.prepareStatement(
+							"select * from tedtalks where title = ?"
+					);
+					stmt.setString(1, search);
+					resultSet = stmt.executeQuery();
+					
+					Boolean found = false;
+					while (resultSet.next()) {
+						found = true;
+						loadTedTalk(talk, resultSet, 1);
+					}
+					
+					result = talk;
+				}catch (MalformedURLException e) {
+					System.out.println("Bad url!");
+					e.printStackTrace();
+				}
+				finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return result;
+			}
+		});
+}
 }

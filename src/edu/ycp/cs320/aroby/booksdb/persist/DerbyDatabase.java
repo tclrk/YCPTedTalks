@@ -1778,4 +1778,42 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	
+	public TedTalk findTedTalkByReview(final Review review) {
+		return executeTransaction(new Transaction<TedTalk>() {
+			public TedTalk execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				TedTalk result = new TedTalk();
+				
+				try {
+					// First, create a TedTalk
+					TedTalk talk = new TedTalk();
+					
+					// Query for title 
+					stmt = conn.prepareStatement(
+							"select * from tedtalks where tedtalk_id = ?"
+					);
+					stmt.setInt(1, review.getTedTalkId());
+					resultSet = stmt.executeQuery();
+					
+					Boolean found = false;
+					while (resultSet.next()) {
+						found = true;
+						loadTedTalk(talk, resultSet, 1);
+					}
+					
+					result = talk;
+				}catch (MalformedURLException e) {
+					System.out.println("Bad url!");
+					e.printStackTrace();
+				}
+				finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return result;
+			}
+		});
+	}
 }

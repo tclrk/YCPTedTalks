@@ -252,5 +252,10 @@ public class FakeDatabase implements IDatabase {
 	public Account findAccount(int accountId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public TedTalk findTedTalkByReview(Review review) {
+		// TODO Auto-generated method stub
+		return null;
 	}	
 }

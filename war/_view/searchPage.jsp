@@ -23,13 +23,21 @@
 		<c:forEach items="${sessionScope.reviews}" var="review">
 			<c:forEach items="${sessionScope.accounts}" var="account">
 				<c:if test="${account.accountId == review.accountId}">
-					<tr>
-						<td>
-							<c:out value="${account.firstName}"/> <c:out value="${account.lastName}"/>
-							<button id="selectReview">Select Review</button>
-							<c:set var="reviewPage" value="${review.reviewId}" scope="session"/>
-						</td>
-					</tr>
+					<c:forEach items="${sessionScope.tedTalks}" var="talk">
+						<c:if test="${talk.tedTalkId == review.tedTalkId}">
+							<tr>
+								<td>
+									<c:out value="${account.firstName}"/> <c:out value="${account.lastName}"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<c:out value="${talk.title}"/>
+									<c:out value="${talk.rating}"/>
+								</td>
+							</tr>
+						</c:if>
+					</c:forEach>
 				</c:if>
 			</c:forEach>
 		</c:forEach>

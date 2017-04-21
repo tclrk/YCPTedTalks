@@ -47,7 +47,8 @@ public class SearchController {
 	}
 	
 	public TedTalk getTedTalkFromReview(Review review) {
-		return null;
+		TedTalk tedTalk = db.findTedTalkByReview(review);
+		return tedTalk;
 	}
 	
 	public List<Account> getAccountFromReview(List<Review> reviews) {

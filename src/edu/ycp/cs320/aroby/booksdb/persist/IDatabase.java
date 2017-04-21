@@ -38,6 +38,7 @@ public interface IDatabase {
 	public Account findAccount(String email);
 	public Account findAccount(int accountId);
 	public Student findStudent(String email);
+	public TedTalk findTedTalkByReview(Review review);
 	
 	// Me
 	public List<Review> findReviewsbyAuthor(String firstname, String lastname);

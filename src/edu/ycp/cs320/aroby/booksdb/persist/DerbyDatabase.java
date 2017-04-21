@@ -562,7 +562,7 @@ public class DerbyDatabase implements IDatabase {
 	// TODO: Change it here and in SQLDemo under
 	// CS320_Lab06->edu.ycp.cs320.sqldemo
 	private Connection connect() throws SQLException {
-		Connection conn = DriverManager.getConnection("jdbc:derby: Users/chihealocke/Desktop/CS320/library.db;create=true");
+		Connection conn = DriverManager.getConnection("jdbc:derby: C:/CS320/library.db;create=true");
 
 		// Set autocommit() to false to allow the execution of
 		// multiple queries/statements as part of the same transaction.
@@ -844,8 +844,8 @@ public class DerbyDatabase implements IDatabase {
 					for (Account account : accountList) {
 						insertAccounts.setString(1, account.getEmail());
 						insertAccounts.setString(2, account.getPassword());
-						insertAccounts.setString(3, account.getFirstName());
-						insertAccounts.setString(4, account.getLastName());
+						insertAccounts.setString(3, account.getFirstName().toLowerCase());
+						insertAccounts.setString(4, account.getLastName().toLowerCase());
 						insertAccounts.setBoolean(5, account.getAdmin());
 						insertAccounts.addBatch();
 					}
@@ -858,7 +858,7 @@ public class DerbyDatabase implements IDatabase {
 					for (Student student : studentList) {
 						insertStudents.setInt(1, student.getAccountId());
 						insertStudents.setInt(2, student.getYCPId());
-						insertStudents.setString(3, student.getMajor());
+						insertStudents.setString(3, student.getMajor().toLowerCase());
 						insertStudents.addBatch();
 					}
 					insertStudents.executeBatch();
@@ -868,7 +868,7 @@ public class DerbyDatabase implements IDatabase {
 					// table
 					insertTopics = conn.prepareStatement("insert into topics (topic) values (?)");
 					for (Topic topic : topicList) {
-						insertTopics.setString(1, topic.getTopic());
+						insertTopics.setString(1, topic.getTopic().toLowerCase());
 						insertTopics.addBatch();
 					}
 					insertTopics.executeBatch();
@@ -878,8 +878,8 @@ public class DerbyDatabase implements IDatabase {
 					// speakers table
 					insertSpeakers = conn.prepareStatement("insert into speakers (firstname, lastname) values (?,?)");
 					for (Speaker speaker : speakerList) {
-						insertSpeakers.setString(1, speaker.getFirstname());
-						insertSpeakers.setString(2, speaker.getLastname());
+						insertSpeakers.setString(1, speaker.getFirstname().toLowerCase());
+						insertSpeakers.setString(2, speaker.getLastname().toLowerCase());
 						insertSpeakers.addBatch();
 					}
 					insertSpeakers.executeBatch();
@@ -891,7 +891,7 @@ public class DerbyDatabase implements IDatabase {
 					for (TedTalk talk : tedtalkList) {
 						insertTedTalks.setInt(1, talk.getSpeakerId());
 						insertTedTalks.setInt(2, talk.getTopicId());
-						insertTedTalks.setString(3, talk.getTitle());
+						insertTedTalks.setString(3, talk.getTitle().toLowerCase());
 						insertTedTalks.setString(4, talk.getDescription());
 						insertTedTalks.setString(5, talk.getLink().toString());
 						insertTedTalks.addBatch();
@@ -952,6 +952,41 @@ public class DerbyDatabase implements IDatabase {
 				try {
 					stmt = conn.prepareStatement("select * from accounts " + "where email = ?");
 					stmt.setString(1, email);
+					resultSet = stmt.executeQuery();
+
+					Account account = new Account();
+
+					// for testing that a result was returned
+					Boolean found = false;
+					while (resultSet.next()) {
+						found = true;
+						loadAccount(account, resultSet, 1);
+					}
+
+					// check if any accounts were found
+					if (!found) {
+						System.out.println("No accounts were found in the database");
+					}
+
+					return account;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
+	public Account findAccount(final int accountId) {
+		// Look up an account by their email
+		return executeTransaction(new Transaction<Account>() {
+			public Account execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					stmt = conn.prepareStatement("select * from accounts " + "where account_id = ?");
+					stmt.setInt(1, accountId);
 					resultSet = stmt.executeQuery();
 
 					Account account = new Account();
@@ -1048,8 +1083,8 @@ public class DerbyDatabase implements IDatabase {
 						);
 						stmt.setString(1, email);
 						stmt.setString(2, password);
-						stmt.setString(3, firstname);
-						stmt.setString(4, lastname);
+						stmt.setString(3, firstname.toLowerCase());
+						stmt.setString(4, lastname.toLowerCase());
 						stmt.setBoolean(5, admin);
 						stmt.executeUpdate();
 						
@@ -1100,7 +1135,7 @@ public class DerbyDatabase implements IDatabase {
 						);
 						stmt.setInt(1, account.getAccountId());
 						stmt.setInt(2, ycp_id);
-						stmt.setString(3, major);
+						stmt.setString(3, major.toLowerCase());
 						stmt.executeUpdate();
 						
 						return true;
@@ -1133,8 +1168,8 @@ public class DerbyDatabase implements IDatabase {
 					stmt = conn.prepareStatement(
 							"select * from accounts where firstname = ? and lastname = ?"
 					);
-					stmt.setString(1, firstname);
-					stmt.setString(2, lastname);
+					stmt.setString(1, firstname.toLowerCase());
+					stmt.setString(2, lastname.toLowerCase());
 					resultSet = stmt.executeQuery();
 					
 					Boolean found = false;
@@ -1142,6 +1177,7 @@ public class DerbyDatabase implements IDatabase {
 						Account account = new Account();
 						found = true;
 						loadAccount(account, resultSet, 1);
+						accounts.add(account);
 					}
 					
 					for(Account acc : accounts) {
@@ -1190,7 +1226,7 @@ public class DerbyDatabase implements IDatabase {
 					stmt = conn.prepareStatement(
 							"select * from topics where topic = ?"
 					);
-					stmt.setString(1, topic);
+					stmt.setString(1, topic.toLowerCase());
 					resultSet = stmt.executeQuery();
 					
 					Boolean found = false;
@@ -1262,7 +1298,7 @@ public class DerbyDatabase implements IDatabase {
 					stmt = conn.prepareStatement(
 							"select * from tedtalks where title = ?"
 					);
-					stmt.setString(1, title);
+					stmt.setString(1, title.toLowerCase());
 					resultSet = stmt.executeQuery();
 					
 					Boolean found = false;
@@ -1312,7 +1348,7 @@ public class DerbyDatabase implements IDatabase {
 					
 					// Then, select the topic that matches
 					stmt = conn.prepareStatement("select * from topics " + "where topic = ?");
-					stmt.setString(1, topic);
+					stmt.setString(1, topic.toLowerCase());
 					resultSet = stmt.executeQuery();
 
 					// Load the topic info into the topic object
@@ -1349,8 +1385,8 @@ public class DerbyDatabase implements IDatabase {
 					
 					// Then, select the topic that matches
 					stmt = conn.prepareStatement("select * from speakers " + "where firstname = ? and lastname = ?");
-					stmt.setString(1, firstname);
-					stmt.setString(2, lastname);
+					stmt.setString(1, firstname.toLowerCase());
+					stmt.setString(2, lastname.toLowerCase());
 					resultSet = stmt.executeQuery();
 
 					// Load the topic info into the topic object
@@ -1383,8 +1419,8 @@ public class DerbyDatabase implements IDatabase {
 
 				try {
 					stmt = conn.prepareStatement("select * from speakers " + "where firstname = ? and lastname = ?");
-					stmt.setString(1, firstname);
-					stmt.setString(2, lastname);
+					stmt.setString(1, firstname.toLowerCase());
+					stmt.setString(2, lastname.toLowerCase());
 					resultSet = stmt.executeQuery();
 
 					Speaker speaker = new Speaker();
@@ -1397,7 +1433,7 @@ public class DerbyDatabase implements IDatabase {
 					}
 					
 					stmt = conn.prepareStatement("select * from topics " + "where topic = ?");
-					stmt.setString(1, topic);
+					stmt.setString(1, topic.toLowerCase());
 					resultSet = stmt.executeQuery();
 
 					Topic topic = new Topic();
@@ -1417,7 +1453,7 @@ public class DerbyDatabase implements IDatabase {
 						);
 						stmt.setInt(1, speaker.getSpeakerId());
 						stmt.setInt(2, topic.getTopicId());
-						stmt.setString(3, title);
+						stmt.setString(3, title.toLowerCase());
 						stmt.setString(4, description);
 						stmt.setString(5, url.toString());
 						stmt.executeUpdate();
@@ -1446,8 +1482,8 @@ public class DerbyDatabase implements IDatabase {
 
 				try {
 					stmt = conn.prepareStatement("select * from speakers " + "where firstname = ? or lastname = ?");
-					stmt.setString(1, firstname);
-					stmt.setString(2, lastname);
+					stmt.setString(1, firstname.toLowerCase());
+					stmt.setString(2, lastname.toLowerCase());
 					resultSet = stmt.executeQuery();
 
 					Speaker speaker = new Speaker();
@@ -1468,8 +1504,8 @@ public class DerbyDatabase implements IDatabase {
 								+ "(firstname, lastname) "
 								+ "values (?,?) "
 						);
-						stmt.setString(1, firstname);
-						stmt.setString(2, lastname);
+						stmt.setString(1, firstname.toLowerCase());
+						stmt.setString(2, lastname.toLowerCase());
 						stmt.executeUpdate();
 						return true;
 					}
@@ -1491,7 +1527,7 @@ public class DerbyDatabase implements IDatabase {
 
 				try {
 					stmt = conn.prepareStatement("select * from topics " + "where topic = ?");
-					stmt.setString(1, top);
+					stmt.setString(1, top.toLowerCase());
 					resultSet = stmt.executeQuery();
 
 					Topic topic = new Topic();
@@ -1512,7 +1548,7 @@ public class DerbyDatabase implements IDatabase {
 								+ "(topic) "
 								+ "values (?) "
 						);
-						stmt.setString(1, top);
+						stmt.setString(1, top.toLowerCase());
 						stmt.executeUpdate();
 						return true;
 					}
@@ -1536,8 +1572,8 @@ public class DerbyDatabase implements IDatabase {
 
 				try {
 					stmt = conn.prepareStatement("select * from accounts " + "where firstname = ? and lastname = ?");
-					stmt.setString(1, firstname);
-					stmt.setString(2, lastname);
+					stmt.setString(1, firstname.toLowerCase());
+					stmt.setString(2, lastname.toLowerCase());
 					resultSet = stmt.executeQuery();
 
 					Account account = new Account();
@@ -1550,7 +1586,7 @@ public class DerbyDatabase implements IDatabase {
 					}
 					
 					stmt2 = conn.prepareStatement("select * from tedtalks where title = ?");
-					stmt2.setString(1, title);
+					stmt2.setString(1, title.toLowerCase());
 					resultSet2 = stmt2.executeQuery();
 
 					TedTalk talk = new TedTalk();
@@ -1610,7 +1646,7 @@ public class DerbyDatabase implements IDatabase {
 					stmt = conn.prepareStatement(
 							"select * from speakers where lastname = ?"
 					);
-					stmt.setString(1, search);
+					stmt.setString(1, search.toLowerCase());
 	
 					resultSet = stmt.executeQuery();
 					
@@ -1665,7 +1701,7 @@ public class DerbyDatabase implements IDatabase {
 					stmt = conn.prepareStatement(
 							"select * from topics where topic = ?"
 					);
-					stmt.setString(1, search);
+					stmt.setString(1, search.toLowerCase());
 					resultSet = stmt.executeQuery();
 					
 					Boolean found = false;
@@ -1720,7 +1756,7 @@ public class DerbyDatabase implements IDatabase {
 					stmt = conn.prepareStatement(
 							"select * from tedtalks where title = ?"
 					);
-					stmt.setString(1, search);
+					stmt.setString(1, search.toLowerCase());
 					resultSet = stmt.executeQuery();
 					
 					Boolean found = false;
@@ -1741,5 +1777,5 @@ public class DerbyDatabase implements IDatabase {
 				return result;
 			}
 		});
-}
+	}
 }

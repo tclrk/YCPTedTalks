@@ -36,6 +36,7 @@ public interface IDatabase {
 	public Boolean createNewAccount(String email, String password, String firstname, String lastname, boolean admin);
 	public Boolean createNewStudent(int ycp_id, String major, String email);
 	public Account findAccount(String email);
+	public Account findAccount(int accountId);
 	public Student findStudent(String email);
 	
 	// Me

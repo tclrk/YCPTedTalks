@@ -22,7 +22,7 @@ public class TedTalkController {
 		ted_talk.setTopicId(topic_id);	
 	}
 	
-	public boolean exists(){
+	public boolean exists(){ 
 		if (ted_talk.getTedTalkId() == 0){
 			return false;
 		}

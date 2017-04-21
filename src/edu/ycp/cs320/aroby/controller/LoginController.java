@@ -18,6 +18,10 @@ public class LoginController {
 		this.model = model;
 	}
 	
+	public Account getModel() {
+		return model;
+	}
+	
 	public boolean login() {
 		boolean success = false;
 		
@@ -26,6 +30,7 @@ public class LoginController {
 			if (retrievedAccount.getEmail().equals(model.getEmail()) &&
 					retrievedAccount.getPassword().equals(model.getPassword())) {
 				success = true;
+				model = retrievedAccount;
 			}
 		}
 		

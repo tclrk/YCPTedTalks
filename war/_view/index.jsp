@@ -10,16 +10,17 @@
 	</head>
 
 	<body>
-	<% String name=(String)session.getAttribute("name");
-		if (name != null) {%> <h1>Welcome, ${name}!</h1><%}%>
+	<c:if test="${sessionScope.login != null}"><h1>Welcome, <c:out value="${sessionScope.name}"/>!</h1></c:if>
 		<form action="${pageContext.servletContext.contextPath}/index" method="post">
-	<%Boolean login=(Boolean)session.getAttribute("login");
-		if (login != null){ %><input name="logout" type="submit" value="Logout" />
+	<c:choose>
+		<c:when test="${sessionScope.login == true}"><input name="logout" type="submit" value="Logout" />
 			<input name="tedTalkPage" type="submit" value="Begin New TedTalk Page" />
-			<input name="searchPage" type="submit" value="Search"/><%} 
-		else { %>
+			<input name="searchPage" type="submit" value="Search"/></c:when>
+		<c:when test="${sessionScope.login != true}">
 			<input name="login" type="submit" value="Login" />
-			<input name="createAccount" type="submit" value="Create An Account" /><%} %>
+			<input name="createAccount" type="submit" value="Create An Account" />
+		</c:when>
+	</c:choose>
 		</form>
 		<br>
 	<div class="popular_reviews">

@@ -26,7 +26,7 @@ public class AccountController {
 	public boolean createAccount(Account model) {
 		boolean success = false;
 		success = db.createNewAccount(model.getEmail(), model.getPassword(),
-					model.getFirstName(), model.getLastName(), model.getAdmin());
+					model.getFirstName().toLowerCase(), model.getLastName().toLowerCase(), model.getAdmin());
 		
 		return success;
 	}
@@ -34,12 +34,11 @@ public class AccountController {
 	public boolean createStudent(Student model) {
 		boolean success = false;
 		success = db.createNewAccount(model.getEmail(), model.getPassword(),
-				model.getFirstName(), model.getLastName(), model.getAdmin());
+				model.getFirstName().toLowerCase(), model.getLastName().toLowerCase(), model.getAdmin());
 		
 		if (success) {
-			success = db.createNewStudent(model.getYCPId(), model.getMajor(), model.getEmail());
+			success = db.createNewStudent(model.getYCPId(), model.getMajor().toLowerCase(), model.getEmail());
 		}
-		
 		
 		return success;
 	}

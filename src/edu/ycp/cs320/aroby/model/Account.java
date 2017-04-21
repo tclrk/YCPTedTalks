@@ -6,7 +6,7 @@ public class Account {
 	private String firstName;
 	private String lastName;
 	private Boolean admin;
-	private int account_id;
+	private int accountId;
 	
 	public Account() {
 	}
@@ -52,10 +52,10 @@ public class Account {
 	}
 
 	public int getAccountId() {
-		return account_id;
+		return accountId;
 	}
 
 	public void setAccountId(int account_id) {
-		this.account_id = account_id;
+		this.accountId = account_id;
 	}
 }

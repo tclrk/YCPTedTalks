@@ -6,7 +6,7 @@ import java.time.ZonedDateTime;
 
 public class Review {
 	private String review, recommendation;
-	private int rating, account_id, tedTalk_id, review_id;
+	private int rating, accountId, tedTalkId, reviewId;
 	private ZonedDateTime date;
 	
 	public String getRecommendation() {
@@ -35,21 +35,21 @@ public class Review {
 		this.date = date;
 	}
 	public int getTedTalkId() {
-		return tedTalk_id;
+		return tedTalkId;
 	}
 	public void setTedTalkId(int tedTalk_id) {
-		this.tedTalk_id = tedTalk_id;
+		this.tedTalkId = tedTalk_id;
 	}
 	public int getAccountId() {
-		return account_id;
+		return accountId;
 	}
 	public void setAccountId(int account_id) {
-		this.account_id = account_id;
+		this.accountId = account_id;
 	}
 	public int getReviewId() {
-		return review_id;
+		return reviewId;
 	}
 	public void setReviewId(int review_id) {
-		this.review_id = review_id;
+		this.reviewId = review_id;
 	}
 }

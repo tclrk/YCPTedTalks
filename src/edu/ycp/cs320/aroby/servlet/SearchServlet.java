@@ -1,24 +1,18 @@
 package edu.ycp.cs320.aroby.servlet;
 
 import java.io.IOException;
-import java.sql.Connection;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import edu.ycp.cs320.aroby.model.Account;
+import edu.ycp.cs320.aroby.model.Review;
 import edu.ycp.cs320.aroby.model.Search;
 import edu.ycp.cs320.aroby.controller.SearchController;
-import edu.ycp.cs320.aroby.model.TedTalk;
-
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class SearchServlet extends HttpServlet{
@@ -33,26 +27,70 @@ public class SearchServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		
-			Search model = new Search();
-			SearchController controller = new SearchController();
 			
-			String search = req.getParameter("search");
-			
-			model.setSearch(search);
-			String errorMessage = null;
-			
-			if(model.getSearch() != ""){
-				controller.setModel(model);
-				req.setAttribute("model", model);
-				req.getRequestDispatcher("/_view/searchView.jsp").forward(req, resp);
-			}
-			else{
-				errorMessage = "Type in something!";
-			}
-	}
+		String errorMessage = null;
 	
-	//private int getInteger(HttpServletRequest req, String name) {
-		//return Integer.parseInt(req.getParameter(name));
-	//}
+		Search model = new Search();
+		SearchController controller = new SearchController();
+		
+		// Search is the LEFTMOST box
+		String search = req.getParameter("search");
+		// ExtraSearch is RIGHTMOST box
+		String extraSearch = req.getParameter("extraSearch");
+		String dropDownSelection = req.getParameter("options");
+		
+		model.setSearch(search);
+		model.setExtraSearch(extraSearch);
+		
+		
+		if(model.getSearch() != "" && model.getSearch() != null){
+			controller.setModel(model);
+			List<Review> reviews = new ArrayList<Review>();
+			List<Account> accounts = new ArrayList<Account>();
+			
+			// Check what they selected from the drop down
+			// If we selected authors, we'll find reviews by author
+			if(dropDownSelection.equals("author")) {
+				reviews = controller.findReviewsByAuthor(model.getSearch(), model.getExtraSearch());
+				accounts = controller.getAccountFromReview(reviews);
+			// If not, we'll find them by topic
+			} else if(dropDownSelection.equals("topic")) {
+				reviews = controller.findReviewsByTopic(search);
+			// Or by title
+			} else if(dropDownSelection.equals("title")) {
+				reviews = controller.findReviewsByTitle(search);
+			}
+			
+			// Put the lists into the session info, then go back to the search page
+			HttpSession session = req.getSession();
+			session.setAttribute("reviews", reviews);
+			session.setAttribute("accounts", accounts);
+			req.getRequestDispatcher("/_view/searchPage.jsp").forward(req, resp);
+		} else if(req.getParameter("readReview") != null) {
+			// Get the session
+			HttpSession session = req.getSession();
+			// Get the reviews and selected review id from the session
+			List<Review> reviews = (List<Review>)session.getAttribute("reviews");
+			Integer reviewId = (Integer)session.getAttribute("reviewPage");
+			
+			// Create a review object to hold the review we want
+			Review reviewToRead = new Review();
+			
+			// Iterate through the reviews until we find the one we need
+			for(Review review : reviews) {
+				if(review.getReviewId() == reviewId) {
+					reviewToRead = review;
+				}
+			}
+			
+			// Remove unnecessary session info, add the review to the session
+			session.removeAttribute("reviews");
+			session.removeAttribute("reviewPage");
+			session.setAttribute("review", reviewToRead);
+		}
+		else {
+			errorMessage = "Type in something!";
+		}
+		
+	}
 }

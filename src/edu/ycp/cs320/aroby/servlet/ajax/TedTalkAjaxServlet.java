@@ -53,7 +53,7 @@ public class TedTalkAjaxServlet {
 			//talk.setTitle(title);
 			//talk.setTedTalkId(i);
 			talk.setReview(reviewList);
-			controller.set_TedTalk(title, description, tedTalk_id, speaker_id, topic_id, link, review);
+			//controller.set_TedTalk(title, description, tedTalk_id, speaker_id, topic_id, link, review);
 			
 			// Send back a response
 			resp.setContentType("text/plain");

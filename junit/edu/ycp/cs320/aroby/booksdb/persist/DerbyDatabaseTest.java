@@ -140,10 +140,10 @@ public class DerbyDatabaseTest {
 		
 		reviews = db.findReviewsbyAuthor("Aaron", "Roby");
 		
-		if (reviews == null) {
-			fail("No reviews found!");
-		} else {
-			System.out.println("Reviews found successfully.");
+		for(Review review : reviews) {
+			if(review.getAccountId() != 1) {
+				fail("Reviews not successfully retrieved");
+			}
 		}
 	}
 	

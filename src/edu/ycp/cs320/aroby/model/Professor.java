@@ -1,16 +1,16 @@
 package edu.ycp.cs320.aroby.model;
 
 public class Professor extends Account {
-	private int professor_id;
+	private int professorId;
 	
 	public Professor() {
 	}
 	
 	public int getProfessorID() {
-		return professor_id;
+		return professorId;
 	}
 	
 	public void setProfessorID(int professor_id) {
-		this.professor_id = professor_id;
+		this.professorId = professor_id;
 	}
 }

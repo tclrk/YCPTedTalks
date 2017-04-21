@@ -247,5 +247,10 @@ public class FakeDatabase implements IDatabase {
 	public Speaker findSpeaker(String firstname, String lastname) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Account findAccount(int accountId) {
+		// TODO Auto-generated method stub
+		return null;
 	}	
 }

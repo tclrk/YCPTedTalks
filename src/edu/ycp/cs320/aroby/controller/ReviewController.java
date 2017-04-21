@@ -1,24 +1,27 @@
 package edu.ycp.cs320.aroby.controller;
 
+import edu.ycp.cs320.aroby.booksdb.persist.DatabaseProvider;
+import edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase;
+import edu.ycp.cs320.aroby.booksdb.persist.IDatabase;
 import edu.ycp.cs320.aroby.model.Review;
 
 // TODO: Fix this!
 public class ReviewController {
 	private Review model;
+	private IDatabase db;
 
 	/**
 	 * Set the model.
 	 * 
 	 * @param model the model to set
 	 */
+	
+	public ReviewController() {
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		db = DatabaseProvider.getInstance();
+	}
 	public void setModel(Review model) {
 		this.model = model;
-		model.setAccountId(model.getAccountId());
-		model.setRating(model.getRating());
-		model.setRecommendation(model.getRecommendation());
-		model.setReview(model.getReview());
-		model.setReviewId(model.getReviewId());
-		model.setTedTalkId(model.getTedTalkId());
 	}
 	
 	public Review getReview(){

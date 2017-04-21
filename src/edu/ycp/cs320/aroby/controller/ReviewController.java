@@ -13,6 +13,12 @@ public class ReviewController {
 	 */
 	public void setModel(Review model) {
 		this.model = model;
+		model.setAccountId(model.getAccountId());
+		model.setRating(model.getRating());
+		model.setRecommendation(model.getRecommendation());
+		model.setReview(model.getReview());
+		model.setReviewId(model.getReviewId());
+		model.setTedTalkId(model.getTedTalkId());
 	}
 	
 	public Review getReview(){

@@ -1,6 +1,7 @@
 package edu.ycp.cs320.aroby.servlet;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class TedTalkServlet extends HttpServlet {
 	}
 	
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException , MalformedURLException{
 		Review model = new Review();
 		ReviewController control = new ReviewController();
 		TedTalk talk = new TedTalk();
@@ -76,7 +77,7 @@ public class TedTalkServlet extends HttpServlet {
 			talk.setTitle(title);
 			talk.setSpeakerId(auth.getSpeakerId());
 			talk.setTopicId (tops.getTopicId());
-			talk.setReview(null);
+			talk.setReview(review);
 			controller.set_TedTalk(talk.getTitle(), talk.getDescription(), talk.getTedTalkId(), talk.getSpeakerId(), talk.getTopicId(), talk.getLink(), talk.getReview());
 			talkCreated = true;
 			}

@@ -272,7 +272,7 @@ public class DerbyDatabaseTest {
 	public void FindSpeakerTest() {
 		Speaker speaker = new Speaker();
 		
-		speaker = db.findSpeaker("Aaron", "Roby");
+		speaker = db.findSpeaker("aaron", "roby");
 		
 		if (speaker.getFirstname().equals("Aaron") && speaker.getLastname().equals("Roby")) {
 			System.out.println("Speaker found successfully!");

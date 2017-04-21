@@ -19,7 +19,6 @@ public class SearchController {
 		DatabaseProvider.setInstance(new DerbyDatabase());
 		db = DatabaseProvider.getInstance();
 	}
-	
 	public void setModel(Search model) {
 		this.model = model;
 	}
@@ -62,5 +61,4 @@ public class SearchController {
 		
 		return accounts;
 	}
-	
 }

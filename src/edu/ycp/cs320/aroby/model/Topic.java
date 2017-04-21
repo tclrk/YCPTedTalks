@@ -5,7 +5,6 @@ public class Topic {
 	private int topicId;
 	
 	public Topic() {
-		
 	}
 	
 	public int getTopicId() {

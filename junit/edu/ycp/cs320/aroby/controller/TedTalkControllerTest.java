@@ -26,7 +26,7 @@ public class TedTalkControllerTest {
 		
 		talk.setDescription("Lady Diana's death sparked a media frenzy and brought up discussion"
 				+ "pertaining to paparazzi and private lives.");
-		talk.setLink(new URL("http://www.gonegreek.com/comfort-colors-crewneck-with-greek-letters/"));
+		talk.setLink("http://www.gonegreek.com/comfort-colors-crewneck-with-greek-letters/");
 		String review_string = "I really wish this conversation happened years ago";
 		review.setReview(review_string);
 		rList.add(review);

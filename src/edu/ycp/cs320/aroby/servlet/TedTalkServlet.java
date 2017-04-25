@@ -72,7 +72,7 @@ public class TedTalkServlet extends HttpServlet {
 			review.add(model);
 			
 			talk.setDescription(description);
-			talk.setLink(new URL(url_string));
+			talk.setLink(url_string);
 			talk.setTitle(title);
 			talk.setSpeakerId(auth.getSpeakerId());
 			talk.setTopicId (tops.getTopicId());

@@ -22,7 +22,7 @@ public class TedTalkTest {
 		String title1 = "Angina: How to Stop It";
 		String description1 = "Laurie shares her experiences with heart attacks.";
 		
-		URL link_1 = new URL("https://www.example.com/docs/resource1.html");
+		String link_1 = "https://www.example.com/docs/resource1.html";
 		
 		String review1 = "She is very heartwarming and her talk was wonderuful.";
 		String review2 = "I don't understand this discussion.";

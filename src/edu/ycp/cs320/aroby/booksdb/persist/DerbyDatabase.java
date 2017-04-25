@@ -641,7 +641,7 @@ public class DerbyDatabase implements IDatabase {
 		talk.setTopicId(resultSet.getInt(index++));
 		talk.setTitle(resultSet.getString(index++));
 		talk.setDescription(resultSet.getString(index++));
-		talk.setLink(new URL(resultSet.getString(index++)));
+		talk.setLink(resultSet.getString(index++));
 	}
 
 	// creates the Authors and Books tables

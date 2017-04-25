@@ -1,44 +1,33 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ page import="java.util.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>Search List</title>
 </head>
 <body>
-<form action="${pageContext.servletContext.contextPath}/searchView" method="post">
-	<table>
-		<tr>
-			<td><b>Results</b></td>
-		</tr>
-		<% int count = 0;
-		String color = "#F9EBB3";
-			if(request.getAttribute("search") != null){
-				ArrayList list = (ArrayList) request.getAttribute("search");
-				Iterator itr = list.iterator();
-				while (itr.hasNext()){
-					  if ((count % 2) == 0) {
-                          color = "#eeffee";
-                      }
-				}
-				count++;
-                ArrayList sList = (ArrayList) itr.next();
-			%>
-			<tr>
-			<td><%=sList.get(0)%></td>
-			</tr>
-			<%
-                    }
-                if (count == 0) {
-            %>
-            <tr>
-                <td colspan=4 align="center"
-                    style="background-color:#eeffee"><b>No Record Found..</b></td>
-            </tr>
-            <% }
-            %>
-	</table>
-	 </form>
+	<form action="${pageContext.servletContext.contextPath}/searchView"
+		method="post">
+		<c:forEach items="${sessionScope.tedTalks}" var="talk">
+			<iframe width="560" height="315" src="${talk.link}" frameborder="0"
+				allowfullscreen></iframe>
+			<table>
+				<tr>
+					<td><c:out value="${talk.title}" /></td>
+					<td><c:out value="${talk.description}" /></td>
+					<c:forEach items="${sessionScope.accounts}" var="account">
+						<c:forEach items="${sessionScope.reviews}" var="review">
+							<c:forEach items="${sessionScope.topics}" var="topic">
+								<c:if test="${talk.topicId == topic.topicId}">
+									<td><c:out value="${topic.topic}" /></td>
+								</c:if>
+							</c:forEach>
+						</c:forEach>
+					</c:forEach>
+				</tr>
+			</table>
+		</c:forEach>
+	</form>
 </body>
 </html>

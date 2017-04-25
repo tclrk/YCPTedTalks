@@ -39,8 +39,7 @@ public interface IDatabase {
 	public Account findAccount(int accountId);
 	public Student findStudent(String email);
 	public TedTalk findTedTalkByReview(Review review);
-	
-	// Me
+	public List<Topic> getAllTopics();
 	public List<Review> findReviewsbyAuthor(String firstname, String lastname);
 	public List<Review> findReviewbyTopic(String topic);
 	public List<Review> findReviewbyTitle(String title);

@@ -11,6 +11,7 @@ import edu.ycp.cs320.aroby.model.Account;
 import edu.ycp.cs320.aroby.model.Review;
 import edu.ycp.cs320.aroby.model.Search;
 import edu.ycp.cs320.aroby.model.TedTalk;
+import edu.ycp.cs320.aroby.model.Topic;
 import edu.ycp.cs320.aroby.controller.SearchController;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,6 @@ public class SearchServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-			
 		String errorMessage = null;
 	
 		Search model = new Search();
@@ -49,12 +49,14 @@ public class SearchServlet extends HttpServlet{
 			List<Review> reviews = new ArrayList<Review>();
 			List<Account> accounts = new ArrayList<Account>();
 			List<TedTalk> tedTalks = new ArrayList<TedTalk>();
+			List<Topic> topics = new ArrayList<Topic>();
 			
 			// Check what they selected from the drop down
 			// If we selected authors, we'll find reviews by author
 			if(dropDownSelection.equals("author")) {
 				reviews = controller.findReviewsByAuthor(model.getSearch(), model.getExtraSearch());
 				accounts = controller.getAccountFromReview(reviews);
+				topics = controller.getTopics();
 				for(Review review : reviews) {
 					TedTalk talk = controller.getTedTalkFromReview(review);
 					tedTalks.add(talk);
@@ -63,6 +65,7 @@ public class SearchServlet extends HttpServlet{
 			} else if(dropDownSelection.equals("topic")) {
 				reviews = controller.findReviewsByTopic(search);
 				accounts = controller.getAccountFromReview(reviews);
+				topics = controller.getTopics();
 				for(Review review : reviews) {
 					TedTalk talk = controller.getTedTalkFromReview(review);
 					tedTalks.add(talk);
@@ -71,6 +74,7 @@ public class SearchServlet extends HttpServlet{
 			} else if(dropDownSelection.equals("title")) {
 				reviews = controller.findReviewsByTitle(search);
 				accounts = controller.getAccountFromReview(reviews);
+				topics = controller.getTopics();
 				for(Review review : reviews) {
 					TedTalk talk = controller.getTedTalkFromReview(review);
 					tedTalks.add(talk);
@@ -82,30 +86,9 @@ public class SearchServlet extends HttpServlet{
 			session.setAttribute("reviews", reviews);
 			session.setAttribute("accounts", accounts);
 			session.setAttribute("tedTalks", tedTalks);
-			req.getRequestDispatcher("/_view/searchPage.jsp").forward(req, resp);
-		} else if(req.getParameter("readReview") != null) {
-			// Get the session
-			HttpSession session = req.getSession();
-			// Get the reviews and selected review id from the session
-			List<Review> reviews = (List<Review>)session.getAttribute("reviews");
-			Integer reviewId = (Integer)session.getAttribute("reviewPage");
-			
-			// Create a review object to hold the review we want
-			Review reviewToRead = new Review();
-			
-			// Iterate through the reviews until we find the one we need
-			for(Review review : reviews) {
-				if(review.getReviewId() == reviewId) {
-					reviewToRead = review;
-				}
-			}
-			
-			// Remove unnecessary session info, add the review to the session
-			session.removeAttribute("reviews");
-			session.removeAttribute("reviewPage");
-			session.setAttribute("review", reviewToRead);
-		}
-		else {
+			session.setAttribute("topics", topics);
+			req.getRequestDispatcher("/_view/searchView.jsp").forward(req, resp);
+		} else {
 			errorMessage = "Type in something!";
 		}
 		

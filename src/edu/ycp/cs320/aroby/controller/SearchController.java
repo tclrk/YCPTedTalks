@@ -10,6 +10,7 @@ import edu.ycp.cs320.aroby.model.Account;
 import edu.ycp.cs320.aroby.model.Review;
 import edu.ycp.cs320.aroby.model.Search;
 import edu.ycp.cs320.aroby.model.TedTalk;
+import edu.ycp.cs320.aroby.model.Topic;
 
 public class SearchController {
 	private Search model;
@@ -61,5 +62,11 @@ public class SearchController {
 		}
 		
 		return accounts;
+	}
+	
+	public List<Topic> getTopics() {
+		List<Topic> topics = new ArrayList<Topic>();
+		topics = db.getAllTopics();
+		return topics;
 	}
 }

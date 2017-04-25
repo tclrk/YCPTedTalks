@@ -257,5 +257,10 @@ public class FakeDatabase implements IDatabase {
 	public TedTalk findTedTalkByReview(Review review) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public List<Topic> getAllTopics() {
+		// TODO Auto-generated method stub
+		return null;
 	}	
 }

@@ -1052,6 +1052,46 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	
+	public List<Topic> getAllTopics() {
+		return executeTransaction(new Transaction<List<Topic>>() {
+			public List<Topic> execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					// First, create an empty list of topics
+					List<Topic> topics = new ArrayList<Topic>();
+					
+					// Then, select from students where the account id matches the FK
+					stmt = conn.prepareStatement("select * from topics");
+					resultSet = stmt.executeQuery();
+
+					// Empty student object to load data into
+					
+
+					// Load the student info into the empty student object
+					Boolean found = false;
+					while (resultSet.next()) {
+						Topic topic= new Topic();
+						found = true;
+						loadTopic(topic, resultSet, 1);
+						topics.add(topic);
+					}
+
+					// Check if any students were found
+					if (!found) {
+						System.out.println("No students were found in the database");
+					}
+
+					return topics;
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
 
 	public Boolean createNewAccount(final String email, final String password, 
 			final String firstname, final String lastname, final boolean admin) {

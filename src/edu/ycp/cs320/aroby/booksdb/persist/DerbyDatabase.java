@@ -1557,6 +1557,37 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});	
 	}
+	
+	public Speaker findSpeakerFromTedTalk(final int speakerId) {
+		return executeTransaction(new Transaction<Speaker>() {
+			@SuppressWarnings("resource")
+			public Speaker execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					stmt = conn.prepareStatement("select * from speakers " + "where speaker_id = ?");
+					stmt.setInt(1, speakerId);
+					resultSet = stmt.executeQuery();
+
+					Speaker speaker = new Speaker();
+					
+					// Read through the ResultSet to see if the account exists
+					Boolean found = false;
+					while (resultSet.next()) {
+						found = true;
+						loadSpeaker(speaker, resultSet, 1);
+					}
+					
+					return speaker;
+
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});	
+	}
 
 	public Boolean insertNewTopic(final String top) {
 		return executeTransaction(new Transaction<Boolean>() {
@@ -1672,7 +1703,7 @@ public class DerbyDatabase implements IDatabase {
 		});	
 	}
 
-	public List<TedTalk> findTedTalkbyAuthor(final String search) { 
+	public List<TedTalk> findTedTalkbySpeaker(final String search) { 
 		return executeTransaction(new Transaction<List<TedTalk>>() {
 			@SuppressWarnings("resource")
 			public List<TedTalk> execute(Connection conn) throws SQLException {

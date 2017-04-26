@@ -178,7 +178,7 @@ public class DerbyDatabaseTest {
 	public void FindTedTalksBySpeakerTest() { //good
 		List<TedTalk> talks = new ArrayList<TedTalk>();
 		
-		talks = db.findTedTalkbyAuthor("Roby");
+		talks = db.findTedTalkbySpeaker("Roby");
 		
 		if(talks == null){
 			fail("No ted talks found.");

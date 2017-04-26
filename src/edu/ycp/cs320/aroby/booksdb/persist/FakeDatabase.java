@@ -229,7 +229,7 @@ public class FakeDatabase implements IDatabase {
 		return null;
 	}
 
-	public List<TedTalk> findTedTalkbyAuthor(String search) {
+	public List<TedTalk> findTedTalkbySpeaker(String search) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -260,6 +260,11 @@ public class FakeDatabase implements IDatabase {
 	}
 
 	public List<Topic> getAllTopics() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Speaker findSpeakerFromTedTalk(int speakerId) {
 		// TODO Auto-generated method stub
 		return null;
 	}	

@@ -45,9 +45,10 @@ public interface IDatabase {
 	public List<Review> findReviewbyTitle(String title);
 	public Topic findTopic(String topic);
 	public Speaker findSpeaker(String firstname, String lastname);
+	public Speaker findSpeakerFromTedTalk(int speakerId);
 	
 	//Chihea
-	public List<TedTalk> findTedTalkbyAuthor(String search);
+	public List<TedTalk> findTedTalkbySpeaker(String search);
 	public List<TedTalk> findTedTalkbyTopic(String search);
 	public TedTalk findTedTalkbyTitle(String search);
 }

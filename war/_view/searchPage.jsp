@@ -9,6 +9,9 @@
 		<link rel="stylesheet" href="searchPage.css">
 	</head>
 <body>
+	<c:if test="${sessionScope.error == true}">
+		<h1>Please type in your search criteria.</h1>
+	</c:if>
 	<form action="${pageContext.servletContext.contextPath}/searchPage" method="post">
 		<select name="options" id="Type">
 			<option value="author"> Search by Author</option>

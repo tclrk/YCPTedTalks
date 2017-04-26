@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import edu.ycp.cs320.aroby.model.Account;
 import edu.ycp.cs320.aroby.model.Review;
 import edu.ycp.cs320.aroby.model.Search;
+import edu.ycp.cs320.aroby.model.Speaker;
 import edu.ycp.cs320.aroby.model.TedTalk;
 import edu.ycp.cs320.aroby.model.Topic;
 import edu.ycp.cs320.aroby.controller.SearchController;
@@ -29,7 +30,7 @@ public class SearchServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String errorMessage = null;
+		boolean searchError = false;
 	
 		Search model = new Search();
 		SearchController controller = new SearchController();
@@ -50,6 +51,9 @@ public class SearchServlet extends HttpServlet{
 			List<Account> accounts = new ArrayList<Account>();
 			List<TedTalk> tedTalks = new ArrayList<TedTalk>();
 			List<Topic> topics = new ArrayList<Topic>();
+			List<Speaker> speakers = new ArrayList<Speaker>();
+			List<Integer> tedTalkIds = new ArrayList<Integer>();
+			List<Integer> speakerIds = new ArrayList<Integer>();
 			
 			// Check what they selected from the drop down
 			// If we selected authors, we'll find reviews by author
@@ -59,7 +63,23 @@ public class SearchServlet extends HttpServlet{
 				topics = controller.getTopics();
 				for(Review review : reviews) {
 					TedTalk talk = controller.getTedTalkFromReview(review);
-					tedTalks.add(talk);
+					// Because the Java .contains method sucks for anything that isn't a primitive, we work around that by
+					// keeping track of the tedTalkIds instead of the actual TedTalks. Thanks, Java!
+					boolean contain = tedTalkIds.contains(talk.getTedTalkId());
+					if(!contain) {
+						tedTalkIds.add(talk.getTedTalkId());
+						tedTalks.add(talk);
+					}
+				}
+				
+				// Find all the speakers for each TEDTalk, but don't add repeats or the JSP will display redundant info
+				for(TedTalk talk : tedTalks) {
+					Speaker speaker = controller.getSpeakerFromTedTalk(talk);
+					boolean contain = speakerIds.contains(speaker.getSpeakerId());
+					if(!contain) {
+						speakerIds.add(speaker.getSpeakerId());
+						speakers.add(speaker);
+					}
 				}
 			// If not, we'll find them by topic
 			} else if(dropDownSelection.equals("topic")) {
@@ -68,7 +88,23 @@ public class SearchServlet extends HttpServlet{
 				topics = controller.getTopics();
 				for(Review review : reviews) {
 					TedTalk talk = controller.getTedTalkFromReview(review);
-					tedTalks.add(talk);
+					// Because the Java .contains method sucks for anything that isn't a primitive, we work around that by
+					// keeping track of the tedTalkIds instead of the actual TedTalks. Thanks, Java!
+					boolean contain = tedTalkIds.contains(talk.getTedTalkId());
+					if(!contain) {
+						tedTalkIds.add(talk.getTedTalkId());
+						tedTalks.add(talk);
+					}
+				}
+				
+				// Find all the speakers for each TEDTalk, but don't add repeats or the JSP will display redundant info
+				for(TedTalk talk : tedTalks) {
+					Speaker speaker = controller.getSpeakerFromTedTalk(talk);
+					boolean contain = speakerIds.contains(speaker.getSpeakerId());
+					if(!contain) {
+						speakerIds.add(speaker.getSpeakerId());
+						speakers.add(speaker);
+					}
 				}
 			// Or by title
 			} else if(dropDownSelection.equals("title")) {
@@ -77,20 +113,45 @@ public class SearchServlet extends HttpServlet{
 				topics = controller.getTopics();
 				for(Review review : reviews) {
 					TedTalk talk = controller.getTedTalkFromReview(review);
-					tedTalks.add(talk);
+					// Because the Java .contains method sucks for anything that isn't a primitive, we work around that by
+					// keeping track of the tedTalkIds instead of the actual TedTalks. Thanks, Java!
+					boolean contain = tedTalkIds.contains(talk.getTedTalkId());
+					if(!contain) {
+						tedTalkIds.add(talk.getTedTalkId());
+						tedTalks.add(talk);
+					}
+				}
+				
+				// Find all the speakers for each TEDTalk, but don't add repeats or the JSP will display redundant info
+				for(TedTalk talk : tedTalks) {
+					Speaker speaker = controller.getSpeakerFromTedTalk(talk);
+					boolean contain = speakerIds.contains(speaker.getSpeakerId());
+					if(!contain) {
+						speakerIds.add(speaker.getSpeakerId());
+						speakers.add(speaker);
+					}
 				}
 			}
 			
 			// Put the lists into the session info, then go back to the search page
 			HttpSession session = req.getSession();
-			session.setAttribute("reviews", reviews);
-			session.setAttribute("accounts", accounts);
-			session.setAttribute("tedTalks", tedTalks);
-			session.setAttribute("topics", topics);
+			if (reviews.size() != 0 && accounts.size() != 0 && tedTalks.size() != 0 && topics.size() != 0 && speakers.size() != 0) {
+				session.setAttribute("reviews", reviews);
+				session.setAttribute("accounts", accounts);
+				session.setAttribute("tedTalks", tedTalks);
+				session.setAttribute("topics", topics);
+				session.setAttribute("speakers", speakers);
+				session.setAttribute("results", true);
+			} else {
+				session.setAttribute("results", false);
+			}
+			session.removeAttribute("error");
 			req.getRequestDispatcher("/_view/searchView.jsp").forward(req, resp);
 		} else {
-			errorMessage = "Type in something!";
+			searchError = true;
+			HttpSession session = req.getSession();
+			session.setAttribute("error", searchError);
+			req.getRequestDispatcher("/_view/searchPage.jsp").forward(req, resp);
 		}
-		
 	}
 }

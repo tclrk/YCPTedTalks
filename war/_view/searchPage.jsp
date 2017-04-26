@@ -52,7 +52,7 @@
 				console.log(id);
 				$.ajax({
 					type: "POST",
-					url: "/aroby/searchPage",
+					url: "/aroby/tedTalkView",
 					data: {reviewPage: id},
 					dataType: "text"
 				});

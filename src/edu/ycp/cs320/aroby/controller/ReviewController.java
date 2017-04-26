@@ -4,6 +4,7 @@ import edu.ycp.cs320.aroby.booksdb.persist.DatabaseProvider;
 import edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase;
 import edu.ycp.cs320.aroby.booksdb.persist.IDatabase;
 import edu.ycp.cs320.aroby.model.Review;
+import edu.ycp.cs320.aroby.model.Speaker;
 
 // TODO: Fix this!
 public class ReviewController {
@@ -28,8 +29,18 @@ public class ReviewController {
 		return model;
 	}
 	
+	public Boolean insertReview(int rating, String date, String review, String firstname, String lastname, String title){
+		Boolean r = db.insertReview(rating, date, review, firstname, lastname, title);
+		return r;
+	}
+	
+	public Speaker findSpeaker(String firstname, String lastname){
+		Speaker spec = db.findSpeaker(firstname, lastname);
+		return spec;
+	}
+	
 	public Boolean isCorrect(){
-		if(model.getAccountId() != 0 || model.getRating() > 0 || model.getRating() < 5 || model.getRecommendation() != "" || model.getReview() != "" || model.getReviewId() != 0 
+		if(model.getAccountId() != 0 || model.getRating() > 0 || model.getRating() < 5 || model.getReview() != "" || model.getReviewId() != 0 
 				|| model.getTedTalkId() != 0){
 			return true;
 		}

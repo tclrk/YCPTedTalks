@@ -15,6 +15,7 @@
 		<form action="${pageContext.servletContext.contextPath}/login" method="post">
 			<%Boolean invalidLogin = (Boolean)request.getSession().getAttribute("login_failure"); 
 				if(invalidLogin != null) {%><p>Invalid user name and/or password</p><%} %>
+				<h1>Login</h1>
 			<table>
 				<tr>
 					<td class="label">Email:</td>

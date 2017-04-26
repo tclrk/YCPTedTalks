@@ -27,10 +27,10 @@ public interface IDatabase {
 	
 	
 	//Chihea's 
-	public Boolean insertNewTedTalk(String title, String description, URL url, String firstname, String lastname, String topic);
+	public Boolean insertNewTedTalk(String title, String description, String url, String firstname, String lastname, String topic);
 	public Boolean insertNewSpeaker(String firstname, String lastname);
 	public Boolean insertNewTopic(String top);
-	public Boolean insertReview(int rating, String date, String review, String recommendations, String firstname, String lastname, String title);
+	public Boolean insertReview(int rating, String date, String review, String firstname, String lastname, String title);
 	
 	// Me
 	public Boolean createNewAccount(String email, String password, String firstname, String lastname, boolean admin);
@@ -46,7 +46,7 @@ public interface IDatabase {
 	public Topic findTopic(String topic);
 	public Speaker findSpeaker(String firstname, String lastname);
 	
-	//Chihea
+	//Chihea's
 	public List<TedTalk> findTedTalkbyAuthor(String search);
 	public List<TedTalk> findTedTalkbyTopic(String search);
 	public TedTalk findTedTalkbyTitle(String search);

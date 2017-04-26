@@ -632,7 +632,6 @@ public class DerbyDatabase implements IDatabase {
 		review.setRating(resultSet.getInt(index++));
 		review.setDate(ZonedDateTime.parse(resultSet.getString(index++)));
 		review.setReview(resultSet.getString(index++));
-		review.setRecommendation(resultSet.getString(index++));
 	}
 	
 	private void loadTedTalk(TedTalk talk, ResultSet resultSet, int index) throws SQLException, MalformedURLException {
@@ -641,7 +640,7 @@ public class DerbyDatabase implements IDatabase {
 		talk.setTopicId(resultSet.getInt(index++));
 		talk.setTitle(resultSet.getString(index++));
 		talk.setDescription(resultSet.getString(index++));
-		talk.setLink(new URL(resultSet.getString(index++)));
+		talk.setLink(resultSet.getString(index++));
 	}
 
 	// creates the Authors and Books tables
@@ -723,7 +722,7 @@ public class DerbyDatabase implements IDatabase {
 							+ "		generated always as identity (start with 1, increment by 1),"
 							+ "speaker_id integer constraint speaker_id references speakers,"
 							+ "topic_id integer constraint topic_id references topics," + "title varchar(70),"
-							+ "description varchar(140)," + "url varchar(140)" + ")");
+							+ "description varchar(1000)," + "url varchar(140)" + ")");
 
 					stmt8.executeUpdate();
 					System.out.println("TedTalks table created");
@@ -909,7 +908,6 @@ public class DerbyDatabase implements IDatabase {
 						insertReviews.setInt(3, review.getRating());
 						insertReviews.setString(4, review.getDate().toString());
 						insertReviews.setString(5, review.getReview());
-						insertReviews.setString(6, review.getRecommendation());
 						insertReviews.addBatch();
 					}
 					insertReviews.executeBatch();
@@ -1410,7 +1408,7 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 
-	public Boolean insertNewTedTalk(final String title, final String description, final URL url, final String firstname, final String lastname, final String topic) {
+	public Boolean insertNewTedTalk(final String title, final String description, final String url, final String firstname, final String lastname, final String topic) {
 		return executeTransaction(new Transaction<Boolean>() {
 			@SuppressWarnings("resource")
 			public Boolean execute(Connection conn) throws SQLException {
@@ -1561,7 +1559,7 @@ public class DerbyDatabase implements IDatabase {
 		});	
 	}
 
-	public Boolean insertReview(final int rating, final String date, final String review, final String recommendations, final String firstname, final String lastname, final String title) {
+	public Boolean insertReview(final int rating, final String date, final String review, final String firstname, final String lastname, final String title) {
 		return executeTransaction(new Transaction<Boolean>() {
 			@SuppressWarnings("resource")
 			public Boolean execute(Connection conn) throws SQLException {
@@ -1600,15 +1598,14 @@ public class DerbyDatabase implements IDatabase {
 					if (found) {
 						stmt = conn.prepareStatement(
 								"insert into reviews "
-								+ "(account_id, tedtalk_id, rating, date, review, recommendations) "
-								+ "values (?,?,?, ?, ?, ?) "
+								+ "(account_id, tedtalk_id, rating, date, review) "
+								+ "values (?,?,?, ?, ?) "
 						);
 						stmt.setInt(1, account.getAccountId());
 						stmt.setInt(2, talk.getTedTalkId());
 						stmt.setInt(3, rating);
 						stmt.setString(4, date);
 						stmt.setString(5, review);
-						stmt.setString(6, recommendations);
 						stmt.executeUpdate();
 						
 					} else {

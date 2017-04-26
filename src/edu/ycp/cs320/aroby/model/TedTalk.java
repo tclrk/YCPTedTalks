@@ -1,18 +1,16 @@
 package edu.ycp.cs320.aroby.model;
 
-import java.net.URL;
 import java.util.ArrayList;
 
 public class TedTalk {
-	private URL link;
 	private int tedTalkId, speakerId, topicId;
-	private String title, description;
+	private String title, description, link;
 	private ArrayList<Review> review = new ArrayList<Review>();
 
-	public URL getLink() {
+	public String getLink() {
 		return link;
 	}
-	public void setLink(URL link) {
+	public void setLink(String link) {
 		this.link = link;
 	}
 

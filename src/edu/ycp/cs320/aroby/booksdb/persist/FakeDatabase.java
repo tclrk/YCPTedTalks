@@ -2,7 +2,7 @@ package edu.ycp.cs320.aroby.booksdb.persist;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,12 +20,25 @@ public class FakeDatabase implements IDatabase {
 	
 	private List<Author> authorList;
 	private List<Book> bookList;
+	private List<Account> accountList;
+	private List<Review> reviewList;
+	private List<Speaker> speakerList;
+	private List<Student> studentList;
+	private List<TedTalk> tedtalkList;
+	private List<Topic> topicList;
+	
 	
 	// Fake database constructor - initializes the DB
 	// the DB only consists for a List of Authors and a List of Books
 	public FakeDatabase() {
 		authorList = new ArrayList<Author>();
 		bookList = new ArrayList<Book>();
+		accountList = new ArrayList<Account>();
+		reviewList = new ArrayList<Review>();
+		speakerList = new ArrayList<Speaker>();
+		studentList = new ArrayList<Student>();
+		tedtalkList = new ArrayList<TedTalk>();
+		topicList = new ArrayList<Topic>();
 		
 		// Add initial data
 		readInitialData();
@@ -39,6 +52,12 @@ public class FakeDatabase implements IDatabase {
 		try {
 			authorList.addAll(InitialData.getAuthors());
 			bookList.addAll(InitialData.getBooks());
+			accountList.addAll(InitialData.getAccounts());
+			reviewList.addAll(InitialData.getReviews());
+			speakerList.addAll(InitialData.getSpeakers());
+			studentList.addAll(InitialData.getStudents());
+			tedtalkList.addAll(InitialData.getTedTalks());
+			topicList.addAll(InitialData.getTopics());
 		} catch (IOException e) {
 			throw new IllegalStateException("Couldn't read initial data", e);
 		}
@@ -167,18 +186,244 @@ public class FakeDatabase implements IDatabase {
 		return null;
 	}
 
-	public Boolean insertNewTedTalk(String title, String description, URL url, String firstname, String lastname,
-			String topic) {
+	public List<TedTalk> findTedTalkbyAuthor(String search) {
+		Speaker speaker = null;
+		List<TedTalk> result = new ArrayList<TedTalk>();
+		for (Speaker s: speakerList){
+			if(s.getFirstname().contains(search) || s.getLastname().contains(search)){
+				speaker = s;
+			}
+		}
+		for (TedTalk t : tedtalkList) {
+			
+		//	System.out.println(": "+ search + " - " + t.getSpeakerId() + "/" + t.getTedTalkId() + "/" + t.getTitle() + "/" + t.getTopicId());
+			if (t.getSpeakerId() == speaker.getSpeakerId()){
+				result.add(t);
+			}
+		}
+		return result;
+	}
+
+	public List<TedTalk> findTedTalkbyTopic(String search) {
+		List<TedTalk> result = new ArrayList<TedTalk>();
+		Topic topic = null;
+		for (Topic top : topicList){
+			if(top.getTopic() == search){
+				topic = top;
+			}
+		}
+		for (TedTalk t : tedtalkList) {
+			
+		//	System.out.println(": "+ search + " - " + t.getSpeakerId() + "/" + t.getTedTalkId() + "/" + t.getTitle() + "/" + t.getTopicId());
+			if (t.getTopicId() == topic.getTopicId()){
+				result.add(t);
+			}
+		}
+		return result;
+	}
+
+	public TedTalk findTedTalkbyTitle(String search) {
 		// TODO Auto-generated method stub
-		return null;
+		TedTalk result = new TedTalk();
+		for (TedTalk t : tedtalkList) {
+			//System.out.println(": "+ search + " - " + t.getSpeakerId() + "/" + t.getTedTalkId() + "/" + t.getTitle() + "/" + t.getTopicId());
+			
+			if (t.getTitle().contains(search)) {
+				result = t;
+			}
+		}
+		return result;
+	}
+
+	public List<Review> findReviewbyTitle(String title) {
+		// TODO Auto-generated method stub
+		List<Review> result = new ArrayList<Review>();
+		int id = 0;
+		for(TedTalk t : tedtalkList){
+			if(t.getTitle().equals(title)) {
+				List<Review> rev = t.getReview();
+				id = t.getTedTalkId();
+				for(int i =0; i<rev.size(); i++){
+					result.add(rev.get(i));
+					}
+				}
+			}
+		for(TedTalk d : tedtalkList){
+			if(d.getTitle() == title){
+				for(Review r : reviewList){
+					if(d.getTedTalkId() == id){
+						for(int i = 0; i<d.getReview().size();i++){
+							result.add(d.getReview().get(i));
+						}
+					}
+				}
+			}
+		}
+		return result;
+		
+	}
+		
+	public Account findAccount(String email) {
+		// TODO Auto-generated method stub
+		Account account = null;
+		for (Account a : accountList) {
+			//System.out.println(": " + " - " + a.getAccountId() + "/" + a.getEmail() + "/" + a.getFirstName() + "/" + a.getLastName());
+			
+			if (a.getEmail().equals(email)) {
+				account = a;
+			//	System.out.println(": " + " - " + a.getAccountId() + "/" + a.getEmail() + "/" + a.getFirstName() + "/" + a.getLastName());
+			}
+		}
+		return account;
+	}
+
+	public Student findStudentbyId(int id) {
+		// TODO Auto-generated method stub
+		Student student = null;
+		for(Student s : studentList){
+			if (s.getYCPId() == id){
+				student = s;
+			}
+		}
+		return student;
+	}
+
+	public Student findStudent(String email) {
+		Student st = null;
+		for(Account a: accountList){
+			
+			if(a.getEmail().equals(email)){
+				for(Student s : studentList){
+					
+					if(a.getAccountId() == s.getAccountId()){
+						st = s;
+					}
+				
+				
+				}	
+			}
+		}
+		return st;
+		
+	}
+
+	public List<Review> findReviewbyAuthor(String firstname, String lastname) {
+		List<Review> result = new ArrayList<Review>();
+		int acc_id = 0;
+		for(Account acc : accountList){
+			if(acc.getLastName().equals(lastname) && acc.getFirstName().equals(firstname)){
+				acc_id = acc.getAccountId();
+				for(TedTalk t : tedtalkList){
+					for(int i =0;i<t.getReview().size();i++){
+						if(t.getReview().get(i).getTedTalkId() == t.getTedTalkId() && t.getReview().get(i).getAccountId() == acc.getAccountId()	) {
+							result.add(t.getReview().get(i));
+						}
+					}
+				}
+			}
+				
+		}
+		for (Review r : reviewList) {
+		//System.out.println(": "+ firstname + " - " + t.getSpeakerId() + "/" + t.getTedTalkId() + "/" + t.getTitle() + "/" + t.getTopicId() + "/" + t.getReview().get(0) + "/" + t.getReview().get(0).getRecommendation());
+			if (r.getAccountId() == acc_id){
+					result.add(r);
+			}
+		}
+		
+		return result;
+	}
+
+	public List<Review> findReviewbyTopic(String topic) {
+		// TODO Auto-generated method stub
+		List<Review> result = new ArrayList<Review>();
+		int id = 0;
+		for(Topic t : topicList){
+			if(t.getTopic().equals(topic)) {
+				id = t.getTopicId();
+				}
+			}
+				
+		for(TedTalk d : tedtalkList){
+			if(d.getTopicId() == id){
+				result.addAll(d.getReview());
+			}
+		}
+		return result;
+	}
+
+	public Topic findTopic(String topic) {
+		// TODO Auto-generated method stub
+		Topic t = null;
+		
+		for(Topic d : topicList){
+			if(d.getTopic().equals(topic)){
+				t = d;
+			}
+		}
+		return t;
+	}
+
+	public Boolean createNewAccount(String email, String firstName, String lastName, String password, boolean admin) {
+		// TODO Auto-generated method stub
+		Account account = new Account();
+		account.setAccountId(accountList.size()+1);
+		account.setAdmin(admin);
+		account.setEmail(email);
+		account.setFirstName(firstName);
+		account.setLastName(lastName);
+		account.setPassword(password);
+		return accountList.add(account);
+	}
+
+	public Boolean createNewStudent(int ycp_id, String email, String major) {
+		// TODO Auto-generated method stub
+		Student student = new Student();
+		student.setEmail(email);
+		student.setAccountId(accountList.size());
+		student.setYCPId(ycp_id);
+		student.setMajor(major);
+		return studentList.add(student);
+	}
+
+	public void insertNewTedTalk(int speaker_id, int topic_id, String title, String description, String url) {
+		// TODO Auto-generated method stub
+		TedTalk t = new TedTalk();
+		t.setDescription(description);
+		t.setSpeakerId(speaker_id);
+		t.setTopicId(topic_id);
+		t.setTitle(title);
+		t.setLink(url);
+		tedtalkList.add(t);
 	}
 
 	public Boolean insertNewSpeaker(String firstname, String lastname) {
 		// TODO Auto-generated method stub
-		return null;
+		Speaker s = new Speaker();
+		s.setFirstname(firstname);
+		s.setLastname(lastname);
+		return speakerList.add(s);
 	}
 
 	public Boolean insertNewTopic(String top) {
+		// TODO Auto-generated method stub
+		Topic t = new Topic();
+		t.setTopic(top);
+		return topicList.add(t);
+	}
+
+	public void insertReview(int acc_id, int ted_id, int rating, ZonedDateTime date, String review, String recommendation) {
+		// TODO Auto-generated method stub
+		Review r = new Review();
+		r.setRating(rating);
+		r.setReview(review);
+		r.setTedTalkId(ted_id);
+		r.setAccountId(acc_id);
+		r.setDate(date);
+		reviewList.add(r);
+	}
+
+	public Boolean insertNewTedTalk(String title, String description, URL url, String firstname, String lastname,
+			String topic) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -189,22 +434,7 @@ public class FakeDatabase implements IDatabase {
 		return null;
 	}
 
-	public Boolean createNewAccount(String email, String password, String firstname, String lastname, boolean admin) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Boolean createNewStudent(int ycp_id, String major, String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Account findAccount(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Student findStudent(String email) {
+	public Account findAccount(int accountId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -214,43 +444,20 @@ public class FakeDatabase implements IDatabase {
 		return null;
 	}
 
-	public List<Review> findReviewbyTopic(String topic) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public List<Review> findReviewbyTitle(String title) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Topic findTopic(String topic) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public List<TedTalk> findTedTalkbyAuthor(String search) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public List<TedTalk> findTedTalkbyTopic(String search) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public TedTalk findTedTalkbyTitle(String search) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	public Speaker findSpeaker(String firstname, String lastname) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Account findAccount(int accountId) {
+	public Boolean insertNewTedTalk(String title, String description, String url, String firstname, String lastname,
+			String topic) {
 		// TODO Auto-generated method stub
 		return null;
-	}	
+	}
+
+	public Boolean insertReview(int rating, String date, String review, String firstname, String lastname,
+			String title) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

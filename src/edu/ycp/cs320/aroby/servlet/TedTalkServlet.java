@@ -1,8 +1,6 @@
 package edu.ycp.cs320.aroby.servlet;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
@@ -10,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import edu.ycp.cs320.aroby.model.Review;
 import edu.ycp.cs320.aroby.model.Speaker;
@@ -29,62 +26,69 @@ public class TedTalkServlet extends HttpServlet {
 	}
 	
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException , MalformedURLException{
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 		Review model = new Review();
 		ReviewController control = new ReviewController();
 		TedTalk talk = new TedTalk();
 		TedTalkController controller = new TedTalkController();
-		Boolean talkCreated = false;
 		int rating = 0;
 		
+		String errorMessage = null;
+		
 		ArrayList<Review> review = new ArrayList<Review>();
-		HttpSession session = req.getSession(true);
 		
 		String title = req.getParameter("title");
 		String description = req.getParameter("description");
-		String url_string = req.getParameter("url");
+		String url_string = req.getParameter("link");
 		String topic = req.getParameter("topic");
 		String author = req.getParameter("author");
 		String review_1 = req.getParameter("review");
 		ZonedDateTime date = ZonedDateTime.now();
-		String recommend = req.getParameter("recommendations");
 		String rating_s =req.getParameter("rating");
 		if(rating_s != "" & rating_s != null){
 			rating = Integer.parseInt(rating_s);
 		}
-		if(title != "" || description != "" || url_string != null 
-				|| topic != "" || author != null || review_1 != null){
-			Topic tops = new Topic();
-			tops.setTopic("topic");
-			
-			Speaker auth = new Speaker();
-			int ind = author.indexOf(" ");
-			auth.setFirstname(author.substring(0, ind+ 1));
-			auth.setLastname(author.substring(ind+1));
-			
-			model.setReview(review_1);
-			model.setDate(date);
-			model.setTedTalkId(talk.getTedTalkId());
-			model.setReviewId(1);
-			model.setDate(date);
-			model.setTedTalkId(talk.getTedTalkId());
-			model.setRecommendation(recommend);
-			
-			review.add(model);
-			
-			talk.setDescription(description);
-			talk.setLink(new URL(url_string));
-			talk.setTitle(title);
-			talk.setSpeakerId(auth.getSpeakerId());
-			talk.setTopicId (tops.getTopicId());
-			talk.setReview(review);
-			controller.set_TedTalk(talk.getTitle(), talk.getDescription(), talk.getTedTalkId(), talk.getSpeakerId(), talk.getTopicId(), talk.getLink(), talk.getReview());
-			talkCreated = true;
+		
+		//start setting up shit 
+		controller.insertNewTopic(topic);
+		Topic real_top = controller.findTopic(topic);
+		
+		int ind = author.indexOf(" ");
+		String firstname = author.substring(0, ind+1);
+		String lastname = author.substring(ind+1);
+		controller.insertNewSpeaker(firstname, lastname);
+		Speaker speaker = controller.findSpeaker(firstname, lastname);
+		
+		model.setReview(review_1);
+		model.setDate(date);
+		model.setReviewId(1);
+		model.setRating(rating);
+		control.setModel(model);
+		
+		review.add(model);
+		
+		talk.setDescription(description);
+		talk.setLink(url_string);
+		talk.setTitle(title);
+		talk.setSpeakerId(speaker.getSpeakerId());
+		talk.setTopicId (real_top.getTopicId());
+		talk.setReview(review);
+		
+		controller.setTalk(talk);
+		model.setTedTalkId(talk.getTedTalkId());
+		
+			if(title != "" || description != "" || url_string != null 
+					|| topic != "" || author != null || review_1 != null){
+					//find if ted talk page exists within database 
+					TedTalk t = controller.findTedTalkbyTitle(title);
+					if(t.getTitle() == talk.getTitle() && t.getLink() == talk.getLink()){
+						errorMessage = "TedTalk already exists.";
+					}
+					else{
+						controller.insertNewTedTalk(talk.getTitle(), talk.getDescription(), talk.getLink(), speaker.getFirstname(), speaker.getLastname(), real_top.getTopic());
+					}
 			}
-		else{
-			talkCreated = false;
-		}
 		req.setAttribute("model", talk);
 		resp.sendRedirect("/aroby/index");
-		}	
 	}
+}

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Ted Talk </title>
+	<title>Insert TedTalk Page </title>
 	<link rel="stylesheet" href="tedTalkPage.css">
 </head>
 <body>
@@ -21,7 +21,7 @@
 		
 			<div class="Author">
 				<label for="author">Author</label><br>
-				<input type="text" name ="author" id="author" size=12 value ="${model.speaker_id}"/>
+				<input type="text" name ="author" id="author" size=12 value ="${model.speaker}"/>
 			</div>
 			
 			<div class="Title">
@@ -35,7 +35,7 @@
 			</div>	
 			<div class ="Review">
 				<label for="review">Review</label><br>
-				<textarea name= "review" id="review" placeholder="Please write the first review for the TED Talk" size = "12" value ="${model.description}"></textarea>
+				<textarea name= "review" id="review" placeholder="Please write the first review for the TED Talk" size = "12" value ="${model.review}"></textarea>
 			</div>	
 			
 			<div class="rating">
@@ -51,13 +51,6 @@
  				 <input id="rating5" type="radio" name="rating" value="5">
   				 <label for="rating5">5</label>
 			</div>
-			<div class="recommendations">
-			<label for="recommendations">Recommendations (Optional)</label><br>
-				<input id="Awesome" type="checkbox" value="${model.recommendation}" name="Awesome!"> Awesome!<br>
-				<input id="1/10" type="checkbox" value="${model.recommendation}" name="Horrible"> 1/10, do not recommend<br>
-				<input id="nice_watch" type="checkbox" value="${model.recommendation}" name="Good"> A nice watch, but wouldn't watch it again<br>
-			</div>
-			
 			<input type="submit" value="Start Ted Talk Page" onclick ="check()"/>
 			
 <script>

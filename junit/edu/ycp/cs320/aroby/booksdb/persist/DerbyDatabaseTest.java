@@ -212,7 +212,7 @@ public class DerbyDatabaseTest {
 		Topic topic = new Topic();
 		topic.setTopic("BS");
 		
-		Boolean result = db.insertNewTedTalk("Bulldogs","They're not vicious", new URL("https://github.com/mailbox2112/YCPTedTalks") ,speaker.getFirstname(), speaker.getLastname(), topic.getTopic());
+		Boolean result = db.insertNewTedTalk("Bulldogs","They're not vicious", "https://github.com/mailbox2112/YCPTedTalks",speaker.getFirstname(), speaker.getLastname(), topic.getTopic());
 		
 		if (result == true) {
 			System.out.println("TedTalk created successfully.");
@@ -229,7 +229,7 @@ public class DerbyDatabaseTest {
 		TedTalk talk = new TedTalk();
 		talk = db.findTedTalkbyTitle("A Guide To Masterful BS");
 		
-		Boolean result = db.insertReview(4, ZonedDateTime.now().toString(), "You are shit", "I love it", acc.getFirstName(), acc.getLastName(), talk.getTitle());
+		Boolean result = db.insertReview(4, ZonedDateTime.now().toString(), "You are shit", acc.getFirstName(), acc.getLastName(), talk.getTitle());
 	
 		if (result == true) {
 			System.out.println("Speaker added successfully.");
@@ -272,7 +272,7 @@ public class DerbyDatabaseTest {
 	public void FindSpeakerTest() {
 		Speaker speaker = new Speaker();
 		
-		speaker = db.findSpeaker("aaron", "roby");
+		speaker = db.findSpeaker("Aaron", "Roby");
 		
 		if (speaker.getFirstname().equals("Aaron") && speaker.getLastname().equals("Roby")) {
 			System.out.println("Speaker found successfully!");

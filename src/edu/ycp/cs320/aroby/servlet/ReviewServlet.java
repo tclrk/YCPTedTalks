@@ -2,7 +2,6 @@
 package edu.ycp.cs320.aroby.servlet;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.ZonedDateTime;
 
 import javax.servlet.ServletException;
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs320.aroby.model.Account;
 import edu.ycp.cs320.aroby.model.Review;
+import edu.ycp.cs320.aroby.model.Speaker;
 import edu.ycp.cs320.aroby.model.TedTalk;
 import edu.ycp.cs320.aroby.controller.ReviewController;
 
@@ -38,14 +38,12 @@ public class ReviewServlet extends HttpServlet {
 			ZonedDateTime current = ZonedDateTime.now();
 			String name = req.getParameter("name");
 			String review = req.getParameter("review");
-			String recommendations = req.getParameter("recommendations");
 			String rating_string = req.getParameter("rating");
 			if(rating_string != "" & rating_string != null){
 			    rating = Integer.parseInt(rating_string);
 				model.setRating(rating);
 				model.setReview(review);
 				model.setDate(current);
-				model.setRecommendation(recommendations);
 				model.setReviewId(model.getReviewId());
 				model.setTedTalkId(talk.getTedTalkId());
 				model.setAccountId(acc.getAccountId());
@@ -59,8 +57,14 @@ public class ReviewServlet extends HttpServlet {
 				errorMessage = "Complete all required fields";
 			}
 			else{
+				String s_name = talk.getSpeaker(); 
+				int ind = s_name.indexOf(" ");
+				String first = s_name.substring(0, ind+1);
+				String last = s_name.substring(ind+1);
+				Speaker spec = controller.findSpeaker(first, last);
+				controller.insertReview(model.getRating(), model.getDate(), review, spec.getFirstname(), spec.getLastname(), talk.getTitle());
 				System.out.print("Your review was submitted");
-				resp.sendRedirect("/aroby/readPage");
+				resp.sendRedirect("/aroby/index");
 			}	
 	}
 }

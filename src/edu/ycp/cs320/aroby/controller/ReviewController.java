@@ -3,8 +3,10 @@ package edu.ycp.cs320.aroby.controller;
 import edu.ycp.cs320.aroby.booksdb.persist.DatabaseProvider;
 import edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase;
 import edu.ycp.cs320.aroby.booksdb.persist.IDatabase;
+import edu.ycp.cs320.aroby.model.Account;
 import edu.ycp.cs320.aroby.model.Review;
 import edu.ycp.cs320.aroby.model.Speaker;
+import edu.ycp.cs320.aroby.model.TedTalk;
 
 // TODO: Fix this!
 public class ReviewController {
@@ -28,7 +30,15 @@ public class ReviewController {
 	public Review getReview(){
 		return model;
 	}
+	public Account findAccount(int accountId){
+		Account acc = db.findAccount(accountId);
+		return acc;
+	}
 	
+	public TedTalk findTedTalk(String title){
+		TedTalk t = db.findTedTalkbyTitle(title);
+		return t;
+	}
 	public Boolean insertReview(int rating, String date, String review, String firstname, String lastname, String title){
 		Boolean r = db.insertReview(rating, date, review, firstname, lastname, title);
 		return r;

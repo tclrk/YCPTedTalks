@@ -33,27 +33,26 @@ public class ReviewServlet extends HttpServlet {
 		TedTalk talk = new TedTalk();
 		int rating;
 		
-			acc.setAccountId(acc.getAccountId());
-			talk.setTedTalkId(talk.getTedTalkId());
+		//start setting shit up
 			ZonedDateTime current = ZonedDateTime.now();
 			String name = req.getParameter("name");
 			String review = req.getParameter("review");
 			String rating_string = req.getParameter("rating");
 			if(rating_string != "" & rating_string != null){
 			    rating = Integer.parseInt(rating_string);
-				model.setRating(rating);
-				model.setReview(review);
-				model.setDate(current);
-				model.setReviewId(model.getReviewId());
-				model.setTedTalkId(talk.getTedTalkId());
-				model.setAccountId(acc.getAccountId());
 			}
+			
+			
+			model.setRating(rating);
+			model.setReview(review);
+			model.setDate(current);
+			model.setReviewId(model.getReviewId());
+			model.setTedTalkId(talk.getTedTalkId());
+			model.setAccountId(acc.getAccountId());
 			controller.setModel(model);
 			String errorMessage = null;
 			
 			if(name == "" || review == ""  || rating_string == ""){
-				req.setAttribute("model", model);
-				req.getRequestDispatcher("/_view/reviewPage.jsp").forward(req, resp);
 				errorMessage = "Complete all required fields";
 			}
 			else{
@@ -63,6 +62,7 @@ public class ReviewServlet extends HttpServlet {
 				String last = s_name.substring(ind+1);
 				Speaker spec = controller.findSpeaker(first, last);
 				controller.insertReview(model.getRating(), model.getDate(), review, spec.getFirstname(), spec.getLastname(), talk.getTitle());
+				req.setAttribute("model", model);
 				System.out.print("Your review was submitted");
 				resp.sendRedirect("/aroby/index");
 			}	

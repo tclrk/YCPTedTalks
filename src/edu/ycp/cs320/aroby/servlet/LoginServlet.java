@@ -41,6 +41,7 @@ public class LoginServlet extends HttpServlet {
 		if (controller.login() == true) {
 			model = controller.getModel();
 			HttpSession session =  req.getSession(true);
+			session.setAttribute("accountId", model.getAccountId());
 			session.setAttribute("login", true);
 			session.setAttribute("name", model.getFirstName());
 			if(session.getAttribute("login_failure") != null) {

@@ -26,6 +26,16 @@ public class TedTalkController {
 		db = DatabaseProvider.getInstance();
 	}
 	
+	public void set_TedTalk(String title, String description, int tedTalk_id, int speaker_id, int topic_id, String link, ArrayList<Review> review){
+		ted_talk.setDescription(description);
+		ted_talk.setLink(link);
+		ted_talk.setReview(review);
+		ted_talk.setSpeakerId(speaker_id);
+		ted_talk.setTedTalkId(tedTalk_id);
+		ted_talk.setTitle(title);
+		ted_talk.setTopicId(topic_id);	
+	}
+	
 	public void setTalk(TedTalk ted_talk){
 		this.ted_talk = ted_talk;
 	}
@@ -76,7 +86,7 @@ public class TedTalkController {
 	
 	//may not need these methods because i dont need to search for anything
 	public List<TedTalk> findTedTalkbyAuthor(String speaker){
-		List<TedTalk> t1 = db.findTedTalkbyAuthor(speaker);
+		List<TedTalk> t1 = db.findTedTalkbySpeaker(speaker);
 		return t1;
 	}
 	

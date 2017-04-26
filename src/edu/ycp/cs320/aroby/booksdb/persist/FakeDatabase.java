@@ -351,18 +351,6 @@ public class FakeDatabase implements IDatabase {
 		return result;
 	}
 
-	public Topic findTopic(String topic) {
-		// TODO Auto-generated method stub
-		Topic t = null;
-		
-		for(Topic d : topicList){
-			if(d.getTopic().equals(topic)){
-				t = d;
-			}
-		}
-		return t;
-	}
-
 	public Boolean createNewAccount(String email, String firstName, String lastName, String password, boolean admin) {
 		// TODO Auto-generated method stub
 		Account account = new Account();
@@ -444,6 +432,18 @@ public class FakeDatabase implements IDatabase {
 		return null;
 	}
 
+
+	public Topic findTopic(String topic) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<TedTalk> findTedTalkbySpeaker(String search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 	public Speaker findSpeaker(String firstname, String lastname) {
 		// TODO Auto-generated method stub
 		return null;
@@ -460,4 +460,19 @@ public class FakeDatabase implements IDatabase {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public TedTalk findTedTalkByReview(Review review) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Topic> getAllTopics() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Speaker findSpeakerFromTedTalk(int speakerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}	
 }

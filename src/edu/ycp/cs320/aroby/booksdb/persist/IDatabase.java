@@ -31,6 +31,9 @@ public interface IDatabase {
 	public Boolean insertNewSpeaker(String firstname, String lastname);
 	public Boolean insertNewTopic(String top);
 	public Boolean insertReview(int rating, String date, String review, String firstname, String lastname, String title);
+	public List<TedTalk> findTedTalkbySpeaker(String search);
+	public List<TedTalk> findTedTalkbyTopic(String search);
+	public TedTalk findTedTalkbyTitle(String search);
 	
 	// Me
 	public Boolean createNewAccount(String email, String password, String firstname, String lastname, boolean admin);
@@ -38,16 +41,13 @@ public interface IDatabase {
 	public Account findAccount(String email);
 	public Account findAccount(int accountId);
 	public Student findStudent(String email);
-	
-	// Me
+	public TedTalk findTedTalkByReview(Review review);
+	public List<Topic> getAllTopics();
 	public List<Review> findReviewsbyAuthor(String firstname, String lastname);
 	public List<Review> findReviewbyTopic(String topic);
 	public List<Review> findReviewbyTitle(String title);
 	public Topic findTopic(String topic);
 	public Speaker findSpeaker(String firstname, String lastname);
-	
-	//Chihea's
-	public List<TedTalk> findTedTalkbyAuthor(String search);
-	public List<TedTalk> findTedTalkbyTopic(String search);
-	public TedTalk findTedTalkbyTitle(String search);
+	public Speaker findSpeakerFromTedTalk(int speakerId);
+
 }

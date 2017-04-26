@@ -72,7 +72,7 @@
   	<url-pattern>/login</url-pattern>
    </servlet-mapping><servlet-mapping>
   	<servlet-name>ReviewServlet</servlet-name>
-  	<url-pattern>/shortReviewPage</url-pattern>
+  	<url-pattern>/reviewPage</url-pattern>
    </servlet-mapping><servlet-mapping>
   	<servlet-name>SearchServlet</servlet-name>
   	<url-pattern>/searchPage</url-pattern>
@@ -98,7 +98,7 @@
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>ReviewServlet</servlet-name>
-  	<url-pattern>/shortReviewPage</url-pattern>
+  	<url-pattern>/reviewPage</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>CreateAccountServlet</servlet-name>

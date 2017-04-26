@@ -9,6 +9,9 @@
 		<link rel="stylesheet" href="searchPage.css">
 	</head>
 <body>
+	<c:if test="${sessionScope.error == true}">
+		<h1>Please type in your search criteria.</h1>
+	</c:if>
 	<form action="${pageContext.servletContext.contextPath}/searchPage" method="post">
 		<select name="options" id="Type">
 			<option value="author"> Search by Author</option>
@@ -19,21 +22,6 @@
 		<input type="text" id="extraSearch" name="extraSearch" size="36" value="${model.extraSearch}"/>
 		<input type="Submit" name="submit" value="Search!">
 	</form>
-	<div>
-		<c:forEach items="${sessionScope.reviews}" var="review">
-			<c:forEach items="${sessionScope.accounts}" var="account">
-				<c:if test="${account.accountId == review.accountId}">
-					<tr>
-						<td>
-							<c:out value="${account.firstName}"/> <c:out value="${account.lastName}"/>
-							<button id="selectReview">Select Review</button>
-							<c:set var="reviewPage" value="${review.reviewId}" scope="session"/>
-						</td>
-					</tr>
-				</c:if>
-			</c:forEach>
-		</c:forEach>
-	</div>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(function () {

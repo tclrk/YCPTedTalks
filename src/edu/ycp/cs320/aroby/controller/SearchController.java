@@ -9,7 +9,9 @@ import edu.ycp.cs320.aroby.booksdb.persist.IDatabase;
 import edu.ycp.cs320.aroby.model.Account;
 import edu.ycp.cs320.aroby.model.Review;
 import edu.ycp.cs320.aroby.model.Search;
+import edu.ycp.cs320.aroby.model.Speaker;
 import edu.ycp.cs320.aroby.model.TedTalk;
+import edu.ycp.cs320.aroby.model.Topic;
 
 public class SearchController {
 	private Search model;
@@ -47,18 +49,34 @@ public class SearchController {
 	}
 	
 	public TedTalk getTedTalkFromReview(Review review) {
-		return null;
+		TedTalk tedTalk = db.findTedTalkByReview(review);
+		return tedTalk;
 	}
 	
 	public List<Account> getAccountFromReview(List<Review> reviews) {
 		List<Account> accounts = new ArrayList<Account>();
+		List<Integer> accountIds = new ArrayList<Integer>();
 		for(Review review : reviews) {
 			Account account = db.findAccount(review.getAccountId());
-			if(!accounts.contains(account)) {
+			if(!accountIds.contains(account.getAccountId())) {
+				accountIds.add(account.getAccountId());
 				accounts.add(account);
 			}
 		}
 		
 		return accounts;
+	}
+	
+	public List<Topic> getTopics() {
+		List<Topic> topics = new ArrayList<Topic>();
+		topics = db.getAllTopics();
+		return topics;
+	}
+	
+	public Speaker getSpeakerFromTedTalk(TedTalk talk) {
+		Speaker speaker = new Speaker();
+		speaker = db.findSpeakerFromTedTalk(talk.getSpeakerId());
+		
+		return speaker;
 	}
 }

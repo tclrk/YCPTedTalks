@@ -1,3 +1,4 @@
+
 package edu.ycp.cs320.aroby.booksdb.persist;
 
 import java.io.IOException;
@@ -732,7 +733,7 @@ public class DerbyDatabase implements IDatabase {
 							+ "			generated always as identity (start with 1, increment by 1),"
 							+ "account_id integer references accounts,"
 							+ "tedtalk_id integer constraint tedtalk_id references tedtalks," + "rating integer,"
-							+ "date varchar(70)," + "review varchar(500)," + "recommendations varchar(70)" + ")");
+							+ "date varchar(70)," + "review varchar(500)" + ")");
 
 					stmt9.executeUpdate();
 					System.out.println("Review table created");
@@ -900,8 +901,8 @@ public class DerbyDatabase implements IDatabase {
 
 					// Inserts reviews into the review table
 					insertReviews = conn.prepareStatement(
-							"insert into reviews " + "(account_id, tedtalk_id, rating, date, review, recommendations)"
-									+ "values (?,?,?,?,?,?)");
+							"insert into reviews " + "(account_id, tedtalk_id, rating, date, review)"
+									+ "values (?,?,?,?,?)");
 					for (Review review : reviewList) {
 						insertReviews.setInt(1, review.getAccountId());
 						insertReviews.setInt(2, review.getTedTalkId());
@@ -1608,7 +1609,7 @@ public class DerbyDatabase implements IDatabase {
 						loadTopic(topic,resultSet, 1);
 					}
 
-					// Now that we have speaker and topic id, we can use the IDs as a FK to the tedtalk
+					// Now that the topic id was found, we can use the ID to insert the name into the database table
 					if (found) {
 						return false;
 					} else {
@@ -1635,69 +1636,55 @@ public class DerbyDatabase implements IDatabase {
 			@SuppressWarnings("resource")
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
-				PreparedStatement stmt2 = null;
 				ResultSet resultSet = null;
-				ResultSet resultSet2 = null;
-
-				try {
-					stmt = conn.prepareStatement("select * from accounts " + "where firstname = ? and lastname = ?");
+				
+				try{
+					stmt = conn.prepareStatement("select * from accounts "
+							+ " where firstname = ? and lastname = ?");
+					
 					stmt.setString(1, firstname.toLowerCase());
 					stmt.setString(2, lastname.toLowerCase());
+					
 					resultSet = stmt.executeQuery();
-
+					
 					Account account = new Account();
 					
-					// Read through the ResultSet to see if the account exists
-					Boolean found = false;
-					while (resultSet.next()) {
-						found = true;
+					while(resultSet.next()){
 						loadAccount(account, resultSet, 1);
 					}
+				
+					stmt = conn.prepareStatement("select * from tedtalks where title = ?");
+					stmt.setString(1, title.toLowerCase());
 					
-					stmt2 = conn.prepareStatement("select * from tedtalks where title = ?");
-					stmt2.setString(1, title.toLowerCase());
-					resultSet2 = stmt2.executeQuery();
-
+					resultSet = stmt.executeQuery();
+					
 					TedTalk talk = new TedTalk();
-					// Read through the ResultSet to see if the tedtalk exists
-					while (resultSet2.next()) {
-						found = true;
-						loadTedTalk(talk, resultSet2, 1);
+					while(resultSet.next()){
+						loadTedTalk(talk, resultSet, 2);
 					}
-
-					// Now that we have speaker and topic id, we can use the IDs as a FK to the tedtalk
-					if (found) {
-						stmt = conn.prepareStatement(
-								"insert into reviews "
-								+ "(account_id, tedtalk_id, rating, date, review) "
-								+ "values (?,?,?, ?, ?) "
-						);
-						stmt.setInt(1, account.getAccountId());
-						stmt.setInt(2, talk.getTedTalkId());
-						stmt.setInt(3, rating);
-						stmt.setString(4, date);
-						stmt.setString(5, review);
-						stmt.executeUpdate();
-						
-					} else {
-						// If we didn't find an account for the student or a tedtalk,
-						// return false
-						System.out.println("Need account and speaker ids to complete transaction");
-						return false;
-					}
-
-				} catch (MalformedURLException e) {
-					System.out.println("Bad urls...");
+					
+					stmt = conn.prepareStatement("insert into reviews"
+							+ " (account_id, tedtalk_id, rating, review, date"
+							+ "  values(?, ?, ?, ?, ?");
+					
+					stmt.setInt(1, account.getAccountId());
+					stmt.setInt(2, talk.getTedTalkId());
+					stmt.setInt(3, rating);
+					stmt.setString(4, review);
+					stmt.setString(5, date);
+					
+					stmt.executeUpdate();
+				} 
+				catch (MalformedURLException e) {
 					e.printStackTrace();
-				} finally {
-					DBUtil.closeQuietly(resultSet);
-					DBUtil.closeQuietly(resultSet2);
-					DBUtil.closeQuietly(stmt);
-					DBUtil.closeQuietly(stmt2);
 				}
-				return true;
-			}
-		});	
+					finally {
+						DBUtil.closeQuietly(resultSet);
+						DBUtil.closeQuietly(stmt);
+					}
+				return null;
+				}
+			});	
 	}
 
 	public List<TedTalk> findTedTalkbySpeaker(final String search) { 

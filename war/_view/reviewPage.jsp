@@ -12,6 +12,7 @@
 			<div class="error">${errorMessage}</div>
 		</c:if>
 		<form id="reviewForm" name="reviewForm" action="${pageContext.servletContext.contextPath}/reviewPage" method="post">
+		<p> Write a review for the TEDTalk</p>
 			<div>
 				<label for="review">Review</label><br>
 				<textarea name= "review" id="review" placeholder="Please write a review for the TED Talk" size=12 value ="${model.review}"></textarea>

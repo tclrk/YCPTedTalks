@@ -33,24 +33,6 @@
 				<label for="description">Description</label><br>
 				<textarea name= "description" id="description" placeholder="Please write a description for the TED Talk" size = "12" value ="${model.description}"></textarea>
 			</div>	
-			<div class ="Review">
-				<label for="review">Review</label><br>
-				<textarea name= "review" id="review" placeholder="Please write the first review for the TED Talk" size = "12" value ="${model.review}"></textarea>
-			</div>	
-			
-			<div class="rating">
-			<label for="rating">Rating</label><br>
- 				 <input id="rating1" type="radio" name="rating" value="1">
- 				 <label for="rating1">1</label>
- 				 <input id="rating2" type="radio" name="rating" value="2">
- 				 <label for="rating2">2</label>
- 				 <input id="rating3" type="radio" name="rating" value="3">
-  				 <label for="rating3">3</label>
- 				 <input id="rating4" type="radio" name="rating" value="4">
-  				 <label for="rating4">4</label>
- 				 <input id="rating5" type="radio" name="rating" value="5">
-  				 <label for="rating5">5</label>
-			</div>
 			<input type="submit" value="Start Ted Talk Page" onclick ="check()"/>
 			
 <script>
@@ -60,7 +42,7 @@
 				alert("Complete all fields!");
 		}
 		else{
-			alert("This Ted Talk will be put in the system");
+			alert("This Ted Talk will be put in the system.");
 		}
 	}
 </script>

@@ -8,7 +8,6 @@ import java.util.List;
 import edu.ycp.cs320.aroby.booksdb.persist.DatabaseProvider;
 import edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase;
 import edu.ycp.cs320.aroby.booksdb.persist.IDatabase;
-import edu.ycp.cs320.aroby.model.Account;
 import edu.ycp.cs320.aroby.model.Review;
 import edu.ycp.cs320.aroby.model.Speaker;
 import edu.ycp.cs320.aroby.model.TedTalk;
@@ -40,6 +39,10 @@ public class TedTalkController {
 		this.ted_talk = ted_talk;
 	}
 	
+	public TedTalk getTedTalk(){
+		return ted_talk;
+	}
+	
 	public boolean exists(){ 
 		if (ted_talk.getDescription() != "" || ted_talk.getLink() != "" || ted_talk.getReview() != null || ted_talk.getTitle() != "" || ted_talk.getSpeakerId() > 0 || ted_talk.getTedTalkId() > 0 || ted_talk.getTopicId() > 0){
 			return false;
@@ -69,9 +72,9 @@ public class TedTalkController {
 		return top;
 	}
 	
-	public Account findAccount(int accountId){
-		Account acc = db.findAccount(accountId);
-		return acc;
+	public ArrayList<Review> findReview(String title){
+		ArrayList<Review> review = (ArrayList<Review>) db.findReviewbyTitle(title);
+		return review;
 	}
 	
 	public Boolean insertReview(int rating, String date, String review, String firstname, String lastname, String title){

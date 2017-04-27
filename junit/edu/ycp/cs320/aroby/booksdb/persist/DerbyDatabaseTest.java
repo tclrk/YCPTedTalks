@@ -224,12 +224,14 @@ public class DerbyDatabaseTest {
 	@Test
 	public void insertReviewTest() throws MalformedURLException {
 		Account acc = new Account();
-		acc = db.findAccount("clocke3@ycp.edu");
+		acc = db.findAccount(2);
 		
 		TedTalk talk = new TedTalk();
 		talk = db.findTedTalkbyTitle("A Guide To Masterful BS");
 		
-		Boolean result = db.insertReview(4, ZonedDateTime.now().toString(), "You are shit", acc.getFirstName(), acc.getLastName(), talk.getTitle());
+		String date = ZonedDateTime.now().toString();
+		
+		Boolean result = db.insertReview((int) 1, date, "You are shit", acc.getFirstName(), acc.getLastName(), talk.getTitle());
 	
 		if (result == true) {
 			System.out.println("Speaker added successfully.");
@@ -272,9 +274,9 @@ public class DerbyDatabaseTest {
 	public void FindSpeakerTest() {
 		Speaker speaker = new Speaker();
 		
-		speaker = db.findSpeaker("Aaron", "Roby");
+		speaker = db.findSpeaker("aaron", "roby");
 		
-		if (speaker.getFirstname().equals("Aaron") && speaker.getLastname().equals("Roby")) {
+		if (speaker.getFirstname().equals("aaron") && speaker.getLastname().equals("roby")) {
 			System.out.println("Speaker found successfully!");
 		} else {
 			fail("No speaker found.");

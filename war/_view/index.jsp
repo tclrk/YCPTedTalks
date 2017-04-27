@@ -23,8 +23,8 @@
 	</c:choose>
 		</form>
 		<br>
-	<div class="popular_reviews">
-		<h2>Popular Ted Talks</h2>
+	<div class="recent">
+		<h2>Recent Ted Talks</h2>
 	</div>
 	</body>
 </html>

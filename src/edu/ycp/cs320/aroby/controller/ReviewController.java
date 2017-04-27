@@ -27,26 +27,22 @@ public class ReviewController {
 		this.model = model;
 	}
 	
-	public Review getReview(){
+	public Review getModel(){
 		return model;
 	}
 	public Account findAccount(int accountId){
-		Account acc = db.findAccount(accountId);
-		return acc;
+		return db.findAccount(accountId);
 	}
 	
 	public TedTalk findTedTalk(String title){
-		TedTalk t = db.findTedTalkbyTitle(title);
-		return t;
+		return db.findTedTalkbyTitle(title);
 	}
 	public Boolean insertReview(int rating, String date, String review, String firstname, String lastname, String title){
-		Boolean r = db.insertReview(rating, date, review, firstname, lastname, title);
-		return r;
+		return db.insertReview(rating, date, review, firstname, lastname, title);
 	}
 	
 	public Speaker findSpeaker(String firstname, String lastname){
-		Speaker spec = db.findSpeaker(firstname, lastname);
-		return spec;
+		return db.findSpeaker(firstname, lastname);
 	}
 	
 	public Boolean isCorrect(){

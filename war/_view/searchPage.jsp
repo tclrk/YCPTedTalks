@@ -12,14 +12,14 @@
 	<c:if test="${sessionScope.error == true}">
 		<h1>Please type in your search criteria.</h1>
 	</c:if>
-		<div class="header">
-			<ul>
-			<li><a class="name">TEDTalk Reviews</a></li>
-			<li><a href=#index> Home</a></li>
-			<li><a href=#about> About</a></li>
-			<li><a href=#search>Search</a></li>
-			</ul>
-		</div>
+		<ul>
+		<li><b href="index">Ted Talk Reviews</b></li>
+		<li class="active"><a href="index">Home</a></li>
+		<li><a href="searchPage">Search</a></li>
+		<li><a href="login">Login</a></li>
+		<li><a href="about">About</a></li> 
+	</ul>
+
 	<form action="${pageContext.servletContext.contextPath}/searchPage" method="post">
 	<h1>Search</h1>
 		<select name="options" id="Type">

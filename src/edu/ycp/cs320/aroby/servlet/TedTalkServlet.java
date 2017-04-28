@@ -55,7 +55,7 @@ public class TedTalkServlet extends HttpServlet {
 		talk.setSpeakerId(speaker.getSpeakerId());
 		talk.setTopicId (real_top.getTopicId());
 		talk.setReview(review);
-		controller.setTalk(talk);
+		controller.setModel(talk);
 		
 		if(title != "" || description != "" || url_string != null 
 				|| topic != "" || author != null){

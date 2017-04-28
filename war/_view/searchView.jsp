@@ -9,6 +9,13 @@
 <body>
 	<form action="${pageContext.servletContext.contextPath}/searchView"
 		method="post">
+		<ul>
+			<li><b class="navbar-brand" href="index">Ted Talk Reviews</b></li>
+			<li class="active"><a href="index">Home</a></li>
+			<li><a href="searchPage">Search</a></li>
+			<li><a href="login">Login</a></li>
+			<li><a href="about">About</a></li> 
+		</ul>
 		<h1>Search Results:</h1>
 		<c:if test="${sessionScope.results == false}">
 			<h2>No search results found!</h2>

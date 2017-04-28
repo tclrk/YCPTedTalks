@@ -26,11 +26,12 @@
 											<li class="active"><a href="index">Home</a></li>
 									        <li><a href="searchPage">Search</a></li>
 									        <li><a href="tedTalkPage">Begin New TedTalk</a></li>
-									    	<li><a href="logout">Logout</a></li>
+									    		<li><a href= "logout">Logout</a></li>
+									    		<li><a href="about">About</a></li>
+									    		<li><b class="welcome">Welcome, ${sessionScope.name}!</b></li>  
 									    </ul>
 									 </div>
 								</div>
-								<h2> Welcome, ${sessionScope.name}!</h1>
 							</nav></c:when>
 						<c:when test="${sessionScope.login != true}">
 								<nav class="navbar navbar-inverse">
@@ -41,6 +42,7 @@
 											<li class="active"><a href="index">Home</a></li>
 									        <li><a href="searchPage">Search</a></li>
 									        <li><a href="login">Login</a></li>
+									        <li><a href="about">About</a></li> 
 									    </ul>
 									</div>
 								</div>
@@ -50,7 +52,7 @@
 					
 		
 		<h1> TEDTalk Reviews </h1>
-		<p> Description of website</p>
+		<p> Opinions worth sharing</p>
 	<div class="recent_reviews">
 		<h2>Recent Ted Talks Reviews</h2>
 		<c:if test="${sessionScope.results == false}">
@@ -85,5 +87,4 @@
 		</c:if>
 	</body>
 	</form>
-	
 </html>

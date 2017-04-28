@@ -8,6 +8,13 @@
 		<link rel="stylesheet" href="reviewPage.css">
 	</head>
 	<body>
+	<ul>
+		<li><b class="navbar-brand" href="index">Ted Talk Reviews</b></li>
+		<li class="active"><a href="index">Home</a></li>
+		<li><a href="searchPage">Search</a></li>
+		<li><a href="login">Login</a></li>
+		<li><a href="about">About</a></li> 
+	</ul>
 	<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>

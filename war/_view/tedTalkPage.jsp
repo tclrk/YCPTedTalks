@@ -9,6 +9,14 @@
 </head>
 <body>
 <form id="tedForm" name="tedForm" action="${pageContext.servletContext.contextPath}/tedTalkPage" method="post">
+	<ul class="nav navbar-nav">
+		<li><b class="navbar-brand" href="index">Ted Talk Reviews</b></li>
+		<li class="active"><a href="index">Home</a></li>
+		<li><a href="searchPage">Search</a></li>
+		<li><a href="login">Login</a></li>
+		<li><a href="about">About</a></li> 
+	</ul>
+
 			<div class="Link">
 				<label for="link">TED Talk Link</label><br>
 				<input type="text" name ="link" id="link" size=12 value ="${model.link}"/>

@@ -17,10 +17,11 @@
 				if(invalidLogin != null) {%><p>Invalid user name and/or password</p><%} %>
 		<div class="header">
 			<ul>
-			<li><a class="name">TEDTalk Reviews</a></li>
-			<li><a href="index"> Home</a></li>
-			<li><a href="about"> About</a></li>
-			<li><a href="searchPage">Search</a></li>
+				<li><b class="navbar-brand" href="index">Ted Talk Reviews</b></li>
+				<li class="active"><a href="index">Home</a></li>
+				<li><a href="searchPage">Search</a></li>
+				<li><a href="login">Login</a></li>
+				<li><a href="about">About</a></li> 
 			</ul>
 		</div>
 		<div class="loginForm">

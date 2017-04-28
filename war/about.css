@@ -1,17 +1,62 @@
 @CHARSET "UTF-8";
 body{
 	font-family: Helvetica Neue;
-	text-align: center;
+	text-align: left;
 }
 
 h1{
-	font-family: Helvetica Neue;
-	font-size: 55px;
+	font-family: Helvetica;
+	font-size: 75px;
 	color: #E62B1E;
-	text-align: center;
+	text-align: left;
+	margin: 23px;
 }
 
 p{
 	font-size: 30px;
-	text-align: center;
+	font-weight: lighter italic;
+	text-align: left;
 }
+
+ul{
+    	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #E62B1E;
+}
+
+li {
+	float: left;
+}
+
+li a {
+	font-family: Helvetica Neue;
+	display: block;
+	color: white;
+	text-decoration: none;
+	font-size: 16px;
+	text-align: center;
+	padding: 10px;
+	background-color: #E62B1E;
+}
+li b {
+	font-family: Helvetica;
+	display: block;
+	color: white;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 20px;
+	text-align: center;
+	padding: 10px;
+	background-color: #E62B1E;
+}
+li a:hover {
+	color: white;
+	background-color: #E62B1E;
+}
+p{
+	font-size: 20px;
+	text-align: left;
+	margin: 30px;
+}}

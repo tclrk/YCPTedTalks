@@ -68,34 +68,43 @@ input[type=submit]:hover{
 }
 
 ul{
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #E62B1E;
+    	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #E62B1E;
 }
 
 li {
-    float: left;
+	float: left;
 }
 
 li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 20px;
-    text-decoration: none;
-}
-
-li a:hover {
-    background-color: #320204;
-}
-
-li p{
-	font-size: 20px;
+	font-family: Helvetica Neue;
 	display: block;
-    color: white;
-    text-align: center;
-    padding-left: 25px;
-    text-decoration: none;
+	color: white;
+	text-decoration: none;
+	font-size: 16px;
+	text-align: center;
+	padding: 10px;
+	background-color: #E62B1E;
+}
+li b {
+	font-family: Helvetica;
+	display: block;
+	color: white;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 20px;
+	text-align: center;
+	padding: 10px;
+	background-color: #E62B1E;
+}
+li a:hover {
+	color: white;
+	background-color: #E62B1E;
+}
+p{
+	font-size: 20px;
+	text-align: center;
 }

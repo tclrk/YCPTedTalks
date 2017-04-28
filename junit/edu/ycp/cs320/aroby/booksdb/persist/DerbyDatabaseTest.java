@@ -222,21 +222,21 @@ public class DerbyDatabaseTest {
 	}
 	
 	@Test
-	public void insertReviewTest() throws MalformedURLException {
+	public void insertReviewTest(){
 		Account acc = new Account();
-		acc = db.findAccount(2);
+		acc = db.findAccount("aroby@ycp.edu");
 		
 		TedTalk talk = new TedTalk();
-		talk = db.findTedTalkbyTitle("A Guide To Masterful BS");
+		talk = db.findTedTalkbyTitle("a guide to masterful bs");
 		
 		String date = ZonedDateTime.now().toString();
 		
-		Boolean result = db.insertReview((int) 1, date, "You are shit", acc.getFirstName(), acc.getLastName(), talk.getTitle());
+		Boolean result = db.insertReview(2, date, "You are shit", acc.getFirstName(), acc.getLastName(), talk.getTitle());
 	
 		if (result == true) {
-			System.out.println("Speaker added successfully.");
+			System.out.println("Review added successfully.");
 		} else {
-			fail("Uh oh, the speaker wasn't added successfully.");
+			fail("Uh oh, the review wasn't added successfully.");
 		}
 	}
 	

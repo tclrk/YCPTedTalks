@@ -399,7 +399,7 @@ public class FakeDatabase implements IDatabase {
 		return topicList.add(t);
 	}
 
-	public void insertReview(int acc_id, int ted_id, int rating, ZonedDateTime date, String review, String recommendation) {
+	public void insertReview(int acc_id, int ted_id, int rating, String date, String review, String recommendation) {
 		// TODO Auto-generated method stub
 		Review r = new Review();
 		r.setRating(rating);

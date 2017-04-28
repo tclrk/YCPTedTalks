@@ -3,13 +3,11 @@ package edu.ycp.cs320.aroby.booksdb.persist;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -631,7 +629,7 @@ public class DerbyDatabase implements IDatabase {
 		review.setAccountId(resultSet.getInt(index++));
 		review.setTedTalkId(resultSet.getInt(index++));
 		review.setRating(resultSet.getInt(index++));
-		review.setDate(ZonedDateTime.parse(resultSet.getString(index++)));
+		review.setDate((resultSet.getString(index++)));
 		review.setReview(resultSet.getString(index++));
 	}
 	
@@ -907,7 +905,7 @@ public class DerbyDatabase implements IDatabase {
 						insertReviews.setInt(1, review.getAccountId());
 						insertReviews.setInt(2, review.getTedTalkId());
 						insertReviews.setInt(3, review.getRating());
-						insertReviews.setString(4, review.getDate().toString());
+						insertReviews.setString(4, review.getDate());
 						insertReviews.setString(5, review.getReview());
 						insertReviews.addBatch();
 					}
@@ -1464,7 +1462,7 @@ public class DerbyDatabase implements IDatabase {
 
 					Speaker speaker = new Speaker();
 					
-					// Read through the ResultSet to see if the account exists
+					// Read through the ResultSet to see if the speaker exists
 					Boolean found = false;
 					while (resultSet.next()) {
 						found = true;
@@ -1477,13 +1475,13 @@ public class DerbyDatabase implements IDatabase {
 
 					Topic topic = new Topic();
 					
-					// Read through the ResultSet to see if the account exists
+					// Read through the ResultSet to see if the topic exists
 					while (resultSet.next()) {
 						found = true;
 						loadTopic(topic, resultSet, 1);
 					}
 
-					// Now that we have speaker and topic id, we can use the IDs as a FK to the tedtalk
+					// Now that we have speaker and topic id, we can use the IDs as foreign keys to the tedtalk
 					if (found) {
 						stmt = conn.prepareStatement(
 								"insert into tedtalks "
@@ -1527,14 +1525,14 @@ public class DerbyDatabase implements IDatabase {
 
 					Speaker speaker = new Speaker();
 					
-					// Read through the ResultSet to see if the account exists
+					// Read through the ResultSet to see if the speaker exists
 					Boolean found = false;
 					while (resultSet.next()) {
 						found = true;
 						loadSpeaker(speaker, resultSet, 1);
 					}
 
-					// Now that we have speaker and topic id, we can use the IDs as a FK to the tedtalk
+					// Now that we have speaker and topic id, we can use the IDs as foreign keys to the tedtalk
 					if (found) {
 						return false;
 					} else {
@@ -1571,7 +1569,7 @@ public class DerbyDatabase implements IDatabase {
 
 					Speaker speaker = new Speaker();
 					
-					// Read through the ResultSet to see if the account exists
+					// Read through the ResultSet to see if the speaker exists
 					Boolean found = false;
 					while (resultSet.next()) {
 						found = true;
@@ -1602,14 +1600,14 @@ public class DerbyDatabase implements IDatabase {
 
 					Topic topic = new Topic();
 					
-					// Read through the ResultSet to see if the account exists
+					// Read through the ResultSet to see if the topic exists
 					Boolean found = false;
 					while (resultSet.next()) {
 						found = true;
 						loadTopic(topic,resultSet, 1);
 					}
 
-					// Now that the topic id was found, we can use the ID to insert the name into the database table
+					// if topic was not found, we can insert a topic in the database
 					if (found) {
 						return false;
 					} else {
@@ -1636,10 +1634,12 @@ public class DerbyDatabase implements IDatabase {
 			@SuppressWarnings("resource")
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
 				ResultSet resultSet = null;
+				ResultSet resultSet2 = null;
 				
 				try{
-					stmt = conn.prepareStatement("select * from accounts "
+					stmt = conn.prepareStatement("select account_id from accounts "
 							+ " where firstname = ? and lastname = ?");
 					
 					stmt.setString(1, firstname.toLowerCase());
@@ -1647,40 +1647,40 @@ public class DerbyDatabase implements IDatabase {
 					
 					resultSet = stmt.executeQuery();
 					
-					Account account = new Account();
+					int acc_id = 0;
 					
 					while(resultSet.next()){
-						loadAccount(account, resultSet, 1);
+						acc_id = resultSet.getInt("account_id");
 					}
 				
-					stmt = conn.prepareStatement("select * from tedtalks where title = ?");
-					stmt.setString(1, title.toLowerCase());
+					stmt2 = conn.prepareStatement("select tedtalk_id from tedtalks where title = ?");
+					stmt2.setString(1, title.toLowerCase());
 					
-					resultSet = stmt.executeQuery();
+					resultSet2 = stmt.executeQuery();
 					
-					TedTalk talk = new TedTalk();
-					while(resultSet.next()){
-						loadTedTalk(talk, resultSet, 2);
+					int talk_id = 0;
+					while(resultSet2.next()){
+						talk_id = resultSet2.getInt("tedtalk_id");
 					}
 					
-					stmt = conn.prepareStatement("insert into reviews"
-							+ " (account_id, tedtalk_id, rating, review, date"
-							+ "  values(?, ?, ?, ?, ?");
+					stmt = conn.prepareStatement(
+							"insert into reviews "
+							+ "(account_id, tedtalk_id, rating, date, review)"
+							+ "values (?,?,?,?,?)");
 					
-					stmt.setInt(1, account.getAccountId());
-					stmt.setInt(2, talk.getTedTalkId());
+					stmt.setInt(1, acc_id);
+					stmt.setInt(2, talk_id);
 					stmt.setInt(3, rating);
 					stmt.setString(4, review);
 					stmt.setString(5, date);
 					
 					stmt.executeUpdate();
 				} 
-				catch (MalformedURLException e) {
-					e.printStackTrace();
-				}
 					finally {
 						DBUtil.closeQuietly(resultSet);
 						DBUtil.closeQuietly(stmt);
+						DBUtil.closeQuietly(resultSet2);
+						DBUtil.closeQuietly(stmt2);
 					}
 				return null;
 				}
@@ -1803,7 +1803,7 @@ public class DerbyDatabase implements IDatabase {
 				TedTalk result = new TedTalk();
 				
 				try {
-					// First, create a list of TED Talks
+					// First, create a space for the TedTalk
 					
 					TedTalk talk = new TedTalk();
 					
@@ -1842,7 +1842,7 @@ public class DerbyDatabase implements IDatabase {
 				TedTalk result = new TedTalk();
 				
 				try {
-					// First, create a TedTalk
+					// First, create a space for TedTalk
 					TedTalk talk = new TedTalk();
 					
 					// Query for title 

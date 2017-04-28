@@ -6,7 +6,7 @@ import java.time.ZonedDateTime;
 public class Review {
 	private String review;
 	private int rating, accountId, tedTalkId, reviewId;
-	private ZonedDateTime date;
+	private String date;
 	
 	public int getRating() {
 		return rating;
@@ -21,10 +21,10 @@ public class Review {
 		this.review = review;
 	}
 	public String getDate() {
-		date = ZonedDateTime.now();
-		return date.toString();
+		date = ZonedDateTime.now().toString();
+		return date;
 	}
-	public void setDate(ZonedDateTime date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public int getTedTalkId() {

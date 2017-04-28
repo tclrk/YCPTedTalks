@@ -34,8 +34,8 @@ public class ReviewControllerTest {
 		controller1.setModel(model1);
 		controller2.setModel(model2);
 		
-		controller1.getReview();
-		controller2.getReview();
+		controller1.getModel();
+		controller2.getModel();
 	}
 	
 	@Test

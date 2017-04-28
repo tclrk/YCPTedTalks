@@ -35,7 +35,7 @@ public class ReviewServlet extends HttpServlet {
 		ArrayList<Review> reviewList = new ArrayList<Review>();
 		int rating = 0;
 		
-		ZonedDateTime current = ZonedDateTime.now();
+		String current = ZonedDateTime.now().toString();
 		String review = req.getParameter("review");
 		String rating_string = req.getParameter("rating");
 		if(rating_string != "" & rating_string != null){

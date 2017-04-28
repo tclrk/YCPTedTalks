@@ -26,7 +26,6 @@ public class LoginServlet extends HttpServlet {
 		Account model = new Account();
 		LoginController controller= new LoginController();
 		
-		// TODO: check database to see if this matches any accounts we have
 		String inputEmail = req.getParameter("email");
 		String inputPass = req.getParameter("password");
 		

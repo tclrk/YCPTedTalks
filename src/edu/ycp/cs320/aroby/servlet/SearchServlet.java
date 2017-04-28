@@ -32,6 +32,8 @@ public class SearchServlet extends HttpServlet{
 			throws ServletException, IOException {
 		boolean searchError = false;
 	
+		// COmment
+		
 		Search model = new Search();
 		SearchController controller = new SearchController();
 		

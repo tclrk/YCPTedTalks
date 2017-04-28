@@ -474,5 +474,5 @@ public class FakeDatabase implements IDatabase {
 	public Speaker findSpeakerFromTedTalk(int speakerId) {
 		// TODO Auto-generated method stub
 		return null;
-	}	
+	}
 }

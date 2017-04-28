@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+body{
+	font-family: Helvetica Neue;
+	text-align: center;
+}
+
+h1{
+	font-family: Helvetica Neue;
+	font-size: 55px;
+	color: #E62B1E;
+	text-align: center;
+}
+
+p{
+	font-size: 30px;
+	text-align: center;
+}

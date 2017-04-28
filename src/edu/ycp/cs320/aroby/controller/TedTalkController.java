@@ -1,13 +1,13 @@
 //come back to this later 
 
 package edu.ycp.cs320.aroby.controller;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.ycp.cs320.aroby.booksdb.persist.DatabaseProvider;
 import edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase;
 import edu.ycp.cs320.aroby.booksdb.persist.IDatabase;
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.ycp.cs320.aroby.model.Account;
 import edu.ycp.cs320.aroby.model.Review;
 import edu.ycp.cs320.aroby.model.Speaker;
 import edu.ycp.cs320.aroby.model.TedTalk;
@@ -17,40 +17,22 @@ public class TedTalkController {
 
 	private Topic top;
 	private Speaker speaker;
-	private TedTalk ted_talk;
 	private IDatabase db;
+	private TedTalk model;
 	
 	public TedTalkController(){
 		DatabaseProvider.setInstance(new DerbyDatabase());
 		db = DatabaseProvider.getInstance();
-	}
 	
-	public void set_TedTalk(String title, String description, int tedTalk_id, int speaker_id, int topic_id, String link, ArrayList<Review> review){
-		ted_talk.setDescription(description);
-		ted_talk.setLink(link);
-		ted_talk.setReview(review);
-		ted_talk.setSpeakerId(speaker_id);
-		ted_talk.setTedTalkId(tedTalk_id);
-		ted_talk.setTitle(title);
-		ted_talk.setTopicId(topic_id);	
 	}
-	
-	public void setTalk(TedTalk ted_talk){
-		this.ted_talk = ted_talk;
+	public void setModel(TedTalk model) {
+		this.model = model;
 	}
 	
 	public TedTalk getTedTalk(){
-		return ted_talk;
+		return model;
 	}
-	
-	public boolean exists(){ 
-		if (ted_talk.getDescription() != "" || ted_talk.getLink() != "" || ted_talk.getReview() != null || ted_talk.getTitle() != "" || ted_talk.getSpeakerId() > 0 || ted_talk.getTedTalkId() > 0 || ted_talk.getTopicId() > 0){
-			return false;
-		}
-		else{
-			return true;
-		}
-	}
+
 	
 	public Boolean insertNewSpeaker(String firstname, String lastname){
 		 db.insertNewSpeaker(firstname, lastname);
@@ -83,7 +65,7 @@ public class TedTalkController {
 	}
 	
 	public Boolean insertNewTedTalk(String title, String description, String url, String firstname, String lastname, String topic){
-		Boolean t = db.insertNewTedTalk(ted_talk.getTitle(), ted_talk.getDescription(), ted_talk.getLink(), firstname, lastname, topic);
+		Boolean t = db.insertNewTedTalk(model.getTitle(), model.getDescription(), model.getLink(), firstname, lastname, topic);
 		return t;
 	}
 	
@@ -102,4 +84,15 @@ public class TedTalkController {
 		List<TedTalk> t3 = db.findTedTalkbyTopic(topic);
 		return t3;
 }
+
+	public Account findAccount(int id) {
+		Account a = db.findAccount(id);
+		
+		return a;
+	}
+	public List<Review> findReviewbyTitle(String title) {
+		List<Review> t = db.findReviewbyTitle(title);
+		
+		return t;
+	}
 }

@@ -1,13 +1,29 @@
 @CHARSET "UTF-8";
 body{
 	background-color: white;
-	text-align: left;
+	text-align: center;
 	font-family: Helvetica;
 	font-size: 20px;
 	font-weight: 700px;
 }
+
+h1{
+	font-family: Helvetica Neue;
+	font-size: 55px;
+	color: #E62B1E;
+	text-align: center;
+}
+
 .Name{
 	margin: 10px;
+}
+
+form{
+	background-color:#E62B1E;
+	width: 300px;
+	border: 15px solid #E62B1E;
+	padding: 12px;
+	margin: 15px;
 }
 
 form div + div{

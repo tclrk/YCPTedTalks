@@ -1639,7 +1639,7 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet2 = null;
 				
 				try{
-					stmt = conn.prepareStatement("select account_id from accounts "
+					stmt = conn.prepareStatement("select * from accounts "
 							+ " where firstname = ? and lastname = ?");
 					
 					stmt.setString(1, firstname.toLowerCase());
@@ -1647,20 +1647,20 @@ public class DerbyDatabase implements IDatabase {
 					
 					resultSet = stmt.executeQuery();
 					
-					int acc_id = 0;
+					Account acc = new Account();
 					
 					while(resultSet.next()){
-						acc_id = resultSet.getInt("account_id");
+						loadAccount(acc, resultSet, 1);
 					}
 				
-					stmt2 = conn.prepareStatement("select tedtalk_id from tedtalks where title = ?");
+					stmt2 = conn.prepareStatement("select * from tedtalks where title = ?");
 					stmt2.setString(1, title.toLowerCase());
 					
-					resultSet2 = stmt.executeQuery();
+					resultSet2 = stmt2.executeQuery();
 					
-					int talk_id = 0;
+					TedTalk talk = new TedTalk();
 					while(resultSet2.next()){
-						talk_id = resultSet2.getInt("tedtalk_id");
+						loadTedTalk(talk, resultSet2, 1);
 					}
 					
 					stmt = conn.prepareStatement(
@@ -1668,13 +1668,16 @@ public class DerbyDatabase implements IDatabase {
 							+ "(account_id, tedtalk_id, rating, date, review)"
 							+ "values (?,?,?,?,?)");
 					
-					stmt.setInt(1, acc_id);
-					stmt.setInt(2, talk_id);
+					stmt.setInt(1, acc.getAccountId());
+					stmt.setInt(2, talk.getTedTalkId());
 					stmt.setInt(3, rating);
 					stmt.setString(4, review);
 					stmt.setString(5, date);
 					
 					stmt.executeUpdate();
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+					System.out.print("Don't know what this means but something's going on");
 				} 
 					finally {
 						DBUtil.closeQuietly(resultSet);

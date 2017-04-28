@@ -224,7 +224,7 @@ public class DerbyDatabaseTest {
 	@Test
 	public void insertReviewTest(){
 		Account acc = new Account();
-		acc = db.findAccount("aroby@ycp.edu");
+		acc = db.findAccount(3);
 		
 		TedTalk talk = new TedTalk();
 		talk = db.findTedTalkbyTitle("a guide to masterful bs");

@@ -15,6 +15,9 @@
 		</c:if>
 		<c:if test="${sessionScope.results == true}">
 			<c:forEach items="${sessionScope.tedTalks}" var="talk">
+			/*Make title link to tedTalkView jsp to display,
+			 then save necessary tedTalk info into session information. 
+			 Redirect to the JSP for displaying a tedtalk and its review*/
 				<h2>
 					<c:out value="${talk.title}" />
 				</h2>

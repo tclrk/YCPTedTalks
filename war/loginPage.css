@@ -1,22 +1,33 @@
 @CHARSET "UTF-8";
 body{
 	background-color: white;
-	text-align: left;
 	font-family: Helvetica;
 	font-size: 20px;
 	font-weight: 700px;
 }
 h1{
 	font-family: Helvetica Neue;
-	font-size: 55px;
+	font-size: 70px;
 	color: #E62B1E;
+	margin: auto;
+	text-align: center;
+	padding: 20px;
 }
 
 p{
 	font-size: 22px;
 	color: #E62B1E;
 }
-	
+table{
+	background-color:#E62B1E;
+	color: white;
+	font-size: 25px;
+	width: 100px;
+	text-align: right;
+	margin: auto;
+    border: 3px solid #E62B1E;
+    padding: 30px;
+}
 input{
 	width: 300px;
 
@@ -25,7 +36,6 @@ input{
   	box-sizing: border-box;
 
   	/* make all text boxes appear the same */
- 	border: 2px solid #E62B1E;
  	font-size: 16px;
  	font-family: Helvetica Neue;
 }
@@ -45,7 +55,47 @@ input[type=submit]{
     cursor: pointer;
 }
 
+.button{
+	margin: auto;
+	text-align: center;
+    width: 60%;
+    padding: 10px;
+}
+
 input[type=submit]:hover{
 	background-color: #E62B1E;
     color: white;
+}
+
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #E62B1E;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #320204;
+}
+
+li p{
+	font-size: 20px;
+	display: block;
+    color: white;
+    text-align: center;
+    padding-left: 25px;
+    text-decoration: none;
 }

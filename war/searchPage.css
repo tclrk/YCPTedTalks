@@ -1,4 +1,13 @@
 @CHARSET "UTF-8";
+h1{
+	font-family: Helvetica Neue;
+	font-size: 70px;
+	color: #E62B1E;
+	margin: auto;
+	text-align: center;
+	padding: 20px;
+}
+
 input[type=text]{
 	box-sizing: border-box;
 	border: 2px solid #E62B1E;
@@ -45,3 +54,35 @@ select:hover, select:focus {
     background-color: #E62B1E;
 }
 
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #E62B1E;
+}
+
+li {
+    float: left;
+}
+
+li a {s
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #320204;
+}
+
+li p{
+	font-size: 20px;
+	display: block;
+    color: white;
+    text-align: center;
+    padding-left: 25px;
+    text-decoration: none;
+}

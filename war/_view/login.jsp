@@ -15,6 +15,15 @@
 		<form action="${pageContext.servletContext.contextPath}/login" method="post">
 			<%Boolean invalidLogin = (Boolean)request.getSession().getAttribute("login_failure"); 
 				if(invalidLogin != null) {%><p>Invalid user name and/or password</p><%} %>
+		<div class="header">
+			<ul>
+			<li><a class="name">TEDTalk Reviews</a></li>
+			<li><a href="index"> Home</a></li>
+			<li><a href="about"> About</a></li>
+			<li><a href="searchPage">Search</a></li>
+			</ul>
+		</div>
+		<div class="loginForm">
 				<h1>Login</h1>
 			<table>
 				<tr>
@@ -26,7 +35,33 @@
 					<td><input type="password" name="password" size="12" value="${model.password}" /></td>
 				</tr>
 			</table>
-			<input type="Submit" name="submit" value="Login">
+			<div class="button">
+				<input type="Submit" name="submit" value="Login">
+			</div>
+			</div>
 		</form>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<div class="footer">
+		<ul>
+			<li><p>Copyright © 2017 All Rights Reserved</p></li>
+		</ul>
+		</div>
 	</body>
 </html>

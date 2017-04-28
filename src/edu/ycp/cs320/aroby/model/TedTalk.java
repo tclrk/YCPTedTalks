@@ -2,6 +2,9 @@ package edu.ycp.cs320.aroby.model;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class TedTalk {
 	private String link;
@@ -63,4 +66,5 @@ public class TedTalk {
 	public void setSpeakerId(int speaker_id) {
 		this.speakerId = speaker_id;
 	}
+	
 }

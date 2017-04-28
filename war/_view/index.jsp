@@ -2,29 +2,88 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<html>
+<html lang="en">
 	<head>
+		<meta charset="utf-8"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Index</title>
-		<h1> TEDTalk Reviews </h1>
 		 <link rel="stylesheet" type="text/css" href="indexPage.css">
+		 
+  			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	</head>
 
 	<body>
-	<c:if test="${sessionScope.login != null}"><h1>Welcome, <c:out value="${sessionScope.name}"/>!</h1></c:if>
-		<form action="${pageContext.servletContext.contextPath}/index" method="post">
-	<c:choose>
-		<c:when test="${sessionScope.login == true}"><input name="logout" type="submit" value="Logout" />
-			<input name="tedTalkPage" type="submit" value="Begin New TedTalk Page" />
-			<input name="searchPage" type="submit" value="Search"/></c:when>
-		<c:when test="${sessionScope.login != true}">
-			<input name="login" type="submit" value="Login" />
-			<input name="createAccount" type="submit" value="Create An Account" />
-		</c:when>
-	</c:choose>
-		</form>
-		<br>
-	<div class="popular_reviews">
-		<h2>Popular Ted Talks</h2>
-	</div>
+		
+						<form action="${pageContext.servletContext.contextPath}/index" method="post">
+					<c:choose>
+						<c:when test="${sessionScope.login == true}">
+							<nav class="navbar navbar-inverse">
+								<div class="container-fluid">
+									<div class="navbar-header">
+										<ul class="nav navbar-nav">
+											<li><b href="index">Ted Talk Reviews</b></li>
+											<li class="active"><a href="index">Home</a></li>
+									        <li><a href="searchPage">Search</a></li>
+									        <li><a href="tedTalkPage">Begin New TedTalk</a></li>
+									    	<li><a href="logout">Logout</a></li>
+									    </ul>
+									 </div>
+								</div>
+								<h2> Welcome, ${sessionScope.name}!</h1>
+							</nav></c:when>
+						<c:when test="${sessionScope.login != true}">
+								<nav class="navbar navbar-inverse">
+									<div class="container-fluid">
+										<div class="navbar-header">
+										<ul class="nav navbar-nav">
+											<li><b class="navbar-brand" href="index">Ted Talk Reviews</b></li>
+											<li class="active"><a href="index">Home</a></li>
+									        <li><a href="searchPage">Search</a></li>
+									        <li><a href="login">Login</a></li>
+									    </ul>
+									</div>
+								</div>
+								
+					</c:when>
+				</c:choose>
+					
+		
+		<h1> TEDTalk Reviews </h1>
+		<p> Description of website</p>
+	<div class="recent_reviews">
+		<h2>Recent Ted Talks Reviews</h2>
+		<c:if test="${sessionScope.results == false}">
+			<h2> nothing</h2>
+		</c:if>
+		<c:if test="${sessionScope.results == true}">
+			<table>
+			<c:forEach items="${sessionScope.tedTalks}" var="talk">
+				<tr>
+					<td>Title: <c:out value="${talk.title}" /><td>
+				</tr>
+					<c:forEach items="${sessionScope.accounts}" var="account">
+						<c:forEach items="${sessionScope.reviews}" var="review">
+							<c:if test="${review.tedTalkId == talk.tedTalkId}">
+								<tr>
+									<td>Rating: <c:out value="${review.rating}" /></td>
+								</tr>
+							</c:if>
+							<c:if test="${review.accountId == account.accountId}">
+								<tr>
+									<td>Reviewer: <c:out value="${account.firstName}" /> <c:out
+											value="${account.lastName}" /></td>
+								</tr>
+								<tr>
+									<td><a href="searchPage">Search this Reviewer</a><td>
+								</tr>
+							</c:if>
+						</c:forEach>
+					</c:forEach>
+				</table>
+			</c:forEach>
+		</c:if>
 	</body>
+	</form>
+	
 </html>

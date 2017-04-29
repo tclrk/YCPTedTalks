@@ -42,6 +42,10 @@
   <servlet-name>AboutServlet</servlet-name>
   <servlet-class>edu.ycp.cs320.aroby.servlet.AboutServlet</servlet-class>
   </servlet>
+  <servlet>
+  <servlet-name>TedTalkViewServlet</servlet-name>
+  <servlet-class>edu.ycp.cs320.aroby.servlet.TedTalkViewServlet</servlet-class>
+  </servlet>
   
 	<!-- Ajax Servlets -->
   <servlet>
@@ -89,6 +93,11 @@
     <servlet-name>AboutServlet</servlet-name>
     <url-pattern>/about</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TedTalkViewServlet</servlet-name>
+    <url-pattern>/tedTalkView</url-pattern>
+  </servlet-mapping>
+  
   
   
   
@@ -122,6 +131,9 @@
   </servlet-mapping><servlet-mapping>
   	<servlet-name>AboutServlet</servlet-name>
   	<url-pattern>/about</url-pattern>
+  </servlet-mapping><servlet-mapping>
+  	<servlet-name>TedTalkViewServlet</servlet-name>
+  	<url-pattern>/tedTalkView</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
       <welcome-file>index.html</welcome-file>

@@ -75,6 +75,11 @@ public class TedTalkController {
 		return t1;
 	}
 	
+	public TedTalk findTedTalkByID(int tedTalkID){
+		TedTalk tid = db.findTedTalkByID(tedTalkID);
+		return tid;
+	}
+	
 	public TedTalk findTedTalkbyTitle(String title){
 		TedTalk t2 = db.findTedTalkbyTitle(title);
 		return t2;
@@ -94,5 +99,26 @@ public class TedTalkController {
 		List<Review> t = db.findReviewbyTitle(title);
 		
 		return t;
+	}
+	
+	public Topic findTopicByID(int topicID){
+		return db.findTopicbyID(topicID);
+	}
+	
+	public Speaker findSpeakerByID(int speakerID){
+		return db.findSpeakerbyID(speakerID);
+	}
+	
+	public List<Account> getAccountbyReviews(List<Review> reviews){
+		List<Account> accounts = new ArrayList<Account>();
+		List<Integer> acc_ids = new ArrayList<Integer>();
+		for(Review review : reviews){
+			Account acc = db.findAccount(review.getAccountId());
+			if(!acc_ids.contains(acc.getAccountId())){
+				acc_ids.add(acc.getAccountId());
+				accounts.add(acc);
+			}
+		}
+		return accounts;
 	}
 }

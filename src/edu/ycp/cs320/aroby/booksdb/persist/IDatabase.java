@@ -34,6 +34,10 @@ public interface IDatabase {
 	public List<TedTalk> findTedTalkbySpeaker(String search);
 	public List<TedTalk> findTedTalkbyTopic(String search);
 	public TedTalk findTedTalkbyTitle(String search);
+	public TedTalk findTedTalkByID(int tedTalkID);
+	public Topic findTopicbyID(int topicID);
+	public Speaker findSpeakerbyID(int speakerID);
+
 	
 	// Me
 	public Boolean createNewAccount(String email, String password, String firstname, String lastname, boolean admin);

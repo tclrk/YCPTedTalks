@@ -1875,4 +1875,94 @@ public class DerbyDatabase implements IDatabase {
 		});
 	}
 	
+	public TedTalk findTedTalkByID(final int tedTalkID){
+		return executeTransaction(new Transaction<TedTalk>() {
+			public TedTalk execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				TedTalk result = new TedTalk();
+				
+				try{
+					
+					TedTalk talk = new TedTalk();
+					stmt = conn.prepareStatement("select * from tedtalks where tedtalk_id = ?");
+					
+					stmt.setInt(1, tedTalkID);
+					resultSet = stmt.executeQuery();
+					
+					while(resultSet.next()){
+						loadTedTalk(talk, resultSet, 1);
+					}
+					
+					result = talk;
+				} catch (MalformedURLException e) {
+					System.out.print("Bad url...");
+					e.printStackTrace();
+				}finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return result;
+			}
+		});
+	}
+	
+	public Topic findTopicbyID(final int topicID){
+		return executeTransaction(new Transaction<Topic>() {
+			public Topic execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				Topic result = new Topic();
+				
+				try{
+					
+					Topic top = new Topic();
+					stmt = conn.prepareStatement("select * from topics where topic_id = ?");
+					
+					stmt.setInt(1, topicID);
+					resultSet = stmt.executeQuery();
+					
+					while(resultSet.next()){
+						loadTopic(top, resultSet, 1);
+					}
+					
+					result = top;
+				}finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return result;
+			}
+		});
+	}
+	
+	public Speaker findSpeakerbyID(final int speakerID){
+		return executeTransaction(new Transaction<Speaker>() {
+			public Speaker execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				
+				Speaker result = new Speaker();
+				
+				try{
+					Speaker spec = new Speaker();
+					
+					stmt = conn.prepareStatement("select * from speakers where speaker_id = ?");
+					
+					stmt.setInt(1, speakerID);
+					resultSet = stmt.executeQuery();
+					
+					while(resultSet.next()){
+						loadSpeaker(spec, resultSet, 1);
+					}
+					result = spec;
+				}
+				finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return result;
+			}
+		});
+	}
 }

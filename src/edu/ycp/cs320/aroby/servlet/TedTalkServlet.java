@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.eclipse.jetty.server.session.AbstractSessionManager.Session;
+
 import edu.ycp.cs320.aroby.model.Account;
 import edu.ycp.cs320.aroby.model.Review;
 import edu.ycp.cs320.aroby.model.Speaker;
@@ -70,7 +72,15 @@ public class TedTalkServlet extends HttpServlet {
 		}
 	
 		HttpSession talk_session = req.getSession(true);
-		talk_session.setAttribute("title", talk.getTitle());
+		if(talk != null){
+			talk_session.setAttribute("title", talk.getTitle());
+			talk_session.setAttribute("description", talk.getDescription());
+			talk_session.setAttribute("url", talk.getLink());
+			talk_session.setAttribute("topicId", talk.getTopicId());
+			talk_session.setAttribute("tedTalkId", talk.getTedTalkId());
+			talk_session.setAttribute("speakerId", talk.getSpeakerId());
+			talk_session.setAttribute("talk", true);
+		}
 		
 		req.setAttribute("model", talk);
 		resp.sendRedirect("/aroby/reviewPage");

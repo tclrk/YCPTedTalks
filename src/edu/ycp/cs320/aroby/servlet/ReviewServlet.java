@@ -44,10 +44,10 @@ public class ReviewServlet extends HttpServlet {
 			
 		//start setting shit up
 		HttpSession session = req.getSession(true);
-		String title = (String) session.getAttribute("title");
+		TedTalk tedtalk = (TedTalk) session.getAttribute("talk");
 		Integer account_id = (Integer) session.getAttribute("accountId");
 		
-		talk = controller.findTedTalk(title);
+		talk = controller.findTedTalk(tedtalk.getTitle());
 		acc = controller.findAccount(account_id);
 			
 		model.setRating(rating);
@@ -64,7 +64,7 @@ public class ReviewServlet extends HttpServlet {
 			errorMessage = "Complete all required fields";
 		}
 		else{
-			controller.insertReview(model.getRating(), model.getDate(), model.getReview(), acc.getFirstName(), acc.getLastName(), title);
+			controller.insertReview(model.getRating(), model.getDate(), model.getReview(), acc.getFirstName(), acc.getLastName(), tedtalk.getTitle());
 			req.setAttribute("model", model);
 			System.out.print("Your review was submitted");
 			resp.sendRedirect("/aroby/index");

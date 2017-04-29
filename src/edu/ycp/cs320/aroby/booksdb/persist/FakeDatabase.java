@@ -475,4 +475,19 @@ public class FakeDatabase implements IDatabase {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public TedTalk findTedTalkByID(int tedTalkID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Topic findTopicbyID(int topicID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Speaker findSpeakerbyID(int speakerID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

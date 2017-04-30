@@ -5,7 +5,8 @@
 <html>
 <head>
 <title>Search Results</title>
-</head>
+<link rel="stylesheet" type="text/css" href="searchView.css">
+	</head>
 <body>
 	<form id=searchView
 		action="${pageContext.servletContext.contextPath}/searchView"

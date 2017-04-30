@@ -20,6 +20,7 @@
 				<li><b class="navbar-brand" href="index">Ted Talk Reviews</b></li>
 				<li class="active"><a href="index">Home</a></li>
 				<li><a href="searchPage">Search</a></li>
+				<li><a href="createAccount">Create Account</a></li>
 				<li><a href="login">Login</a></li>
 				<li><a href="about">About</a></li> 
 			</ul>
@@ -41,28 +42,5 @@
 			</div>
 			</div>
 		</form>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<div class="footer">
-		<ul>
-			<li><p>Copyright © 2017 All Rights Reserved</p></li>
-		</ul>
-		</div>
 	</body>
 </html>

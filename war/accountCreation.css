@@ -17,6 +17,14 @@ table{
 	border: 15px solid #E62B1E;
 	padding: 12px;
 	margin: 15px;
+	text-align: left;
+}
+
+form{
+	margin-left: 39%;
+}
+td{
+	color: white;
 }
 
 input[type=text]{

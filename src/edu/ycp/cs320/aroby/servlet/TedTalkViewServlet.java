@@ -86,6 +86,6 @@ public class TedTalkViewServlet extends HttpServlet {
 		
 		if(req.getParameter("reviewPage") != null){
 			resp.sendRedirect("/aroby/reviewPage");
-		}
 	}
+}
 }

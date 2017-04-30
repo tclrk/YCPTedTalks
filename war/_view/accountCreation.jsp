@@ -12,6 +12,7 @@
 		<li><b href="index">Ted Talk Reviews</b></li>
 		<li class="active"><a href="index">Home</a></li>
 		<li><a href="searchPage">Search</a></li>
+		<li><a href="createAccount">Create Account</a></li>
 		<li><a href="login">Login</a></li>
 		<li><a href="about">About</a></li> 
 	</ul>

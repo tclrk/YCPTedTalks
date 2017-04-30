@@ -20,10 +20,11 @@ h1{
 
 form{
 	background-color:#E62B1E;
-	width: 300px;
+	width: 520px;
 	border: 15px solid #E62B1E;
 	padding: 12px;
-	margin: 15px;
+	margin-left: 29%;
+	
 }
 
 form div + div{
@@ -32,6 +33,14 @@ form div + div{
 
 .error {
 	color: red;
+}
+
+label{
+	color: white;
+}
+
+div{
+	text-align: left;
 }
 		
 

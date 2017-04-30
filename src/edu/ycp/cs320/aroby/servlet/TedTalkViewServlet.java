@@ -64,6 +64,6 @@ public class TedTalkViewServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 		if(req.getParameter("reviewPage") != null){
 			resp.sendRedirect("/aroby/reviewPage");
-		}
 	}
+}
 }

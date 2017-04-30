@@ -5,7 +5,8 @@
 <html>
 <head>
 <title>Search Results</title>
-</head>
+<link rel="stylesheet" type="text/css" href="searchView.css">
+	</head>
 <body>
 	<form id= searchView action="${pageContext.servletContext.contextPath}/searchView" method="post">
 	<ul>
@@ -22,6 +23,7 @@
 		<c:if test="${sessionScope.results == true}">
 			<c:forEach items="${sessionScope.tedTalks}" var="talk">
 				<a href="tedTalkView?tid=${talk.tedTalkId}"><c:out value="${talk.title}"/></a>
+				<br>
 				<br>
 				<br>
 			</c:forEach>

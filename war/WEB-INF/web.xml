@@ -46,6 +46,10 @@
   <servlet-name>TedTalkViewServlet</servlet-name>
   <servlet-class>edu.ycp.cs320.aroby.servlet.TedTalkViewServlet</servlet-class>
   </servlet>
+  <servlet>
+  <servlet-name>LogoutServlet</servlet-name>
+  <servlet-class>edu.ycp.cs320.aroby.servlet.LogoutServlet</servlet-class>
+  </servlet>
   
 	<!-- Ajax Servlets -->
   <servlet>
@@ -96,6 +100,10 @@
   <servlet-mapping>
     <servlet-name>TedTalkViewServlet</servlet-name>
     <url-pattern>/tedTalkView</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/logout</url-pattern>
   </servlet-mapping>
   
   

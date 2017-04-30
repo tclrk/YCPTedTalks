@@ -1,14 +1,4 @@
 @CHARSET "UTF-8";
-
-h{
-	background-color: #E62B1E;
-	border: 2px solid #E62B1E;
-	color: black;
-	font-family: Helvetica Neue;
-	font-size: 35px;
-	padding: 0px;
-	font-weight: 900px;
-}
 h1{
 	color: #E62B1E;
 	text-align: center;
@@ -16,6 +6,7 @@ h1{
 	font-weight: 900px;
 	font-size: 120px;
 	padding: 0px;
+	margin-bottom: 5px;
 }
 
 h2{
@@ -66,16 +57,19 @@ li {
 }
 
 li a {
+	font-family: Helvetica Neue;
 	display: block;
-	color: black;
+	color: white;
+	text-decoration: none;
 	font-size: 16px;
 	text-align: center;
 	padding: 10px;
 	background-color: #E62B1E;
 }
 li b {
+	font-family: Helvetica;
 	display: block;
-	color: black;
+	color: white;
 	font-weight: bold;
 	text-transform: uppercase;
 	font-size: 20px;
@@ -83,13 +77,22 @@ li b {
 	padding: 10px;
 	background-color: #E62B1E;
 }
+
+li b.welcome{
+	text-align: left;
+}
 li a:hover {
 	color: white;
 	background-color: #E62B1E;
 }
 p{
-	font-size: 20px;
+	font-size: 35px;
 	text-align: center;
+	color: #E62B1E;
+	font-family: Helvetica Neue;
+	padding: 0px;
+	margin-top: 0px;
+	margin-bottom:70px;
 }
 table{
 	border-collapse: collapse;

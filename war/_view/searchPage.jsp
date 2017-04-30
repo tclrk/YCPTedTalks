@@ -12,7 +12,16 @@
 	<c:if test="${sessionScope.error == true}">
 		<h1>Please type in your search criteria.</h1>
 	</c:if>
+		<ul>
+		<li><b href="index">TEDTalk Reviews</b></li>
+		<li class="active"><a href="index">Home</a></li>
+		<li><a href="searchPage">Search</a></li>
+		<li><a href="login">Login</a></li>
+		<li><a href="about">About</a></li> 
+	</ul>
+
 	<form action="${pageContext.servletContext.contextPath}/searchPage" method="post">
+	<h1>Search Reviews</h1>
 		<select name="options" id="Type">
 			<option value="author"> Search by Author</option>
 			<option value="topic"> Search by Topic</option>
@@ -31,6 +40,19 @@
 				} else {
 					$("#extraSearch").hide();
 				}
+			});
+		});
+	</script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+		$(document).ready(function() {
+			$("#selectReview").click(function handle(id) {
+				console.log(id);
+				$.ajax({
+					type: "POST",
+					url: "/aroby/tedTalkView",
+					data: {reviewPage: id},
+					dataType: "text"
+				});
 			});
 		});
 	</script>

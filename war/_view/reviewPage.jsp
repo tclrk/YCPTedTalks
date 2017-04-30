@@ -8,9 +8,17 @@
 		<link rel="stylesheet" href="reviewPage.css">
 	</head>
 	<body>
+	<ul>
+		<li><b class="navbar-brand" href="index">TEDTalk Reviews</b></li>
+		<li class="active"><a href="index">Home</a></li>
+		<li><a href="searchPage">Search</a></li>
+		<li><a href="login">Login</a></li>
+		<li><a href="about">About</a></li> 
+	</ul>
 	<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>
+		<h1> Write a review for the TEDTalk</h1>
 		<form id="reviewForm" name="reviewForm" action="${pageContext.servletContext.contextPath}/reviewPage" method="post">
 			<div>
 				<label for="review">Review</label><br>
@@ -29,12 +37,6 @@
   				 <label for="rating4">4</label>
  				 <input id="rating5" type="radio" name="rating" value="5">
   				 <label for="rating5">5</label>
-			</div>
-			<div class="recommendations">
-			<label for="recommendations">Recommendations (Optional)</label><br>
-				<input id="Awesome" type="checkbox" value="${model.recommendation}" name="Awesome!"> Awesome!<br>
-				<input id="1/10" type="checkbox" value="${model.recommendation}" name="Horrible"> 1/10, do not recommend<br>
-				<input id="nice_watch" type="checkbox" value="${model.recommendation}" name="Good"> A nice watch, but wouldn't watch it again<br>
 			</div>
 			
 			<button onclick="check()">Submit Review!</button>

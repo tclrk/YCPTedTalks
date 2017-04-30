@@ -22,22 +22,20 @@ public class ReviewControllerTest {
 		model1.setAccountId(33);
 		model1.setReview("I love it");
 		model1.setReviewId(1);
-		model1.setRecommendation("We don't care about this project");
 		model1.setRating(3);
 		
 		model2.setTedTalkId(3);
 		model2.setAccountId(22);
 		model2.setReview("I hate it");
 		model2.setReviewId(3);
-		model2.setRecommendation("I wanna go party!");
 		model2.setRating(8);
 		
 		
 		controller1.setModel(model1);
 		controller2.setModel(model2);
 		
-		controller1.getReview();
-		controller2.getReview();
+		controller1.getModel();
+		controller2.getModel();
 	}
 	
 	@Test

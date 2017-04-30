@@ -1,48 +1,37 @@
 @CHARSET "UTF-8";
 body{
-	background-color: white;
+	font-family: Helvetica Neue;
 	text-align: center;
-	font-family: Helvetica;
-	font-size: 20px;
-	font-weight: 700px;
-}
-.Link{
-	margin: 10px;
 }
 
-form div + div{
-	margin: 10px;
+h1{
+	font-family: Helvetica Neue;
+	font-size: 55px;
+	color: #E62B1E;
+	text-align: center;
 }
 
-.error {
-	color: red;
+table{
+	background-color:#E62B1E;
+	width: 300px;
+	border: 15px solid #E62B1E;
+	padding: 12px;
+	margin: 15px;
+}
+
+input[type=text]{
+	box-sizing: border-box;
+	border: 2px solid #E62B1E; /*official tedtalk color; make all red this color */
+ 	font-size: 16px;
+ }
+input[type=password]{
+	box-sizing: border-box;
+	border: 2px solid #E62B1E;
+ 	font-size: 16px;
 }
 		
-
-input[type=text] {
-	width: 300px;
-
-  	/*give same size to all text fields */
-  	width: 300px;
-  	box-sizing: border-box;
-
-  	/* make all text boxes appear the same */
- 	border: 2px solid #ff193d;
- 	font-size: 16px;
- 	font-family: Helvetica Neue;
-}
-
-textarea{
-	width: 500px;
-	height: 100px;
-	border: 2px solid #E62B1E;
-	font-size: 16px;
-	font-family: Helvetica Neue;
-}
-
-input[type=submit] {
-	margin: 10px;
-    background-color: white; 
+input[type=submit]{
+   	background-color: white; 
     color: black; 
     border: 2px solid #E62B1E;
     padding: 6px 20px;
@@ -53,29 +42,12 @@ input[type=submit] {
     margin: 4px 2px;
     -webkit-transition-duration: 0.4s; /* for Safari */
     transition-duration: 0.4s;
-    cursor: pointer;
+   	cursor: pointer;
 }
 
 input[type=submit]:hover{
 	background-color: #E62B1E;
     color: white;
-}
-
-
-#rating1{
-	width: 10px;
-}
-#rating2{
-	width: 10px;
-}
-#rating3{
-	width: 10px;
-}
-#rating4{
-	width: 10px;
-}
-#rating5{
-	width: 10px;
 }
 
 ul{

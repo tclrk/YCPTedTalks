@@ -4,11 +4,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Ted Talk </title>
+	<title>Insert TedTalk Page </title>
 	<link rel="stylesheet" href="tedTalkPage.css">
 </head>
 <body>
 <form id="tedForm" name="tedForm" action="${pageContext.servletContext.contextPath}/tedTalkPage" method="post">
+	<ul class="nav navbar-nav">
+		<li><b class="navbar-brand" href="index">Ted Talk Reviews</b></li>
+		<li class="active"><a href="index">Home</a></li>
+		<li><a href="searchPage">Search</a></li>
+		<li><a href="login">Login</a></li>
+		<li><a href="about">About</a></li> 
+	</ul>
+
 			<div class="Link">
 				<label for="link">TED Talk Link</label><br>
 				<input type="text" name ="link" id="link" size=12 value ="${model.link}"/>
@@ -21,7 +29,7 @@
 		
 			<div class="Author">
 				<label for="author">Author</label><br>
-				<input type="text" name ="author" id="author" size=12 value ="${model.speaker_id}"/>
+				<input type="text" name ="author" id="author" size=12 value ="${model.speaker}"/>
 			</div>
 			
 			<div class="Title">
@@ -33,31 +41,6 @@
 				<label for="description">Description</label><br>
 				<textarea name= "description" id="description" placeholder="Please write a description for the TED Talk" size = "12" value ="${model.description}"></textarea>
 			</div>	
-			<div class ="Review">
-				<label for="review">Review</label><br>
-				<textarea name= "review" id="review" placeholder="Please write the first review for the TED Talk" size = "12" value ="${model.description}"></textarea>
-			</div>	
-			
-			<div class="rating">
-			<label for="rating">Rating</label><br>
- 				 <input id="rating1" type="radio" name="rating" value="1">
- 				 <label for="rating1">1</label>
- 				 <input id="rating2" type="radio" name="rating" value="2">
- 				 <label for="rating2">2</label>
- 				 <input id="rating3" type="radio" name="rating" value="3">
-  				 <label for="rating3">3</label>
- 				 <input id="rating4" type="radio" name="rating" value="4">
-  				 <label for="rating4">4</label>
- 				 <input id="rating5" type="radio" name="rating" value="5">
-  				 <label for="rating5">5</label>
-			</div>
-			<div class="recommendations">
-			<label for="recommendations">Recommendations (Optional)</label><br>
-				<input id="Awesome" type="checkbox" value="${model.recommendation}" name="Awesome!"> Awesome!<br>
-				<input id="1/10" type="checkbox" value="${model.recommendation}" name="Horrible"> 1/10, do not recommend<br>
-				<input id="nice_watch" type="checkbox" value="${model.recommendation}" name="Good"> A nice watch, but wouldn't watch it again<br>
-			</div>
-			
 			<input type="submit" value="Start Ted Talk Page" onclick ="check()"/>
 			
 <script>
@@ -67,7 +50,7 @@
 				alert("Complete all fields!");
 		}
 		else{
-			alert("This Ted Talk will be put in the system");
+			alert("This Ted Talk will be put in the system.");
 		}
 	}
 </script>

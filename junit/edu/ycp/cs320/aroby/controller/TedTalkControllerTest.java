@@ -37,12 +37,12 @@ public class TedTalkControllerTest {
 		talk.setTitle("Give Us Some Privacy!");
 		talk.setTopicId(19);
 		
-		control1.set_TedTalk(talk.getTitle(), talk.getDescription(), talk.getTedTalkId(), talk.getSpeakerId(), talk.getTopicId(), talk.getLink(), talk.getReview());
+		control1.setTalk(talk);
 	}
 	
 	@Test
 	public void test_exists(){
-		assertTrue(control1.exists());
+		assertTrue(!control1.exists());
 	}
 	
 }

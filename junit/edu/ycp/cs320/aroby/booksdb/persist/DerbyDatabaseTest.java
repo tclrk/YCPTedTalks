@@ -212,7 +212,7 @@ public class DerbyDatabaseTest {
 		Topic topic = new Topic();
 		topic.setTopic("BS");
 		
-		Boolean result = db.insertNewTedTalk("Bulldogs","They're not vicious", new URL("https://github.com/mailbox2112/YCPTedTalks") ,speaker.getFirstname(), speaker.getLastname(), topic.getTopic());
+		Boolean result = db.insertNewTedTalk("Bulldogs","They're not vicious", "https://github.com/mailbox2112/YCPTedTalks",speaker.getFirstname(), speaker.getLastname(), topic.getTopic());
 		
 		if (result == true) {
 			System.out.println("TedTalk created successfully.");
@@ -222,19 +222,21 @@ public class DerbyDatabaseTest {
 	}
 	
 	@Test
-	public void insertReviewTest() throws MalformedURLException {
+	public void insertReviewTest(){
 		Account acc = new Account();
-		acc = db.findAccount("clocke3@ycp.edu");
+		acc = db.findAccount(3);
 		
 		TedTalk talk = new TedTalk();
-		talk = db.findTedTalkbyTitle("A Guide To Masterful BS");
+		talk = db.findTedTalkbyTitle("a guide to masterful bs");
 		
-		Boolean result = db.insertReview(4, ZonedDateTime.now().toString(), "You are shit", "I love it", acc.getFirstName(), acc.getLastName(), talk.getTitle());
+		String date = ZonedDateTime.now().toString();
+		
+		Boolean result = db.insertReview(2, date, "You are shit", acc.getFirstName(), acc.getLastName(), talk.getTitle());
 	
 		if (result == true) {
-			System.out.println("Speaker added successfully.");
+			System.out.println("Review added successfully.");
 		} else {
-			fail("Uh oh, the speaker wasn't added successfully.");
+			fail("Uh oh, the review wasn't added successfully.");
 		}
 	}
 	
@@ -272,9 +274,9 @@ public class DerbyDatabaseTest {
 	public void FindSpeakerTest() {
 		Speaker speaker = new Speaker();
 		
-		speaker = db.findSpeaker("Aaron", "Roby");
+		speaker = db.findSpeaker("aaron", "roby");
 		
-		if (speaker.getFirstname().equals("Aaron") && speaker.getLastname().equals("Roby")) {
+		if (speaker.getFirstname().equals("aaron") && speaker.getLastname().equals("roby")) {
 			System.out.println("Speaker found successfully!");
 		} else {
 			fail("No speaker found.");

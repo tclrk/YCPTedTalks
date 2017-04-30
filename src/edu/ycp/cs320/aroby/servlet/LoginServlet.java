@@ -35,6 +35,8 @@ public class LoginServlet extends HttpServlet {
 		}
 		controller.setModel(model);
 		
+		// TODO: Session information
+		// TODO: Modify servlet/jsp to use firstname/lastname instead of just name
 		if (controller.login() == true) {
 			model = controller.getModel();
 			HttpSession session =  req.getSession(true);

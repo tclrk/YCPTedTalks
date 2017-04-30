@@ -5,49 +5,20 @@
 <html>
 	<head>
 		<title>Account Creation</title>
-		<style>
-		body{
-			font-family: Helvetica Neue;
-		}
-		td.label {
-			text-align: right;
-		}
-		input[type=text]{
-			box-sizing: border-box;
-			border: 2px solid #ff193d;
- 			font-size: 16px;
-		}
-		input[type=password]{
-			box-sizing: border-box;
-			border: 2px solid #ff193d;
- 			font-size: 16px;
-		}
-		
-		input[type=submit]{
-   		 background-color: white; 
-   		 color: black; 
-   		 border: 2px solid #E62B1E;
-   		 padding: 6px 20px;
-   		 text-align: center;
-   		 text-decoration: none;
-   		 display: inline-block;
-    	 font-size: 16px;
-   		 margin: 4px 2px;
-   		 -webkit-transition-duration: 0.4s; /* for Safari */
-    	 transition-duration: 0.4s;
-   		 cursor: pointer;
-		}
-
-		input[type=submit]:hover{
-			background-color: #E62B1E;
-   		    color: white;
-		}
-		</style>
+ 	<link rel="stylesheet" type="text/css" href="accountCreation.css">
 	</head>
 	<body>
+	<ul>
+		<li><b href="index">Ted Talk Reviews</b></li>
+		<li class="active"><a href="index">Home</a></li>
+		<li><a href="searchPage">Search</a></li>
+		<li><a href="login">Login</a></li>
+		<li><a href="about">About</a></li> 
+	</ul>
 		<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>
+		<h1>Create An Account</h1>
 		<form action="${pageContext.servletContext.contextPath}/createAccount" method="post">
 			<%if((Boolean)request.getSession().getAttribute("bad_info") != null) {%>
 				<p>Please fill out all required fields!</p><%} %>

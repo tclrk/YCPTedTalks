@@ -39,6 +39,9 @@
 				<c:forEach items="${sessionScope.reviews}" var="review">
 					<tr>
 						<td>Rating: <c:out value="${review.rating}" /></td>
+						<c:if test="${sessionScope.admin == true}">
+							<td><a href="tedTalkView?delid=${review.reviewId}">Delete this review</a>
+						</c:if>
 					</tr>
 					<c:if test="${review.accountId == account.accountId}">
 						<tr>

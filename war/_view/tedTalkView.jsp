@@ -11,6 +11,18 @@
 	<form id="tedTalkoutput" name="tedPage"
 		action="${pageContext.servletContext.contextPath}/tedTalkView"
 		method="post">
+		<c:if test="${sessionScope.login == true}">
+		<div class="header">
+			<ul>
+				<li><b class="navbar-brand" href="index">Ted Talk Reviews</b></li>
+				<li class="active"><a href="index">Home</a></li>
+				<li><a href="searchPage">Search</a></li>
+				<li><a href="logout">Logout</a></li>
+				<li><a href="about">About</a></li>
+			</ul>
+		</div>
+		</c:if>
+		<c:if test="${sessionScope.login != true}">
 		<div class="header">
 			<ul>
 				<li><b class="navbar-brand" href="index">Ted Talk Reviews</b></li>
@@ -21,6 +33,7 @@
 				<li><a href="about">About</a></li>
 			</ul>
 		</div>
+		</c:if>
 		<h2>
 			<c:out value="${sessionScope.talk.title}" />
 		</h2>

@@ -4,19 +4,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Ted Talk</title>
-	<link rel="stylesheet" href="tedTalkView.css">
+<title>Ted Talk</title>
+<link rel="stylesheet" href="tedTalkView.css">
 </head>
 <body>
-	<form id="tedTalkoutput" name="tedPage" action="${pageContext.servletContext.contextPath}/tedTalkView" method="post">
-	<div class="header">
+	<form id="tedTalkoutput" name="tedPage"
+		action="${pageContext.servletContext.contextPath}/tedTalkView"
+		method="post">
+		<div class="header">
 			<ul>
 				<li><b class="navbar-brand" href="index">Ted Talk Reviews</b></li>
 				<li class="active"><a href="index">Home</a></li>
 				<li><a href="searchPage">Search</a></li>
 				<li><a href="accountCreation">Create Account</a></li>
 				<li><a href="login">Login</a></li>
-				<li><a href="about">About</a></li> 
+				<li><a href="about">About</a></li>
 			</ul>
 		</div>
 		<h2>
@@ -36,7 +38,8 @@
 			<tr>
 				<td>Description: <c:out value="${talk.description}" /></td>
 			</tr>
-			<c:if test="${sessionScope.talk.topicId == sessionScope.topic.topicId}">
+			<c:if
+				test="${sessionScope.talk.topicId == sessionScope.topic.topicId}">
 				<tr>
 					<td>Related Topics: <c:out value="${sessionScope.topic.topic}" /></td>
 				</tr>
@@ -45,17 +48,18 @@
 				</tr>
 			</c:if>
 		</table>
-			<h2 id="reviews">Reviews</h2>
+		<h2 id="reviews">Reviews</h2>
 		<table>
 			<c:forEach items="${sessionScope.accounts}" var="account">
 				<c:forEach items="${sessionScope.reviews}" var="review">
-					<tr>
-						<td>Rating: <c:out value="${review.rating}" /></td>
-						<c:if test="${sessionScope.admin == true}">
-							<td><a href="tedTalkView?delid=${review.reviewId}">Delete this review</a>
-						</c:if>
-					</tr>
 					<c:if test="${review.accountId == account.accountId}">
+						<tr>
+							<td>Rating: <c:out value="${review.rating}" /></td>
+							<c:if test="${sessionScope.admin == true}">
+								<td><a href="tedTalkView?delid=${review.reviewId}">Delete
+										this review</a>
+							</c:if>
+						</tr>
 						<tr>
 							<td>Reviewed By: <c:out value="${account.firstName}" /> <c:out
 									value="${account.lastName}" /></td>

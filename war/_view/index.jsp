@@ -50,7 +50,7 @@
 					
 		
 		<h1> TEDTalk Reviews </h1>
-		<p>Opinions Worth Sharing</p>
+		<p>Opinions worth sharing</p>
 	<div class="recent_reviews">
 		<h2>Recent Ted Talks Reviews</h2>
 		<table>

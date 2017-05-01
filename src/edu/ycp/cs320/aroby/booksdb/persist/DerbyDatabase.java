@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import edu.ycp.cs320.aroby.booksdb.model.Author;
 import edu.ycp.cs320.aroby.booksdb.model.Book;
 import edu.ycp.cs320.aroby.booksdb.model.BookAuthor;
@@ -596,8 +598,8 @@ public class DerbyDatabase implements IDatabase {
 		account.setAccountId(resultSet.getInt(index++));
 		account.setEmail(resultSet.getString(index++));
 		account.setPassword(resultSet.getString(index++));
-		account.setFirstName(resultSet.getString(index++));
-		account.setLastName(resultSet.getString(index++));
+		account.setFirstName(WordUtils.capitalize(resultSet.getString(index++)));
+		account.setLastName(WordUtils.capitalize(resultSet.getString(index++)));
 		account.setAdmin(resultSet.getBoolean(index++));
 	}
 
@@ -608,20 +610,20 @@ public class DerbyDatabase implements IDatabase {
 		student.setMajor(resultSet.getString(index++));
 		student.setEmail(account.getEmail());
 		student.setAdmin(account.getAdmin());
-		student.setFirstName(account.getFirstName());
-		student.setLastName(account.getLastName());
+		student.setFirstName(WordUtils.capitalize(resultSet.getString(index++)));
+		student.setLastName(WordUtils.capitalize(resultSet.getString(index++)));
 		student.setPassword(account.getPassword());
 	}
 
 	private void loadTopic(Topic topic, ResultSet resultSet, int index) throws SQLException {
 		topic.setTopicId(resultSet.getInt(index++));
-		topic.setTopic(resultSet.getString(index++));
+		topic.setTopic(WordUtils.capitalize(resultSet.getString(index++)));
 	}
 
 	private void loadSpeaker(Speaker speaker, ResultSet resultSet, int index) throws SQLException {
 		speaker.setSpeakerId(resultSet.getInt(index++));
-		speaker.setFirstname(resultSet.getString(index++));
-		speaker.setLastname(resultSet.getString(index++));
+		speaker.setFirstname(WordUtils.capitalize(resultSet.getString(index++)));
+		speaker.setLastname(WordUtils.capitalize(resultSet.getString(index++)));
 	}
 
 	private void loadReview(Review review, ResultSet resultSet, int index) throws SQLException {
@@ -637,7 +639,7 @@ public class DerbyDatabase implements IDatabase {
 		talk.setTedTalkId(resultSet.getInt(index++));
 		talk.setSpeakerId(resultSet.getInt(index++));
 		talk.setTopicId(resultSet.getInt(index++));
-		talk.setTitle(resultSet.getString(index++));
+		talk.setTitle(WordUtils.capitalize(resultSet.getString(index++)));
 		talk.setDescription(resultSet.getString(index++));
 		talk.setLink(resultSet.getString(index++));
 	}

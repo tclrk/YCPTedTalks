@@ -29,7 +29,7 @@
 									    </ul>
 									 </div>
 								</div>
-								<h2> Welcome, ${sessionScope.name}!</h1>
+								<h2> Welcome, ${sessionScope.name}!</h2>
 							</nav></c:when>
 						<c:when test="${sessionScope.login != true}">
 								<nav class="navbar navbar-inverse">

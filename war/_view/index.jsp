@@ -40,7 +40,7 @@
 											<li class="active"><a href="index">Home</a></li>
 									        <li><a href="searchPage">Search</a></li>
 									        <li><a href="login">Login</a></li>
-									        <li><a href="createAccount">Create an Account</a></li>
+									        <li><a href="accountCreation">Create an Account</a></li>
 									    </ul>
 									</div>
 								</div>

@@ -8,11 +8,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Index</title>
 <link rel="stylesheet" type="text/css" href="indexPage.css">
-	<body>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<body>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -46,6 +46,7 @@
 										Reviews</b></li>
 								<li class="active"><a href="index">Home</a></li>
 								<li><a href="searchPage">Search</a></li>
+								<li><a href="accountCreation">Create Account</a></li>
 								<li><a href="login">Login</a></li>
 								<li><a href="about">About</a></li>
 							</ul>

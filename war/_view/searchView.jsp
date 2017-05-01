@@ -34,14 +34,16 @@
 		</c:if>
 		<c:if test="${sessionScope.results == true}">
 			<c:forEach items="${sessionScope.tedTalks}" var="talk">
-				<ul>
-					<li><a href="tedTalkView?tid=${talk.tedTalkId}"><c:out
-								value="${talk.title}" /></a></li>
-					<c:if test="${sessionScope.admin == true}">
-						<li><a href="searchPage?delid=${talk.tedTalkId}">Delete
-								this TEDTalk</a></li>
-					</c:if>
-				</ul>
+				<table>
+					<tr>
+						<td><a href="tedTalkView?tid=${talk.tedTalkId}"><c:out
+									value="${talk.title}" /></a></td>
+						<c:if test="${sessionScope.admin == true}">
+							<td><a href="searchPage?delid=${talk.tedTalkId}">Delete
+									this TEDTalk</a></td>
+						</c:if>
+					</tr>
+				</table>
 
 				<br>
 				<br>

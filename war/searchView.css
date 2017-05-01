@@ -1,5 +1,6 @@
 @CHARSET "UTF-8";
-h1{
+
+h1 {
 	font-family: Helvetica Neue;
 	font-size: 70px;
 	color: #E62B1E;
@@ -8,54 +9,54 @@ h1{
 	padding: 20px;
 }
 
-input[type=text]{
+input[type=text] {
 	box-sizing: border-box;
 	border: 2px solid #E62B1E;
 	height: 32px;
- 	font-size: 16px;
- 	font-family: Helvetica Neue;
-}
-		
-input[type=submit]{
-    background-color: white; 
-    color: black; 
-   	border: 2px solid #E62B1E;
-   	padding: 6px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    -webkit-transition-duration: 0.4s; /* for Safari */
-    transition-duration: 0.4s;
-    cursor: pointer;
- 	font-family: Helvetica Neue;
+	font-size: 16px;
+	font-family: Helvetica Neue;
 }
 
-input[type=submit]:hover{
-	background-color: #E62B1E;
-   	color: white;
+input[type=submit] {
+	background-color: white;
+	color: black;
+	border: 2px solid #E62B1E;
+	padding: 6px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	-webkit-transition-duration: 0.4s; /* for Safari */
+	transition-duration: 0.4s;
+	cursor: pointer;
+	font-family: Helvetica Neue;
 }
-	
-body{
+
+input[type=submit]:hover {
+	background-color: #E62B1E;
+	color: white;
+}
+
+body {
 	text-align: center;
 }
-		
-select{
-    background-color: #E62B1E;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
+
+select {
+	background-color: #E62B1E;
+	color: white;
+	padding: 16px;
+	font-size: 16px;
 	border: 2px solid #E62B1E;
-    cursor: pointer;
+	cursor: pointer;
 }
 
 select:hover, select:focus {
-    background-color: #E62B1E;
+	background-color: #E62B1E;
 }
 
-ul{
-    	list-style-type: none;
+ul {
+	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
@@ -76,6 +77,7 @@ li a {
 	padding: 10px;
 	background-color: #E62B1E;
 }
+
 li b {
 	font-family: Helvetica;
 	display: block;
@@ -87,12 +89,29 @@ li b {
 	padding: 10px;
 	background-color: #E62B1E;
 }
+
 li a:hover {
 	color: white;
 	background-color: #E62B1E;
 }
 
-p{
+table {
+	margin-left: auto;
+	margin-right: auto;
+	font-family: Helvetica Neue;
+	color: #E62B1E;
+	font-size: 20px;
+	background-color: white;
+}
+
+table:hover, table:focus {
+	color: white;
+	background-color: #E62B1E;
+	-webkit-transition-duration: 0.4s; /* for Safari */
+    transition-duration: 0.4s;
+}
+
+p {
 	font-size: 20px;
 	text-align: center;
 }

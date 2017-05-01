@@ -56,25 +56,19 @@
 		<table>
 			<c:forEach items="${sessionScope.tedTalks}" var="talk">
 				<tr>
-					<p>
 					<td>Title: <c:out value="${talk.title}" /><td>
-					</p>
 				</tr>
 					<c:forEach items="${sessionScope.accounts}" var="account">
 						<c:forEach items="${sessionScope.reviews}" var="review">
 							<c:if test="${review.tedTalkId == talk.tedTalkId}">
 								<tr>
-									<p>
 									<td>Rating: <c:out value="${review.rating}" /></td>
-									</p>
 								</tr>
 							</c:if>
 							<c:if test="${review.accountId == account.accountId}">
 								<tr>
-									<p>
 									<td>Reviewer: <c:out value="${account.firstName}" /> <c:out
 											value="${account.lastName}" /></td>
-											</p>
 								</tr>
 								<tr>
 									<td><a href="searchPage">Search this Reviewer</a><td>

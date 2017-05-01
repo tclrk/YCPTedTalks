@@ -26,6 +26,7 @@
 									        <li><a href="searchPage">Search</a></li>
 									        <li><a href="tedTalkPage">Begin New TedTalk</a></li>
 									    	<li><a href="logout">Logout</a></li>
+									    	<li><a href="about">About</a></li>
 									    </ul>
 									 </div>
 								</div>
@@ -41,6 +42,7 @@
 									        <li><a href="searchPage">Search</a></li>
 									        <li><a href="accountCreation">Create Account</a></li>
 									        <li><a href="login">Login</a></li>
+									        <li><a href="about">About</a></li>
 									    </ul>
 									</div>
 								</div>

@@ -47,6 +47,9 @@
   <servlet-class>edu.ycp.cs320.aroby.servlet.TedTalkViewServlet</servlet-class>
   </servlet>
   <servlet>
+  	<servlet-name>AccountManagementServlet</servlet-name>
+  	<servlet-class>edu.ycp.cs320.aroby.servlet.AccountManagementServlet</servlet-class>
+  </servlet><servlet>
   <servlet-name>LogoutServlet</servlet-name>
   <servlet-class>edu.ycp.cs320.aroby.servlet.LogoutServlet</servlet-class>
   </servlet>
@@ -94,6 +97,9 @@
     <url-pattern>/tedTalkView</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+  	<servlet-name>AccountManagementServlet</servlet-name>
+  	<url-pattern>/accountManagement</url-pattern>
+  </servlet-mapping><servlet-mapping>
     <servlet-name>LogoutServlet</servlet-name>
     <url-pattern>/logout</url-pattern>
   </servlet-mapping>
@@ -102,6 +108,7 @@
   <welcome-file-list>
       <welcome-file>index.html</welcome-file>
   </welcome-file-list>
+  
 </web-app>
 
   

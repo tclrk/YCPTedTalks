@@ -1,12 +1,7 @@
 package edu.ycp.cs320.aroby.servlet;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -15,18 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import edu.ycp.cs320.aroby.booksdb.persist.DerbyDatabase;
 import edu.ycp.cs320.aroby.controller.AccountController;
-import edu.ycp.cs320.aroby.controller.ReviewController;
-import edu.ycp.cs320.aroby.controller.SearchController;
-import edu.ycp.cs320.aroby.controller.TedTalkController;
 import edu.ycp.cs320.aroby.model.Account;
-import edu.ycp.cs320.aroby.model.Review;
-import edu.ycp.cs320.aroby.model.ReviewComparator;
-import edu.ycp.cs320.aroby.model.Search;
-import edu.ycp.cs320.aroby.model.Speaker;
-import edu.ycp.cs320.aroby.model.TedTalk;
-import edu.ycp.cs320.aroby.model.Topic;
+
 
 public class AccountManagementServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -53,7 +39,7 @@ public class AccountManagementServlet extends HttpServlet {
 			} else if (result.get(key).equals("password")) {
 				req.getRequestDispatcher("/_view/changePassword.jsp").forward(req, resp);
 			} else if (result.get(key).equals("major")) {
-				
+				req.getRequestDispatcher("/_view/changeMajor.jsp").forward(req, resp);
 			} else {
 				req.getRequestDispatcher("/_view/accountManagement.jsp").forward(req, resp);
 			}
@@ -117,6 +103,36 @@ public class AccountManagementServlet extends HttpServlet {
 					errorMessage = "Email do not match!";
 					req.setAttribute("errorMessage", errorMessage);
 					req.getRequestDispatcher("/_view/changeEmail.jsp").forward(req, resp);
+				}
+			}
+		}
+		else if (req.getParameter("oldMajor") != null) {
+			// Get the account info and set the controller's model accordingly
+			AccountController controller = new AccountController();
+			HttpSession session = req.getSession();
+			int accountId = (Integer) session.getAttribute("accountId");
+			Account model = controller.getAccountFromDb(accountId);
+			controller.setModel(model);
+			
+			// If we have things in the major fields
+			if (req.getParameter("major") != null && req.getParameter("reenteredMajor") != null) {
+				String major = (String) req.getParameter("major");
+				String reenteredMajor = (String) req.getParameter("reenteredMajor");
+				
+				// Check that they reentered the correct major
+				if (major.equals(reenteredMajor)) {
+					// Change the major in the DB
+					boolean success = controller.changeMajor(major);
+					
+					if (success) {
+						System.out.println("Major changed successfully.");
+					}
+					req.getRequestDispatcher("/_view/accountManagement.jsp").forward(req, resp);
+				} else {
+					// Put an error message into the request if they didn't match
+					errorMessage = "Majors do not match";
+					req.setAttribute("errorMessage", errorMessage);
+					req.getRequestDispatcher("/_view/changeMajor.jsp").forward(req, resp);
 				}
 			}
 		}

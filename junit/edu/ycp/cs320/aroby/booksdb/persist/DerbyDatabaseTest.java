@@ -16,6 +16,9 @@ import edu.ycp.cs320.aroby.model.Account;
 import edu.ycp.cs320.aroby.model.Student;
 import edu.ycp.cs320.aroby.model.TedTalk;
 import edu.ycp.cs320.aroby.model.Topic;
+import edu.ycp.cs320.aroby.persist.DatabaseProvider;
+import edu.ycp.cs320.aroby.persist.DerbyDatabase;
+import edu.ycp.cs320.aroby.persist.IDatabase;
 import edu.ycp.cs320.aroby.model.Review;
 import edu.ycp.cs320.aroby.model.Speaker;
 
@@ -32,6 +35,9 @@ public class DerbyDatabaseTest {
 	
 	@Test
 	public void FindAccountTest() { //good
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
 		Account account = new Account();
 		
 		account = db.findAccount("aroby@ycp.edu");
@@ -53,6 +59,9 @@ public class DerbyDatabaseTest {
 	
 	@Test
 	public void FindStudentTest() { //good
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
 		Student student = new Student();
 		
 		student = db.findStudent("student@ycp.edu");
@@ -66,6 +75,9 @@ public class DerbyDatabaseTest {
 	
 	@Test
 	public void CreateAccountTest() { //good
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
 		Account account = new Account();
 		account.setAdmin(true);
 		account.setEmail("test@ycp.edu");
@@ -98,7 +110,11 @@ public class DerbyDatabaseTest {
 	}
 
 	@Test
+	
 	public void CreateStudentTest() { //good
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
 		Student account = new Student();
 		account.setAdmin(false);
 		account.setEmail("testStudent@ycp.edu");
@@ -123,6 +139,9 @@ public class DerbyDatabaseTest {
 	
 	@Test
 	public void FindTopicTest() { //good
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
 		Topic topic = new Topic();
 		
 		topic = db.findTopic("Engineering");
@@ -136,6 +155,9 @@ public class DerbyDatabaseTest {
 	
 	@Test
 	public void FindReviewsByAuthorTest() { //good
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
 		List<Review> reviews = new ArrayList<Review>();
 		
 		reviews = db.findReviewsbyAuthor("Aaron", "Roby");
@@ -149,6 +171,9 @@ public class DerbyDatabaseTest {
 	
 	@Test
 	public void FindReviewsByTopicTest() { //good
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
 		List<Review> reviews = new ArrayList<Review>();
 		
 		reviews = db.findReviewbyTopic("BS");
@@ -162,6 +187,9 @@ public class DerbyDatabaseTest {
 	
 	@Test
 	public void FindTedTalksByTitleTest() { //good
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
 		TedTalk talk = new TedTalk();
 		
 		talk = db.findTedTalkbyTitle("BS");
@@ -176,6 +204,9 @@ public class DerbyDatabaseTest {
 	}
 	@Test
 	public void FindTedTalksBySpeakerTest() { //good
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
 		List<TedTalk> talks = new ArrayList<TedTalk>();
 		
 		talks = db.findTedTalkbySpeaker("Roby");
@@ -191,6 +222,9 @@ public class DerbyDatabaseTest {
 	
 	@Test
 	public void FindTedTalksByTopicTest() { //good
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
 		List<TedTalk> talks = new ArrayList<TedTalk>();
 		
 		talks = db.findTedTalkbyTopic("Science");
@@ -205,7 +239,9 @@ public class DerbyDatabaseTest {
 	
 	@Test
 	public void insertTedTalkTest() throws MalformedURLException {
-		
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
 		Speaker speaker = new Speaker();
 		speaker = db.findSpeaker("Aaron","Roby");	
 		
@@ -223,6 +259,9 @@ public class DerbyDatabaseTest {
 	
 	@Test
 	public void insertReviewTest(){
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
 		Account acc = new Account();
 		acc = db.findAccount(3);
 		
@@ -242,6 +281,9 @@ public class DerbyDatabaseTest {
 	
 	@Test
 	public void insertNewSpeakerTest() { //good
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
 		Speaker speaker = new Speaker();
 		speaker.setFirstname("Hank");
 		speaker.setLastname("Hill");
@@ -258,6 +300,9 @@ public class DerbyDatabaseTest {
 	
 	@Test
 	public void insertNewTopicTest() { //good
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
 		Topic topic = new Topic();
 		topic.setTopic("Propane");
 		
@@ -272,11 +317,14 @@ public class DerbyDatabaseTest {
 	
 	@Test
 	public void FindSpeakerTest() {
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
 		Speaker speaker = new Speaker();
 		
 		speaker = db.findSpeaker("aaron", "roby");
 		
-		if (speaker.getFirstname().equals("aaron") && speaker.getLastname().equals("roby")) {
+		if (speaker.getFirstname().toLowerCase().equals("aaron") && speaker.getLastname().toLowerCase().equals("roby")) {
 			System.out.println("Speaker found successfully!");
 		} else {
 			fail("No speaker found.");
@@ -285,6 +333,9 @@ public class DerbyDatabaseTest {
 	
 	@Test
 	public void DeleteTedTalkTest() {
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
 		TedTalk ted = db.findTedTalkByID(1);
 		boolean result = db.deleteTedTalk(1);
 		

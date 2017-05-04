@@ -1,12 +1,9 @@
-package edu.ycp.cs320.aroby.booksdb.persist;
+package edu.ycp.cs320.aroby.persist;
 
 import java.net.URL;
 import java.sql.Date;
 import java.util.List;
 
-import edu.ycp.cs320.aroby.booksdb.model.Author;
-import edu.ycp.cs320.aroby.booksdb.model.Book;
-import edu.ycp.cs320.aroby.booksdb.model.Pair;
 import edu.ycp.cs320.aroby.model.TedTalk;
 import edu.ycp.cs320.aroby.controller.TedTalkController;
 import edu.ycp.cs320.aroby.model.Topic;
@@ -17,15 +14,6 @@ import edu.ycp.cs320.aroby.model.Speaker;
 import edu.ycp.cs320.aroby.model.Student;
 
 public interface IDatabase {
-	public List<Pair<Author, Book>> findAuthorAndBookByTitle(String title);
-	public List<Pair<Author, Book>> findAuthorAndBookByAuthorLastName(String lastName);
-	public Integer insertBookIntoBooksTable(String title, String isbn, int published, String lastName, String firstName);
-	public List<Pair<Author, Book>> findAllBooksWithAuthors();
-	public List<Author> findAllAuthors();
-	public List<Author> removeBookByTitle(String title);
-	//all above from lab 6
-	
-	
 	//Chihea's 
 	public Boolean insertNewTedTalk(String title, String description, String url, String firstname, String lastname, String topic);
 	public Boolean insertNewSpeaker(String firstname, String lastname);
@@ -57,5 +45,9 @@ public interface IDatabase {
 	public Boolean deleteReview(int reviewId);
 	public Boolean changePassword(int accountId, String password);
 	public Boolean changeEmail(int accountId, String email);
+	public Boolean changeMajor(int studentId, String major);
+	public Boolean deleteTables();
+	public void loadInitialData();
+	public void createTables();
 
 }

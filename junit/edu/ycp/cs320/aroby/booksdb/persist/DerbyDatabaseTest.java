@@ -48,9 +48,9 @@ public class DerbyDatabaseTest {
 			System.out.println("Account found.");
 		}
 		
-		account = db.findAccount("clocke3@ycp.edu");
+		account = db.findAccount(2);
 		
-		if(account.getEmail().equals("clocke3@ycp.edu")) {
+		if(account.getAccountId() == 2) {
 			System.out.println("Account found.");
 		} else {
 			fail("Account not retrieved successfully.");
@@ -345,6 +345,191 @@ public class DerbyDatabaseTest {
 			if (ted.getTitle().equals(talk.getTitle())) {
 				fail("TedTalk not deleted successfully");
 			}
+		}
+	}
+	
+	@Test
+	public void FindTedTalkByTitleTest() {
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
+		
+		TedTalk ted = db.findTedTalkbyTitle("a guide to masterful bs");
+		
+		if (ted != null) {
+			if (ted.getTitle().toLowerCase().equals("a guide to masterful bs")) {
+				System.out.println("Success!");
+			} else {
+				fail("Correct tedtalk not retrieved");
+			}
+		} else {
+			fail("Nothing retrieved");
+		}
+	}
+	
+	@Test
+	public void FindTedTalkByIdTest() {
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
+		
+		TedTalk ted = db.findTedTalkByID(1);
+		
+		if (ted != null) {
+			if (ted.getTedTalkId() == 1) {
+				System.out.println("Success!");
+			} else {
+				fail("Correct tedtalk not retrieved");
+			}
+		} else {
+			fail("No tedtalk retrieved");
+		}
+	}
+	
+	@Test
+	public void FindTopicByIdTest() {
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
+		
+		Topic topic = db.findTopicbyID(1);
+		
+		if (topic != null) {
+			if (topic.getTopicId() == 1) {
+				System.out.println("Success!");
+			} else {
+				fail("Incorrect topic retrieved.");
+			}
+		} else {
+			fail("No topic retrieved.");
+		}
+	}
+	
+	@Test
+	public void FindSpeakerByIdTest() {
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
+		
+		Speaker speaker = db.findSpeakerbyID(1);
+		
+		if (speaker != null) {
+			if (speaker.getSpeakerId() == 1) {
+				System.out.println("Success!");
+			} else {
+				fail("Incorrect speaker retrieved.");
+			}
+		} else {
+			fail("No speaker retrieved.");
+		}
+	}
+	
+	@Test
+	public void GetAllTopicsTest() {
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
+		
+		List<Topic> topics = db.getAllTopics();
+		
+		if (topics != null) {
+			if (topics.size() != 0) {
+				System.out.println("Topics retrieved successfully");
+			} else {
+				fail("No topics within list");
+			}
+		} else {
+			fail("No topics retrieved");
+		}
+	}
+	
+	@Test
+	public void DeleteReviewTest() {
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
+		List<Review> reviews = db.findReviewbyTitle("a guide to masterful bs");
+		boolean result = db.deleteReview(reviews.get(0).getReviewId());
+		
+		List<Review> updatedReviews = db.findReviewbyTitle("a guide to masterful bs");
+		
+		if (result == true) {
+			if (updatedReviews.size() != reviews.size()-1) {
+				fail("Review not deleted successfully");
+			}
+		}
+	}
+	
+	@Test
+	public void ChangePasswordTest() {
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
+		
+		Account account = db.findAccount(1);
+		String testPass = "test";
+		
+		db.changePassword(account.getAccountId(), testPass);
+		
+		Account result = db.findAccount(account.getAccountId());
+		
+		if (result != null && account != null) {
+			if (result.getPassword().equals(account.getPassword())) {
+				fail("Password not updated successfully.");
+			} else if (!result.getPassword().equals(testPass)) {
+				fail("Password not updated successfully.");
+			}
+		} else {
+			fail("Account not retrieved successfully");
+		}
+	}
+	
+	@Test
+	public void ChangeEmailTest() {
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
+		
+		Account account = db.findAccount(1);
+		String testEmail = "test@ycp.edu";
+		
+		db.changeEmail(account.getAccountId(), testEmail);
+		
+		Account result = db.findAccount(account.getAccountId());
+		
+		if (account != null & result != null) {
+			if (result.getEmail().equals(account.getEmail())) {
+				fail("Email not updated successfully");
+			} else if (!result.getEmail().equals(testEmail)) {
+				fail("Emails do not match");
+			}
+		} else {
+			fail("Account not retrieved successfully");
+		}
+	}
+	
+	@Test
+	public void ChangeMajorTest() {
+		db.deleteTables();
+		db.createTables();
+		db.loadInitialData();
+		
+		String studentEmail = "student@ycp.edu";
+		String testMajor = "CE";
+		Student student = db.findStudent(studentEmail);
+		
+		db.changeMajor(student.getStudentId(), testMajor);
+		
+		Student result = db.findStudent(studentEmail);
+		
+		if (student != null & result != null) {
+			if (result.getMajor().equals(student.getMajor())) {
+				fail("Major not changed successfully.");
+			} else if (!result.getMajor().equals(testMajor)) {
+				fail("Majors do not match");
+			}
+		} else {
+			fail("Students not retrieved successfully");
 		}
 	}
 }

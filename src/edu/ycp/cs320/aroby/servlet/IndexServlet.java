@@ -31,29 +31,6 @@ public class IndexServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);	
-		
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
-	{
-		
-		if(req.getParameter("login") != null) {
-			resp.sendRedirect("/aroby/login");
-		} else if(req.getParameter("reviewPage") != null) {
-			resp.sendRedirect("/aroby/reviewPage");
-		} else if(req.getParameter("logout") != null) {
-			HttpSession session = req.getSession(true);
-			session.invalidate();
-			resp.sendRedirect("/aroby/index");
-		} else if(req.getParameter("createAccount") != null) {
-			resp.sendRedirect("/aroby/createAccount");
-		} else if(req.getParameter("searchPage") != null) {
-			resp.sendRedirect("/aroby/searchPage");
-		}else if(req.getParameter("tedTalkPage") != null) {
-			resp.sendRedirect("/aroby/tedTalkPage");
-		}
 		List<Review> reviews = new ArrayList<Review>();
 		List<Account> accounts = new ArrayList<Account>();
 		List<TedTalk> tedTalks = new ArrayList<TedTalk>();
@@ -93,6 +70,29 @@ public class IndexServlet extends HttpServlet {
 			session.setAttribute("results", true);						
 			req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
 		}
+		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+	{
+		
+		if(req.getParameter("login") != null) {
+			resp.sendRedirect("/aroby/login");
+		} else if(req.getParameter("reviewPage") != null) {
+			resp.sendRedirect("/aroby/reviewPage");
+		} else if(req.getParameter("logout") != null) {
+			HttpSession session = req.getSession(true);
+			session.invalidate();
+			resp.sendRedirect("/aroby/index");
+		} else if(req.getParameter("createAccount") != null) {
+			resp.sendRedirect("/aroby/createAccount");
+		} else if(req.getParameter("searchPage") != null) {
+			resp.sendRedirect("/aroby/searchPage");
+		}else if(req.getParameter("tedTalkPage") != null) {
+			resp.sendRedirect("/aroby/tedTalkPage");
+		}
+		
 
 	}
 }

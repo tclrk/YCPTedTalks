@@ -500,4 +500,14 @@ public class FakeDatabase implements IDatabase {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public Boolean changePassword(int accountId, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Boolean changeEmail(int accountId, String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

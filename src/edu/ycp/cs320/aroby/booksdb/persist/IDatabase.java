@@ -55,5 +55,7 @@ public interface IDatabase {
 	public Speaker findSpeakerFromTedTalk(int speakerId);
 	public Boolean deleteTedTalk(int tedTalkId);
 	public Boolean deleteReview(int reviewId);
+	public Boolean changePassword(int accountId, String password);
+	public Boolean changeEmail(int accountId, String email);
 
 }

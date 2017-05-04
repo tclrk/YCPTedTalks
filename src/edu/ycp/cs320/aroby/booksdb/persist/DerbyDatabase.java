@@ -1009,6 +1009,45 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+	
+	public Boolean changePassword(final int accountId, final String password) {
+		// Look up an account by their email
+		return executeTransaction(new Transaction<Boolean>() {
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+
+				try {
+					stmt = conn.prepareStatement("update accounts set password = ? where account_id = ?");
+					stmt.setString(1, password);
+					stmt.setInt(2, accountId);
+					stmt.executeUpdate();
+
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	
+	public Boolean changeEmail(final int accountId, final String email) {
+		return executeTransaction(new Transaction<Boolean>() {
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+
+				try {
+					stmt = conn.prepareStatement("update accounts set email = ? where account_id = ?");
+					stmt.setString(1, email);
+					stmt.setInt(2, accountId);
+					stmt.executeUpdate();
+
+					return true;
+				} finally {
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
 
 	public Student findStudent(final String email) {
 		// Look up the student by their email

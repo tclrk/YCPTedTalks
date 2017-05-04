@@ -42,4 +42,17 @@ public class AccountController {
 		
 		return success;
 	}
+	
+	public Account getAccountFromDb(int accountId) {
+		Account acc = db.findAccount(accountId);
+		return acc;
+	}
+	
+	public boolean changePassword(String newPassword) {
+		return db.changePassword(model.getAccountId(), newPassword);
+	}
+	
+	public boolean changeEmail(String newEmail) {
+		return db.changeEmail(model.getAccountId(), newEmail);
+	}
 }

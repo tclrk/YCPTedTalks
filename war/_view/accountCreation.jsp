@@ -60,11 +60,10 @@
 					<td class="label">Major:</td>
 					<td><input type="text" name="major" size="12" value="${model.major}" /></td>
 				</tr>
-				<tr>
-					<td />
-					<td><input type="Submit" name="submit" value="Create Account"></td>
-				</tr>
 			</table>
+			<div class="button">
+				<input type="Submit" name="submit" value="Create Account">
+			</div>
 		</form>
 	</body>
 </html>

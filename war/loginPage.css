@@ -22,17 +22,15 @@ table{
 	background-color:#E62B1E;
 	color: white;
 	font-size: 25px;
-	width: 100px;
-	text-align: right;
-	margin: auto;
-    border: 3px solid #E62B1E;
-    padding: 30px;
+	width: 200px;
+    border: 2px solid #E62B1E;
+    padding: 20px;
 }
 input{
-	width: 300px;
+	width: 500px;
 
   	/*give same size to all text fields */
-  	width: 150px;
+  	width: 250px;
   	box-sizing: border-box;
 
   	/* make all text boxes appear the same */

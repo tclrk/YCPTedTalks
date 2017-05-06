@@ -14,7 +14,7 @@
 		<c:if test="${sessionScope.login == true}">
 		<div class="header">
 			<ul>
-				<li><b class="navbar-brand" href="index">Ted Talk Reviews</b></li>
+				<li><b class="navbar-brand" href="index">Cicero</b></li>
 				<li class="active"><a href="index">Home</a></li>
 				<li><a href="searchPage">Search</a></li>
 				<li><a href="logout">Logout</a></li>
@@ -25,7 +25,7 @@
 		<c:if test="${sessionScope.login != true}">
 		<div class="header">
 			<ul>
-				<li><b class="navbar-brand" href="index">Ted Talk Reviews</b></li>
+				<li><b class="navbar-brand" href="index">Cicero</b></li>
 				<li class="active"><a href="index">Home</a></li>
 				<li><a href="searchPage">Search</a></li>
 				<li><a href="accountCreation">Create Account</a></li>

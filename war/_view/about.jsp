@@ -8,14 +8,29 @@
 		<link rel="stylesheet" href="about.css">
 		</head>
 		<body>
+		<c:if test="${sessionScope.login == true}">
 		<div class="header">
 			<ul>
-			<li><b class="name">TEDTalk Reviews</b></li>
-			<li><a href="index"> Home</a></li>
-			<li><a href="about"> About</a></li>
-			<li><a href="searchPage">Search</a></li>
+				<li><b class="navbar-brand" href="index">Cicero</b></li>
+				<li class="active"><a href="index">Home</a></li>
+				<li><a href="searchPage">Search</a></li>
+				<li><a href="logout">Logout</a></li>
+				<li><a href="about">About</a></li>
 			</ul>
 		</div>
+		</c:if>
+		<c:if test="${sessionScope.login != true}">
+		<div class="header">
+			<ul>
+				<li><b class="navbar-brand" href="index">Cicero</b></li>
+				<li class="active"><a href="index">Home</a></li>
+				<li><a href="searchPage">Search</a></li>
+				<li><a href="accountCreation">Create Account</a></li>
+				<li><a href="login">Login</a></li>
+				<li><a href="about">About</a></li>
+			</ul>
+		</div>
+		</c:if>
 		<h1>"Never stop learning,<br>
 		 because life never <br>
 		 stops teaching."</h1>

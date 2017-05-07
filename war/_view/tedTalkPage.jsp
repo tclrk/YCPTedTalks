@@ -54,7 +54,7 @@
 		</c:if>
 	</form>
 		<div class="button">
-			<input type="Submit" name="submit" value="Insert TEDTalk">
+			<input type="submit" value="Insert TEDTalk" onclick="check()">
 		</div>
 	<script>
 			function check() {

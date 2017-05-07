@@ -5,14 +5,11 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.ycp.cs320.aroby.controller.GuessingGameController;
 import edu.ycp.cs320.aroby.model.Account;
-import edu.ycp.cs320.aroby.model.GuessingGame;
 
 public class LoginControllerTests {
 	private Account model;
 	private LoginController controller;
-	boolean acc ;
 	
 	@Before
 	public void setUp() {
@@ -23,11 +20,10 @@ public class LoginControllerTests {
 		model.setPassword("password");
 		
 		controller.setModel(model);
-		acc = controller.login();
 	}
 	
 	@Test
 	public void TestLogin() {
-		assertTrue(acc == true);
+		assertTrue(controller.login());
 	}
 }

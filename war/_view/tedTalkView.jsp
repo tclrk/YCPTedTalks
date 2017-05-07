@@ -71,14 +71,14 @@
 					<c:if test="${review.accountId == account.accountId}">
 						<tr>
 							<td>Rating: <b><c:out value="${review.rating}" /></b></td>
-							<c:if test="${sessionScope.admin == true}">
-								<td><a href="tedTalkView?delid=${review.reviewId}">Delete
-										this review</a>
-							</c:if>
 						</tr>
 						<tr>
 							<td>Reviewed By: <c:out value="${account.firstName}" /> <c:out
-									value="${account.lastName}" /></td>
+									value="${account.lastName}" />
+									<c:if test="${sessionScope.admin == true}">
+								<td><a href="tedTalkView?delid=${review.reviewId}">Delete
+										this review</a>
+							</c:if></td>
 						</tr>
 						<tr>
 							<td>Written On: <c:out value="${review.date}" /></td>

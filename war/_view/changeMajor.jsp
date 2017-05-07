@@ -28,7 +28,7 @@
 			<li><a href="logout">Logout</a></li>
 			<li><a href="about">About</a></li>
 		</ul>
-		<h1>Account Management</h1>
+		<h1>Change Major</h1>
 		<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>

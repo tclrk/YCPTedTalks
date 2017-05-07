@@ -4,7 +4,7 @@
 
 <html>
 <head>
-<title>Account Management</title>
+<title>My Account</title>
 <link rel="stylesheet" type="text/css" href="accountCreation.css">
 </head>
 <body>
@@ -31,7 +31,7 @@
 			<li><a href="logout">Logout</a></li>
 			<li><a href="about">About</a></li>
 		</ul>
-		<h1>Account Management</h1>
+		<h1>My Account</h1>
 		<form
 			action="${pageContext.servletContext.contextPath}/accountManagement"
 			method="post">

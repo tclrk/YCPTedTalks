@@ -19,17 +19,18 @@ p{
 	color: #E62B1E;
 }
 table{
-	background-color:#E62B1E;
+	background-color:#b2d19e;
 	color: white;
 	font-size: 25px;
-	width: 100px;
-	text-align: right;
+	width: 130px;
+	text-align: left;
 	margin: auto;
     border: 3px solid #E62B1E;
     padding: 30px;
 }
+
 input{
-	width: 300px;
+	width: 370px;
 
   	/*give same size to all text fields */
   	width: 150px;
@@ -44,7 +45,7 @@ input[type=submit]{
     background-color: white; 
     color: black; 
     border: 2px solid #E62B1E;
-    padding: 6px 20px;
+    padding: 6px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -58,8 +59,8 @@ input[type=submit]{
 .button{
 	margin: auto;
 	text-align: center;
-    width: 60%;
-    padding: 10px;
+    width: 70%;
+    padding: 30px;
 }
 
 input[type=submit]:hover{
@@ -68,7 +69,7 @@ input[type=submit]:hover{
 }
 
 ul{
-    	list-style-type: none;
+   	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
@@ -104,6 +105,7 @@ li a:hover {
 	color: white;
 	background-color: #E62B1E;
 }
+
 p{
 	font-size: 20px;
 	text-align: center;

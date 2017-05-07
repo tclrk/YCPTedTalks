@@ -134,7 +134,7 @@ public class TedTalkControllerTest {
 	
 	@Test
 	public void test_findTedTalkbyTopic(){
-		assertTrue(control1.findTedTalkbyTopic(topic.getTopic()) != null);
+		assertTrue(control1.findTedTalkbyTopic("media") != null);
 	}
 	
 	@Test

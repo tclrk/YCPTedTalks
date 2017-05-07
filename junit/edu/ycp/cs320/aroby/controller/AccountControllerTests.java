@@ -20,6 +20,9 @@ public class AccountControllerTests {
 		
 		model.setEmail("email");
 		model.setPassword("password");
+		model.setAdmin(false);
+		model.setFirstName("good");
+		model.setLastName("student");
 		
 		controller.setModel(model);
 	}
@@ -27,5 +30,10 @@ public class AccountControllerTests {
 	@Test
 	public void TestModel() {
 		assertTrue(model == controller.getModel());
+	}
+	@Test
+	public void TestAccountInfo(){
+		controller.changeEmail("tclark22@ycp.edu");
+		assertTrue(model.getEmail() == "tclark22@ycp.edu");
 	}
 }

@@ -12,6 +12,7 @@ import edu.ycp.cs320.aroby.model.GuessingGame;
 public class LoginControllerTests {
 	private Account model;
 	private LoginController controller;
+	boolean acc ;
 	
 	@Before
 	public void setUp() {
@@ -22,10 +23,11 @@ public class LoginControllerTests {
 		model.setPassword("password");
 		
 		controller.setModel(model);
+		acc = controller.login();
 	}
 	
 	@Test
 	public void TestLogin() {
-		assertTrue(controller.login());
+		assertTrue(acc == true);
 	}
 }

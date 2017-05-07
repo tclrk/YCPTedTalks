@@ -33,12 +33,18 @@
 			</ul>
 		</div>
 		</c:if>
+		<div class="about">
+		 <img src="Cicero.png"/>
 		<h1>"Never stop learning,<br>
 		 because life never <br>
 		 stops teaching."</h1>
-		<p>YCP TEDTalk Reviews is a website utilized by the <br>Civil Engineering Department at the York College of Pennsylvania.<br> Redesigned by Aaron Roby, Terell Clark, and Chihea
-		Locke, this website allows users to create <br>forum-like posts on their favorite TEDTalks and review them. This site is meant for sharing valuable<br> opinions and learning 
-		new things not only from the videos, but from the whole community. </p>
-		
+		 <div class="text">
+			<p>YCP TEDTalk Reviews is a website utilized by the Civil Engineering Department <br> at the York College of Pennsylvania. Redesigned by Aaron Roby, Terell Clark, and Chihea
+			Locke, this website allows users to create forum-like posts on <br>their favorite TEDTalks and review them. </p>
+	
+			<p>Named after the Greek philosopher, Cicero, this site is meant for sharing valuable<br> opinions and learning 
+		new things not only from the videos, but from the whole community.</p>
+		</div>
+		 </div>
 	</body>
 </html>

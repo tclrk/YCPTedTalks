@@ -51,12 +51,12 @@
 			allowfullscreen></iframe>
 		<table>
 			<tr>
-				<td>Description: <c:out value="${talk.description}" /></td>
+				<td><c:out value="${talk.description}" /></td>
 			</tr>
 			<c:if
 				test="${sessionScope.talk.topicId == sessionScope.topic.topicId}">
 				<tr>
-					<td>Related Topics: <c:out value="${sessionScope.topic.topic}" /></td>
+					<td>Related Topics: <b><c:out value="${sessionScope.topic.topic}" /></b></td>
 				</tr>
 				<tr>
 					<td />
@@ -64,12 +64,13 @@
 			</c:if>
 		</table>
 		<h2 id="reviews">Reviews</h2>
-		<table>
+			<div class="avg">Average Rating: <b><c:out value="${sessionScope.avg}"/></b></div>
+		<table class="rev">
 			<c:forEach items="${sessionScope.accounts}" var="account">
 				<c:forEach items="${sessionScope.reviews}" var="review">
 					<c:if test="${review.accountId == account.accountId}">
 						<tr>
-							<td>Rating: <c:out value="${review.rating}" /></td>
+							<td>Rating: <b><c:out value="${review.rating}" /></b></td>
 							<c:if test="${sessionScope.admin == true}">
 								<td><a href="tedTalkView?delid=${review.reviewId}">Delete
 										this review</a>

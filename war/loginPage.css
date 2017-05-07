@@ -22,15 +22,17 @@ table{
 	background-color:#E62B1E;
 	color: white;
 	font-size: 25px;
-	width: 200px;
-    border: 2px solid #E62B1E;
-    padding: 20px;
+	width: 445px;
+	text-align: left;
+	margin: auto;
+    border: 3px solid #E62B1E;
+    padding: 30px;
 }
-input{
-	width: 500px;
+input[type=text]{
+	width: 400px;
 
   	/*give same size to all text fields */
-  	width: 250px;
+  	width: 240px;
   	box-sizing: border-box;
 
   	/* make all text boxes appear the same */
@@ -38,11 +40,25 @@ input{
  	font-family: Helvetica Neue;
 }
 
+input[type=password]{
+	width: 400px;
+
+  	/*give same size to all text fields */
+  	width: 240px;
+  	box-sizing: border-box;
+
+  	/* make all text boxes appear the same */
+ 	font-size: 16px;
+ 	font-family: Helvetica Neue;
+}
+
+
+
 input[type=submit]{
     background-color: white; 
     color: black; 
     border: 2px solid #E62B1E;
-    padding: 6px 20px;
+    padding: 6px 30px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -66,7 +82,7 @@ input[type=submit]:hover{
 }
 
 ul{
-    	list-style-type: none;
+    list-style-type: none;
 	margin: 0;
 	padding: 0;
 	overflow: hidden;

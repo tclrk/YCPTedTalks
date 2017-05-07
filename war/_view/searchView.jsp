@@ -31,7 +31,7 @@
 				<li><a href="about">About</a></li>
 			</ul>
 		</c:if>
-		<h1>Search Results:</h1>
+		<h1>Search Results</h1>
 		<c:if test="${sessionScope.results == false}">
 			<h2>No search results found!</h2>
 		</c:if>
@@ -40,7 +40,7 @@
 				<table>
 					<tr>
 						<td><a href="tedTalkView?tid=${talk.tedTalkId}"><c:out
-									value="${talk.title}" /></a></td>
+									value="${talk.title}"/></a></td>
 						<c:if test="${sessionScope.admin == true}">
 							<td><a href="searchPage?delid=${talk.tedTalkId}">Delete
 									this TEDTalk</a></td>

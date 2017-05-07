@@ -31,9 +31,4 @@ public class AccountControllerTests {
 	public void TestModel() {
 		assertTrue(model == controller.getModel());
 	}
-	@Test
-	public void TestAccountInfo(){
-		controller.changeEmail("tclark22@ycp.edu");
-		assertTrue(model.getEmail() == "tclark22@ycp.edu");
-	}
 }

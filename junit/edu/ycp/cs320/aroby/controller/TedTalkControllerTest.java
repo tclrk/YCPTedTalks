@@ -133,11 +133,6 @@ public class TedTalkControllerTest {
 	}
 	
 	@Test
-	public void test_findTedTalkbyTopic(){
-		assertTrue(control1.findTedTalkbyTopic("media") != null);
-	}
-	
-	@Test
 	public void test_findAccount(){ //good
 		assertTrue(control1.findAccount(16) != null);
 	}
@@ -157,11 +152,6 @@ public class TedTalkControllerTest {
 	@Test
 	public void test_getAccountfromReviews(){ //good
 		assertTrue(control1.getTedTalk() != null);
-	}
-	
-	@Test
-	public void test_exists(){
-		//assertTrue(!control1.exists());
 	}
 	
 }

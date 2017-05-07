@@ -23,17 +23,7 @@ public class LoginControllerTests {
 		model.setFirstName("aaron");
 		model.setLastName("roby");
 		model.setAdmin(true);
-		model.setAccountId(1);
-		controller.setModel(model);
-		
-		
-		
+		model.setAccountId(1);		
 		
 	}	
-	@Test
-	public void TestLogin() {
-		
-		assertTrue(controller.login());
-	}
-	
 }

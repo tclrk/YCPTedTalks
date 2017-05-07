@@ -1,8 +1,6 @@
 package edu.ycp.cs320.aroby.servlet;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,17 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import edu.ycp.cs320.aroby.controller.ReviewController;
 import edu.ycp.cs320.aroby.controller.SearchController;
-import edu.ycp.cs320.aroby.controller.TedTalkController;
 import edu.ycp.cs320.aroby.model.Account;
 import edu.ycp.cs320.aroby.model.Review;
 import edu.ycp.cs320.aroby.model.ReviewComparator;
-import edu.ycp.cs320.aroby.model.Search;
-import edu.ycp.cs320.aroby.model.Speaker;
 import edu.ycp.cs320.aroby.model.TedTalk;
 import edu.ycp.cs320.aroby.model.Topic;
-import edu.ycp.cs320.aroby.persist.DerbyDatabase;
 
 public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

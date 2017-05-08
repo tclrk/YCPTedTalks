@@ -1,13 +1,13 @@
 @CHARSET "UTF-8";
 body{
 	font-family: Helvetica Neue;
+	text-align: center;
 }
 
 h1{
 	font-family: Helvetica;
 	font-size: 85px;
 	color: #E62B1E;
-	text-align: left;
 	margin: 23px;
 	text-align: left;
 }
@@ -55,13 +55,24 @@ li a:hover {
 	color: white;
 	background-color: #E62B1E;
 }
-p{
-	font-size: 20px;
+.text{
 	text-align: left;
 	margin: 30px;
-}}
+}
+
+p{
+	font-size: 23px;
+	text-align: left;
+}
+.about{
+	text-align: center;
+}
 
 img{
-	width:296px;
-	height: 296px;
+	margin-top: 122px;
+	width: 232px;
+	height: 383px;
+	float: right;
+	margin-right: 11%;
+	position: relative;
 }

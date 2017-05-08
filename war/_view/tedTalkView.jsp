@@ -14,9 +14,11 @@
 		<c:if test="${sessionScope.login == true}">
 		<div class="header">
 			<ul>
-				<li><b class="navbar-brand" href="index">Ted Talk Reviews</b></li>
+				<li><b class="navbar-brand" href="index">Cicero</b></li>
 				<li class="active"><a href="index">Home</a></li>
 				<li><a href="searchPage">Search</a></li>
+				<li><a href="tedTalkPage">Begin New TedTalk</a></li>
+				<li style="float:right"><a href="accountManagement">My Account</a></li>
 				<li><a href="logout">Logout</a></li>
 				<li><a href="about">About</a></li>
 			</ul>
@@ -25,7 +27,7 @@
 		<c:if test="${sessionScope.login != true}">
 		<div class="header">
 			<ul>
-				<li><b class="navbar-brand" href="index">Ted Talk Reviews</b></li>
+				<li><b class="navbar-brand" href="index">Cicero</b></li>
 				<li class="active"><a href="index">Home</a></li>
 				<li><a href="searchPage">Search</a></li>
 				<li><a href="accountCreation">Create Account</a></li>
@@ -49,33 +51,34 @@
 			allowfullscreen></iframe>
 		<table>
 			<tr>
-				<td>Description: <c:out value="${talk.description}" /></td>
+				<td><c:out value="${talk.description}" /></td>
 			</tr>
 			<c:if
 				test="${sessionScope.talk.topicId == sessionScope.topic.topicId}">
 				<tr>
-					<td>Related Topics: <c:out value="${sessionScope.topic.topic}" /></td>
+					<td>Related Topics: <b><c:out value="${sessionScope.topic.topic}" /></b></td>
 				</tr>
 				<tr>
 					<td />
 				</tr>
 			</c:if>
 		</table>
-		<h2 id="reviews">Reviews</h2>
-		<table>
+		<h2 class="reviews">Reviews</h2>
+			<div class="avg">Average Rating: <b><c:out value="${sessionScope.avg}"/></b></div>
+		<table class="rev">
 			<c:forEach items="${sessionScope.accounts}" var="account">
 				<c:forEach items="${sessionScope.reviews}" var="review">
 					<c:if test="${review.accountId == account.accountId}">
 						<tr>
-							<td>Rating: <c:out value="${review.rating}" /></td>
-							<c:if test="${sessionScope.admin == true}">
-								<td><a href="tedTalkView?delid=${review.reviewId}">Delete
-										this review</a>
-							</c:if>
+							<td>Rating: <b><c:out value="${review.rating}" /></b></td>
 						</tr>
 						<tr>
 							<td>Reviewed By: <c:out value="${account.firstName}" /> <c:out
-									value="${account.lastName}" /></td>
+									value="${account.lastName}" />
+									<c:if test="${sessionScope.admin == true}">
+								<td><a href="tedTalkView?delid=${review.reviewId}">Delete
+										this review</a>
+							</c:if></td>
 						</tr>
 						<tr>
 							<td>Written On: <c:out value="${review.date}" /></td>
@@ -90,6 +93,7 @@
 				</c:forEach>
 			</c:forEach>
 		</table>
+		<br>
 		<input type="submit" name="reviewPage" value="Write A Review!"></>
 	</form>
 </body>

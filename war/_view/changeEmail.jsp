@@ -10,7 +10,7 @@
 <body>
 	<c:if test="${sessionScope.login != true}">
 		<ul>
-			<li><b href="index">Ted Talk Reviews</b></li>
+			<li><b href="index">Cicero</b></li>
 			<li class="active"><a href="index">Home</a></li>
 			<li><a href="searchPage">Search</a></li>
 			<li><a href="login">Login</a></li>
@@ -20,13 +20,15 @@
 	</c:if>
 	<c:if test="${sessionScope.login == true}">
 		<ul>
-			<li><b href="index">Ted Talk Reviews</b></li>
+			<li><b href="index">Cicero</b></li>
 			<li class="active"><a href="index">Home</a></li>
 			<li><a href="searchPage">Search</a></li>
+			<li><a href="tedTalkPage">Begin New TedTalk</a></li>
+			<li style="float:right"><a href="accountManagement">My Account</a></li>
 			<li><a href="logout">Logout</a></li>
 			<li><a href="about">About</a></li>
 		</ul>
-		<h1>Account Management</h1>
+		<h1>Change Email</h1>
 		<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>

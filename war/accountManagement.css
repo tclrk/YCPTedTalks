@@ -1,48 +1,51 @@
 @CHARSET "UTF-8";
 body{
-	font-family: Helvetica Neue;
-	text-align: center;
+	background-color: white;
+	font-family: Helvetica;
+	font-size: 20px;
+	font-weight: 700px;
 }
-
 h1{
 	font-family: Helvetica Neue;
-	font-size: 55px;
+	font-size: 90px;
 	color: #E62B1E;
+	margin: auto;
 	text-align: center;
+	padding: 20px;
 }
 
+p{
+	font-size: 22px;
+	color: #E62B1E;
+}
 table{
-	background-color:#E62B1E;
-	width: 350px;
-	border: 15px solid #E62B1E;
-	padding: 12px;
-	margin: 15px;
-	text-align: left;
-}
-
-form{
-	margin-left: 39%;
-}
-td{
+	background-color:#b2d19e;
 	color: white;
+	font-size: 25px;
+	width: 130px;
+	text-align: left;
+	margin: auto;
+    border: 3px solid #E62B1E;
+    padding: 30px;
 }
 
-input[type=text]{
-	box-sizing: border-box;
-	border: 2px solid #E62B1E; /*official tedtalk color; make all red this color */
+input{
+	width: 370px;
+
+  	/*give same size to all text fields */
+  	width: 150px;
+  	box-sizing: border-box;
+
+  	/* make all text boxes appear the same */
  	font-size: 16px;
- }
-input[type=password]{
-	box-sizing: border-box;
-	border: 2px solid #E62B1E;
- 	font-size: 16px;
+ 	font-family: Helvetica Neue;
 }
-		
+
 input[type=submit]{
-   	background-color: white; 
+    background-color: white; 
     color: black; 
     border: 2px solid #E62B1E;
-    padding: 6px 20px;
+    padding: 6px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -50,7 +53,14 @@ input[type=submit]{
     margin: 4px 2px;
     -webkit-transition-duration: 0.4s; /* for Safari */
     transition-duration: 0.4s;
-   	cursor: pointer;
+    cursor: pointer;
+}
+
+.button{
+	margin: auto;
+	text-align: center;
+    width: 70%;
+    padding: 30px;
 }
 
 input[type=submit]:hover{
@@ -59,7 +69,7 @@ input[type=submit]:hover{
 }
 
 ul{
-    	list-style-type: none;
+   	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
@@ -95,6 +105,7 @@ li a:hover {
 	color: white;
 	background-color: #E62B1E;
 }
+
 p{
 	font-size: 20px;
 	text-align: center;

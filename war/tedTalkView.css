@@ -9,12 +9,12 @@ h2{
 	color:  #E62B1E;
 	font-family: Helvetica Neue;
 	text-align: center;
-	font-size: 50px;
+	font-size: 60px;
 	margin-bottom: 0px;
 }
 
 iframe{
-	margin-left: 29%;
+	margin-left: 30%;
 	border: 2px solid #E62B1E;
 }
 h3{
@@ -25,7 +25,7 @@ h3{
 }
 
 .reviews{
-	font-size: 30px;	
+	font-size: 60px;	
 	text-decoration: underline;
 }
 
@@ -59,8 +59,6 @@ table{
 
 .rev{
 	margin-left: 25%;
-	margin-right: 25%;
-	
 }
 a{
 	font: 35px;
@@ -113,11 +111,9 @@ p{
 
 .avg{
 	border: 2px solid #E62B1E;
-	font-size: 40px;
+	font-size: 35px;
 	padding: 20px;
-	margin: 20px;
-	margin-left: 37%;
-	margin-right: 37%;
+	margin-right: 11%;
 	text-align: center;
 	font-family: Helvetica;
 	color: #E62B1E;

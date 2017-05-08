@@ -23,40 +23,37 @@
 		method="post">
 		<c:if test="${sessionScope.login == true}">
 			<div class="Link">
-				<b><label for="link">TED Talk Link</label></b><br> <input type="text"
+				<label for="link">TED Talk Link</label><br> <input type="text"
 					name="link" id="link" size=12 value="${model.link}" />
 			</div>
 
 			<div class="Topic">
-				<b><label for="topic">Topic</label></b><br> <input type="text"
+				<label for="topic">Topic</label><br> <input type="text"
 					name="topic" id="topic" size=12 value="${model.topic}" />
 			</div>
 
 			<div class="Author">
-				<b><label for="author">Speaker</label></b><br> <input type="text"
+				<label for="author">Author</label><br> <input type="text"
 					name="author" id="author" size=12 value="${model.speaker}" />
 			</div>
 
 			<div class="Title">
-				<b><label for="title">Title</label></b><br> <input type="text"
+				<label for="title">Title</label><br> <input type="text"
 					name="title" id="title" size=12 value="${model.title}" />
 			</div>
 
 			<div class="Description">
-				<b><label for="description">Description</label></b><br>
+				<label for="description">Description</label><br>
 				<textarea name="description" id="description"
 					placeholder="Please write a description for the TED Talk" size="12"
 					value="${model.description}"></textarea>
 			</div>
+			<input type="submit" value="Start Ted Talk Page" onclick="check()" />
 		</c:if>
 		<c:if test="${sessionScope.login != true}">
 			<h2>Please login before attempting to add a new TED Talk</h2>
 		</c:if>
-	</form>
-		<div class="button">
-			<input type="submit" value="Insert TEDTalk" onclick="check()">
-		</div>
-	<script>
+		<script>
 			function check() {
 				if (document.tedForm.link.value == ""
 						|| document.tedForm.topic.value == ""
@@ -69,5 +66,6 @@
 				}
 			}
 		</script>
+	</form>
 </body>
 </html>

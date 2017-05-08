@@ -63,7 +63,7 @@
 				</tr>
 			</c:if>
 		</table>
-		<h2 id="reviews">Reviews</h2>
+		<h2 class="reviews">Reviews</h2>
 			<div class="avg">Average Rating: <b><c:out value="${sessionScope.avg}"/></b></div>
 		<table class="rev">
 			<c:forEach items="${sessionScope.accounts}" var="account">
@@ -93,6 +93,7 @@
 				</c:forEach>
 			</c:forEach>
 		</table>
+		<br>
 		<input type="submit" name="reviewPage" value="Write A Review!"></>
 	</form>
 </body>

@@ -58,13 +58,15 @@ li b {
 	background-color: #E62B1E;
 }
 
-li b.welcome{
-	text-align: left;
-}
 li a:hover {
 	color: white;
-	background-color: #E62B1E;
+	background-color: #dc513e;
 }
+
+li a: selected {
+	color: white;
+}
+
 p{
 	font-size: 35px;
 	text-align: center;
@@ -78,14 +80,14 @@ table {
 	margin-left: auto;
 	margin-right: auto;
 	font-family: Helvetica Neue;
-	color: #E62B1E;
+	color: #dc853f;
 	font-size: 20px;
 	background-color: white;
 }
 
 table:hover, table:focus {
 	color: white;
-	background-color: #dc3d46;
+	background-color: #f07b61;
 	-webkit-transition-duration: 0.4s; /* for Safari */
     transition-duration: 0.4s;
 }

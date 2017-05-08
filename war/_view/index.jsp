@@ -73,15 +73,15 @@
 										<td>Rating: <b><c:out value="${review.rating}" /></b></td>
 									</tr>
 								</c:if>
-								<tr>
-									<td>Reviewer: <b><c:out value="${account.firstName}" /> <c:out
-											value="${account.lastName}" /></b></td>
-								</tr>
-								<tr>
-									<td><a href="searchPage">Search this Reviewer</a>
-									<td>
-								</tr>
-							</c:if>
+									<tr>
+										<td>Reviewer: <c:out value="${account.firstName}" /> <c:out
+											value="${account.lastName}" /></td>
+									</tr>
+									<tr>
+										<td><a href="searchPage">Search this Review</a>
+										<td>
+									</tr>
+								</c:if>
 						</c:forEach>
 					</c:forEach>
 				</c:forEach>

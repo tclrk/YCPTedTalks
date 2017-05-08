@@ -78,6 +78,4 @@ public class TedTalkTest {
 	public void test_getTopicId(){
 		assertEquals(2, talk1.getTopicId());
 	}
-
-
 }

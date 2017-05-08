@@ -39,6 +39,11 @@ public class ReviewTest {
 	}
 	
 	@Test
+	public void test_getReviewId(){
+		assertEquals(1, model1.getReviewId());
+	}
+	
+	@Test
 	public void test_getDate(){
 		assertEquals(date, model1.getDate());
 	}
@@ -51,11 +56,6 @@ public class ReviewTest {
 	@Test
 	public void test_getReview(){
 		assertEquals("I really liked it.", model1.getReview());
-	}
-	
-	@Test
-	public void test_getReviewId(){
-		assertEquals(1, model1.getReviewId());
 	}
 	
 	@Test

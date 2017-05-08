@@ -20,6 +20,9 @@ public class AccountControllerTests {
 		
 		model.setEmail("email");
 		model.setPassword("password");
+		model.setAdmin(false);
+		model.setFirstName("good");
+		model.setLastName("student");
 		
 		controller.setModel(model);
 	}

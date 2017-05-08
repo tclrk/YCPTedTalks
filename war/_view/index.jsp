@@ -28,8 +28,10 @@
 								<li class="active"><a href="index">Home</a></li>
 								<li><a href="searchPage">Search</a></li>
 								<li><a href="tedTalkPage">Begin New TedTalk</a></li>
-								<li style="float:right"><a href="accountManagement">My Account</a></li>
-								<li style="float:right"><b>Welcome, ${sessionScope.name}!</b></li>
+								<li style="float: right"><a href="accountManagement">My
+										Account</a></li>
+								<li style="float: right"><b>Welcome,
+										${sessionScope.name}!</b></li>
 								<li><a href="logout">Logout</a></li>
 								<li><a href="about">About</a></li>
 							</ul>
@@ -57,13 +59,17 @@
 
 		<h1>CICERO</h1>
 		<p>Opinions worth sharing</p>
-		<p class="usage">Usage only for Civil Engineering Department <br>of York College of Pennsylvania</p>
+		<p class="usage">
+			Usage only for Civil Engineering Department <br>of York College
+			of Pennsylvania
+		</p>
 		<div class="recent_reviews">
 			<table>
 				<c:forEach items="${sessionScope.tedTalks}" var="talk">
-				<h2>RECENTLY VISITED TEDTalks</h2>
+					<h2>RECENTLY VISITED TEDTalks</h2>
 					<tr>
-						<td><b><c:out value="${talk.title}" /></b><td>
+						<td><b><c:out value="${talk.title}" /></b>
+						<td>
 					</tr>
 					<c:forEach items="${sessionScope.accounts}" var="account">
 						<c:forEach items="${sessionScope.reviews}" var="review">
@@ -73,19 +79,20 @@
 										<td>Rating: <b><c:out value="${review.rating}" /></b></td>
 									</tr>
 								</c:if>
-									<tr>
-										<td>Reviewer: <c:out value="${account.firstName}" /> <c:out
+								<tr>
+									<td>Reviewer: <c:out value="${account.firstName}" /> <c:out
 											value="${account.lastName}" /></td>
-									</tr>
-									<tr>
-										<td><a href="searchPage">Search this Review</a>
-										<td>
-									</tr>
-								</c:if>
+								</tr>
+								<tr>
+									<td><a href="searchPage">Search this Review</a>
+									<td>
+								</tr>
+							</c:if>
 						</c:forEach>
 					</c:forEach>
 				</c:forEach>
 			</table>
+		</div>
 	</form>
 </body>
 </html>

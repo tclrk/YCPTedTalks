@@ -9,7 +9,7 @@
 	</head>
 	<body>
 	<ul>
-		<li><b href="index">Ted Talk Reviews</b></li>
+		<li><b href="index">Cicero</b></li>
 		<li class="active"><a href="index">Home</a></li>
 		<li><a href="searchPage">Search</a></li>
 		<li><a href="accountCreation">Create Account</a></li>
@@ -60,11 +60,10 @@
 					<td class="label">Major:</td>
 					<td><input type="text" name="major" size="12" value="${model.major}" /></td>
 				</tr>
-				<tr>
-					<td />
-					<td><input type="Submit" name="submit" value="Create Account"></td>
-				</tr>
 			</table>
+			<div class="button">
+				<input type="Submit" name="submit" value="Create Account">
+			</div>
 		</form>
 	</body>
 </html>

@@ -12,16 +12,18 @@
 		method="post">
 		<c:if test="${sessionScope.login == true}">
 			<ul>
-				<li><b href="index">TEDTalk Reviews</b></li>
+				<li><b href="index">Cicero</b></li>
 				<li class="active"><a href="index">Home</a></li>
 				<li><a href="searchPage">Search</a></li>
+				<li><a href="tedTalkPage">Begin New TedTalk</a></li>
+				<li style="float:right"><a href="accountManagement">My Account</a></li>
 				<li><a href="logout">Logout</a></li>
 				<li><a href="about">About</a></li>
 			</ul>
 		</c:if>
 		<c:if test="${sessionScope.login != true}">
 			<ul>
-				<li><b href="index">TEDTalk Reviews</b></li>
+				<li><b href="index">Cicero</b></li>
 				<li class="active"><a href="index">Home</a></li>
 				<li><a href="searchPage">Search</a></li>
 				<li><a href="accountCreation">Create Account</a></li>
@@ -29,7 +31,7 @@
 				<li><a href="about">About</a></li>
 			</ul>
 		</c:if>
-		<h1>Search Results:</h1>
+		<h1>Search Results</h1>
 		<c:if test="${sessionScope.results == false}">
 			<h2>No search results found!</h2>
 		</c:if>
@@ -38,7 +40,7 @@
 				<table>
 					<tr>
 						<td><a href="tedTalkView?tid=${talk.tedTalkId}"><c:out
-									value="${talk.title}" /></a></td>
+									value="${talk.title}"/></a></td>
 						<c:if test="${sessionScope.admin == true}">
 							<td><a href="searchPage?delid=${talk.tedTalkId}">Delete
 									this TEDTalk</a></td>

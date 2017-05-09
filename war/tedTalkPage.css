@@ -18,6 +18,11 @@ h1{
 	padding: 20px;
 }
 
+h2{
+	text-align: center;
+	color: #E62B1E;
+}
+
 form div + div{
 	margin: 10px;
 }
@@ -36,27 +41,27 @@ form{
 	font-size: 25px;
 	width: 500px;
 	text-align: center;
-	margin: auto;
+	margin-left: 410px;
+	margin-right: 300px;
     border: 3px solid #E62B1E;
-    padding: 40px;
+    padding: 25px;
 }	
 
 input[type=text] {
 	width: 300px;
 
   	/*give same size to all text fields */
-  	width: 300px;
+  	width: 350px;
   	box-sizing: border-box;
 
   	/* make all text boxes appear the same */
- 	border: 2px solid #ff193d;
  	font-size: 16px;
  	font-family: Helvetica Neue;
 }
 
 textarea{
-	width: 500px;
-	height: 100px;
+	width: 470px;
+	height: 150px;
 	border: 2px solid #E62B1E;
 	font-size: 16px;
 	font-family: Helvetica Neue;
@@ -123,4 +128,11 @@ li a:hover {
 p{
 	font-size: 20px;
 	text-align: center;
+}
+
+.button{
+	margin: auto;
+	text-align: center;
+    width: 60%;
+    padding: 10px;
 }

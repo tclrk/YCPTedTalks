@@ -2,6 +2,7 @@
 package edu.ycp.cs320.aroby.servlet;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class ReviewServlet extends HttpServlet {
 		ArrayList<Review> reviewList = new ArrayList<Review>();
 		int rating = 0;
 		
-		String current = ZonedDateTime.now().toString();
+		String current = LocalDateTime.now().toString();
 		String review = req.getParameter("review");
 		String rating_string = req.getParameter("rating");
 		if(rating_string != "" & rating_string != null){

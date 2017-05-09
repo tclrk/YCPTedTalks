@@ -24,17 +24,19 @@
 					<div class="container-fluid">
 						<div class="navbar-header">
 							<ul class="nav navbar-nav">
-								<li><b href="index">Ted Talk Reviews</b></li>
+								<li><b href="index">Cicero</b></li>
 								<li class="active"><a href="index">Home</a></li>
 								<li><a href="searchPage">Search</a></li>
 								<li><a href="tedTalkPage">Begin New TedTalk</a></li>
-								<li><a href="accountManagement">Account Management</a></li>
+								<li style="float: right"><a href="accountManagement">My
+										Account</a></li>
+								<li style="float: right"><b>Welcome,
+										${sessionScope.name}!</b></li>
 								<li><a href="logout">Logout</a></li>
 								<li><a href="about">About</a></li>
 							</ul>
 						</div>
 					</div>
-					<h2>Welcome, ${sessionScope.name}!</h2>
 				</nav>
 			</c:when>
 			<c:when test="${sessionScope.login != true}">
@@ -42,8 +44,7 @@
 					<div class="container-fluid">
 						<div class="navbar-header">
 							<ul class="nav navbar-nav">
-								<li><b class="navbar-brand" href="index">Ted Talk
-										Reviews</b></li>
+								<li><b class="navbar-brand">Cicero</b></li>
 								<li class="active"><a href="index">Home</a></li>
 								<li><a href="searchPage">Search</a></li>
 								<li><a href="accountCreation">Create Account</a></li>
@@ -56,15 +57,18 @@
 			</c:when>
 		</c:choose>
 
-
-		<h1>TEDTalk Reviews</h1>
+		<h1>CICERO</h1>
 		<p>Opinions worth sharing</p>
+		<p class="usage">
+			Usage only for Civil Engineering Department <br>of York College
+			of Pennsylvania
+		</p>
 		<div class="recent_reviews">
-			<h2>Recent Ted Talks Reviews</h2>
 			<table>
 				<c:forEach items="${sessionScope.tedTalks}" var="talk">
+					<h2>RECENTLY VISITED TEDTalks</h2>
 					<tr>
-						<td>Title: <c:out value="${talk.title}" />
+						<td><b><c:out value="${talk.title}" /></b>
 						<td>
 					</tr>
 					<c:forEach items="${sessionScope.accounts}" var="account">
@@ -72,17 +76,17 @@
 							<c:if test="${review.accountId == account.accountId}">
 								<c:if test="${review.tedTalkId == talk.tedTalkId}">
 									<tr>
-										<td>Rating: <c:out value="${review.rating}" /></td>
-									</tr>
-									<tr>
-										<td>Reviewer: <c:out value="${account.firstName}" /> <c:out
-											value="${account.lastName}" /></td>
-									</tr>
-									<tr>
-										<td><a href="searchPage">Search this Review</a>
-										<td>
+										<td>Rating: <b><c:out value="${review.rating}" /></b></td>
 									</tr>
 								</c:if>
+								<tr>
+									<td>Reviewer: <c:out value="${account.firstName}" /> <c:out
+											value="${account.lastName}" /></td>
+								</tr>
+								<tr>
+									<td><a href="searchPage">Search this Review</a>
+									<td>
+								</tr>
 							</c:if>
 						</c:forEach>
 					</c:forEach>

@@ -43,7 +43,7 @@ public class TedTalkTest {
 		
 	@Test
 	public void test_getLink() throws MalformedURLException{
-		assertEquals(new String("https://www.example.com/docs/resource1.html"), talk1.getLink());
+		assertEquals("https://www.example.com/docs/resource1.html", talk1.getLink());
 	}
 	
 	@Test
@@ -78,6 +78,4 @@ public class TedTalkTest {
 	public void test_getTopicId(){
 		assertEquals(2, talk1.getTopicId());
 	}
-
-
 }

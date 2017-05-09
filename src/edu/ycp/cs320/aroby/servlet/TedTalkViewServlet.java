@@ -1,6 +1,7 @@
 package edu.ycp.cs320.aroby.servlet;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -57,12 +58,23 @@ public class TedTalkViewServlet extends HttpServlet {
 				Speaker spec = controller.findSpeakerByID(talk.getSpeakerId());
 				List<Account> accList = controller.getAccountbyReviews(reviews);
 				
+				//find average rating
+				double sum = 0;
+				double count = 0;
+				 for(int i = 0; i < reviews.size(); i++){
+					 sum+=reviews.get(i).getRating();
+					 count++;
+				 }
+
+				double avg= sum/count;
+				 
 				HttpSession session = req.getSession();
 				session.setAttribute("talk", talk);
 				session.setAttribute("reviews", reviews);
 				session.setAttribute("topic", topic);
 				session.setAttribute("speaker", spec);
 				session.setAttribute("accounts", accList);
+				session.setAttribute("avg", avg);
 				
 				req.getRequestDispatcher("/_view/tedTalkView.jsp").forward(req, resp);
 			}	
